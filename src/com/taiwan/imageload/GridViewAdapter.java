@@ -3,6 +3,7 @@ package com.taiwan.imageload;
 import java.util.ArrayList;
 
 import com.travel.story.R;
+import com.travel.story.entity.Article;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,11 +22,11 @@ import android.widget.TextView;
 public class GridViewAdapter extends BaseAdapter {
 
     private final Activity         activity;
-    private final ArrayList<String> data;
+    private final ArrayList<Article> data;
     private static LayoutInflater  inflater = null;
     public ImageLoader             imageLoader;
 
-    public GridViewAdapter(Activity a, ArrayList<String> d) {
+    public GridViewAdapter(Activity a, ArrayList<Article> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,21 +49,20 @@ public class GridViewAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         // if (convertView == null)
-        // vi = inflater.inflate(R.layout.item_gridview_novel, null);
+         vi = inflater.inflate(R.layout.item_gridview_article, null);
 
         Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth(); // deprecated
         int height = display.getHeight(); // deprecated
 
-        if (width > 480) {
-            vi = inflater.inflate(R.layout.item_gridview_novel, null);
-        } else {
-            vi = inflater.inflate(R.layout.item_gridview_novel_small, null);
-        }
+//        if (width > 480) {
+//            vi = inflater.inflate(R.layout.item_gridview_article, null);
+//        } else {
+//            vi = inflater.inflate(R.layout.item_gridview_article_small, null);
+//        }
 
         vi.setClickable(true);
         vi.setFocusable(true);
-        // vi.setBackgroundResource(android.R.drawable.menuitem_background);
         vi.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -84,34 +84,22 @@ public class GridViewAdapter extends BaseAdapter {
 
         });
 
-        TextView textName = (TextView) vi.findViewById(R.id.grid_item_name);
+        TextView textTitle = (TextView) vi.findViewById(R.id.grid_item_title);
         ImageView image = (ImageView) vi.findViewById(R.id.grid_item_image);
         TextView textAuthor = (TextView) vi.findViewById(R.id.grid_item_author);
-        TextView textCounts = (TextView) vi.findViewById(R.id.grid_item_counts);
-        TextView textFinish = (TextView) vi.findViewById(R.id.grid_item_finish);
-        TextView textSerialize = (TextView) vi.findViewById(R.id.serializing);
+        TextView textDate = (TextView) vi.findViewById(R.id.grid_item_date);
 
-//        textName.setText(data.get(position).getName());
-//        if (data.get(position).getName().length() > 6)
-//            textName.setTextSize(12);
-//        textAuthor.setText(data.get(position).getAuthor());
-//        if (data.get(position).getAuthor().length() > 14) {
-//            textAuthor.setTextSize(8);
-//        }
-//        textCounts.setText(data.get(position).getArticleNum());
-//        textFinish.setText(data.get(position).getLastUpdate());
-//
-//        if (data.get(position).getPic().equals("") || data.get(position).getPic() == null) {
-//            image.setImageResource(R.drawable.app_icon);
-//        } else {
-//            imageLoader.DisplayImage(data.get(position).getPic(), image);
-//        }
-//
-//        if (data.get(position).isSerializing()) {
-//            textSerialize.setText("連載中...");
-//        } else {
-//            textSerialize.setText("全本");
-//        }
+        textTitle.setText(data.get(position).getTitle());
+        textAuthor.setText(data.get(position).getAuthor());
+        textDate.setText(data.get(position).getDate());
+        
+        
+        if (data.get(position).getPicUrl().equals("") ) {
+            image.setImageResource(R.drawable.app_icon);
+        } else {
+            imageLoader.DisplayImage(data.get(position).getPicUrl(), image);
+        }
+
 
         return vi;
     }

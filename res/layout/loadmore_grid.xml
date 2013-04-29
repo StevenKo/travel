@@ -25,7 +25,8 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="2dp"
         android:horizontalSpacing="2dp"
-        android:background="@color/main_color_grey_dark"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         />
     
     <LinearLayout 

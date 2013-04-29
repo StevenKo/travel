@@ -19,7 +19,7 @@ import com.travel.story.entity.Article;
 
 public final class MainMostSeeFragment extends Fragment {
 
-    private ArrayList<Article> novels = new ArrayList<Article>();
+	private ArrayList<Article> articles = new ArrayList<Article>();
     private LoadMoreGridView myGrid;
     private GridViewAdapter  myGridViewAdapter;
     private LinearLayout     progressLayout;
@@ -27,6 +27,8 @@ public final class MainMostSeeFragment extends Fragment {
     private LinearLayout     layoutReload;
     private Button           buttonReload;
 
+    private Article samlpleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal.jpeg");
+    
     public static MainMostSeeFragment newInstance() {
 
         MainMostSeeFragment fragment = new MainMostSeeFragment();
@@ -102,7 +104,10 @@ public final class MainMostSeeFragment extends Fragment {
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
 
-//            novels = NovelAPI.getThisWeekHotNovels();
+        	articles.add(samlpleArticle);
+        	articles.add(samlpleArticle);
+        	articles.add(samlpleArticle);
+        	articles.add(samlpleArticle);
 
             return null;
         }
@@ -114,11 +119,11 @@ public final class MainMostSeeFragment extends Fragment {
             progressLayout.setVisibility(View.GONE);
             loadmoreLayout.setVisibility(View.GONE);
 
-            if (novels != null) {
+            if (articles != null) {
                 layoutReload.setVisibility(View.GONE);
                 try {
-//                    myGridViewAdapter = new GridViewAdapter(getActivity(), novels);
-//                    myGrid.setAdapter(myGridViewAdapter);
+                    myGridViewAdapter = new GridViewAdapter(getActivity(), articles);
+                    myGrid.setAdapter(myGridViewAdapter);
                 } catch (Exception e) {
 
                 }

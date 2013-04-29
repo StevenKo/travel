@@ -13,8 +13,9 @@
         android:gravity="center"
         >
         <LinearLayout android:id="@+id/my_collection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
             android:background="@drawable/my_novel_selector"
@@ -35,8 +36,9 @@
                 />
         </LinearLayout>
         <LinearLayout android:id="@+id/my_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
             android:background="@drawable/my_novel_selector"

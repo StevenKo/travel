@@ -180,11 +180,11 @@ public class MainActivity extends SherlockFragmentActivity {
             } else if (position == 1) {
                 kk = MyTravelFragment.newInstance();
             } else if (position == 2) {
-                kk = MainMostSeeFragment.newInstance();
+            	kk = MainBestFragment.newInstance();             
             } else if (position == 3) {
                 kk = MainNewestFragment.newInstance();
             } else if (position == 4) {
-                kk = MainBestFragment.newInstance();
+            	kk = MainMostSeeFragment.newInstance();
             }
             return kk;
         }

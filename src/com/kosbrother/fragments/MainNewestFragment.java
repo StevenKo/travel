@@ -19,13 +19,15 @@ import android.widget.LinearLayout;
 
 public class MainNewestFragment extends Fragment {
 
-    private ArrayList<Article> novels = new ArrayList<Article>();
+	private ArrayList<Article> articles = new ArrayList<Article>();
     private LoadMoreGridView myGrid;
     private GridViewAdapter  myGridViewAdapter;
     private LinearLayout     progressLayout;
     private LinearLayout     loadmoreLayout;
     private LinearLayout     layoutReload;
     private Button           buttonReload;
+    
+    private Article samlpleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal.jpeg");
 
     public static MainNewestFragment newInstance() {
 
@@ -60,7 +62,7 @@ public class MainNewestFragment extends Fragment {
             public void onClick(View arg0) {
                 progressLayout.setVisibility(View.VISIBLE);
                 layoutReload.setVisibility(View.GONE);
-//                new DownloadChannelsTask().execute();
+                new DownloadChannelsTask().execute();
             }
         });
 
@@ -69,7 +71,7 @@ public class MainNewestFragment extends Fragment {
             loadmoreLayout.setVisibility(View.GONE);
             myGrid.setAdapter(myGridViewAdapter);
         } else {
-//            new DownloadChannelsTask().execute();
+            new DownloadChannelsTask().execute();
         }
 
         return myFragmentView;
@@ -81,44 +83,47 @@ public class MainNewestFragment extends Fragment {
 
     }
 
-//    private class DownloadChannelsTask extends AsyncTask {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            // TODO Auto-generated method stub
-//            super.onPreExecute();
-//
-//        }
-//
-//        @Override
-//        protected Object doInBackground(Object... params) {
-//            // TODO Auto-generated method stub
-//
-//            novels = NovelAPI.getThisMonthHotNovels();
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Object result) {
-//            // TODO Auto-generated method stub
-//            super.onPostExecute(result);
-//            progressLayout.setVisibility(View.GONE);
-//            loadmoreLayout.setVisibility(View.GONE);
-//
-//            if (novels != null) {
-//                try {
-//                    layoutReload.setVisibility(View.GONE);
-//                    myGridViewAdapter = new GridViewAdapter(getActivity(), novels);
-//                    myGrid.setAdapter(myGridViewAdapter);
-//                } catch (Exception e) {
-//
-//                }
-//            } else {
-//                layoutReload.setVisibility(View.VISIBLE);
-//            }
-//
-//        }
-//    }
+    private class DownloadChannelsTask extends AsyncTask {
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Object doInBackground(Object... params) {
+            // TODO Auto-generated method stub
+
+        	articles.add(samlpleArticle);
+        	articles.add(samlpleArticle);
+        	articles.add(samlpleArticle);
+        	articles.add(samlpleArticle);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            progressLayout.setVisibility(View.GONE);
+            loadmoreLayout.setVisibility(View.GONE);
+
+            if (articles != null) {
+                try {
+                    layoutReload.setVisibility(View.GONE);
+                    myGridViewAdapter = new GridViewAdapter(getActivity(), articles);
+                    myGrid.setAdapter(myGridViewAdapter);
+                } catch (Exception e) {
+
+                }
+            } else {
+                layoutReload.setVisibility(View.VISIBLE);
+            }
+
+        }
+    }
 
 }
