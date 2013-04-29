@@ -3,6 +3,28 @@
 
     <string name="app_name">Travel</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    
+    <string name="menu_settings">閱讀設定</string>
+    <string name="menu_respond">意見回饋</string>
+    <string name="menu_aboutus">關於我們</string>
+    <string name="menu_recommend">為App評分</string>
+    <string name="menu_add_bookmark">加書籤</string>
+    <string name="menu_search">搜索</string>
+    <string name="menu_download">下載</string>
+    <string name="menu_report">問題回報</string>
 
+    <string name="search_hint">請輸入作者或書名</string>
+    <string name="about_us_string">關於我們</string>
+    <string name="about_us">嗨, \n\n音樂頻道是一個收集熱門Youtube音樂頻道的第三方App軟體, \n\n我們並不擁有這些影音版權. 如果您的頻道不希望出現在此App, 請Email讓我們知道. \n\n感謝您. \n\nEmail: brotherkos\@gmail.com</string>
+    <string name="yes_string">確定</string>
+    
+    <string name="respond_mail_address">brotherkos@gmail.com</string>
+    <string name="respond_mail_title">意見回餽 from 小說王</string>   
+    <string name="recommend_url">https://play.google.com/store/apps/developer?id=KosBrother</string>
+    
+    <string name="my_collection">我的收藏</string>
+    <string name="my_read_setting">閱讀設定</string>
+    <string name="my_theme">主題旅遊</string>
+    <string name="my_city">熱門城市</string>
+    
 </resources>

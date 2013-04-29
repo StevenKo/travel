@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <string-array name="sections">
+        <item>分類</item>
+        <item>我的遊記</item>
+        <item>最佳遊記</item>
+        <item>最新遊記</item>
+        <item>最多瀏覽</item>
+    </string-array>
+    <string-array name="category_sections">
+        <item>當季旅遊地</item>
+        <item>主題旅遊地</item>
+        <item>最佳海邊度假地</item>
+        <item>中國</item>
+        <item>亞洲</item>
+        <item>歐洲</item>
+        <item>其他洲</item>
+    </string-array>
+    <string-array name="collections">
+        <item>我的書櫃</item>
+        <item>我的下載</item>
+    </string-array>
+</resources>
