@@ -3,6 +3,7 @@ package com.kosbrother.fragments;
 
 import java.util.ArrayList;
 import com.taiwan.imageload.ListAdapter;
+import com.travel.story.CategoryActivity;
 import com.travel.story.R;
 
 import android.app.Activity;
@@ -18,8 +19,7 @@ public class CategoryListFragment extends ListFragment {
 
 	private String[]  Category;
 	private final Integer[]  mImageIds = { 
-			R.drawable.icon_season, 
-			R.drawable.icon_theme, 
+			R.drawable.icon_season,  
 			R.drawable.icon_beach, 
 			R.drawable.icon_china,
 			R.drawable.icon_asia,
@@ -51,12 +51,12 @@ public class CategoryListFragment extends ListFragment {
   @Override
   public void onListItemClick(ListView l, View v, int position, long id) {
     // Do something with the data
-//	  	Intent intent = new Intent(getActivity(), CategoryActivity.class);
+	  	Intent intent = new Intent(getActivity(), CategoryActivity.class);
 //		Bundle bundle = new Bundle();
 //		bundle.putInt("CategoryId", categories.get(position).getId()); 
 //		bundle.putString("CategoryName", categories.get(position).getCateName());
 //		intent.putExtras(bundle);
-//		getActivity().startActivity(intent);
+		getActivity().startActivity(intent);
   }
 
 } 
