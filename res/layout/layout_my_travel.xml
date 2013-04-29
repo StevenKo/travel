@@ -11,6 +11,10 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
         >
         <LinearLayout android:id="@+id/my_collection"
             android:layout_width="0dp"
@@ -20,8 +24,8 @@
             android:gravity="center"
             android:background="@drawable/my_novel_selector"
             android:clickable="true"
-            android:layout_margin="10dp"
             android:padding="15dp"
+            android:layout_marginRight="5dp"
             >
             <ImageView 
                 android:layout_width="64dp"
@@ -43,8 +47,8 @@
             android:gravity="center"
             android:background="@drawable/my_novel_selector"
             android:clickable="true"
-            android:layout_margin="10dp"
-            android:padding="15dp"           
+            android:padding="15dp"
+            android:layout_marginLeft="5dp"           
             >
             <ImageView 
                 android:layout_width="64dp"
@@ -66,6 +70,10 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         >
         <LinearLayout android:id="@+id/my_travel_theme"
             android:layout_width="fill_parent"
@@ -74,12 +82,11 @@
             android:gravity="center"
             android:background="@drawable/my_novel_selector"
             android:clickable="true"
-            android:layout_margin="10dp"
-            android:padding="15dp"           
+            android:padding="7dp"           
             >
             <ImageView 
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:src="@drawable/icon_travel"
                 />     
@@ -97,6 +104,10 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
         >
         <LinearLayout  android:id="@+id/my_travel_city"
             android:layout_width="fill_parent"
@@ -105,12 +116,11 @@
             android:gravity="center"
             android:background="@drawable/my_novel_selector"
             android:clickable="true"
-            android:layout_margin="10dp"
-            android:padding="15dp"
+            android:padding="7dp"
             >
             <ImageView 
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:src="@drawable/icon_city"
                 />     
