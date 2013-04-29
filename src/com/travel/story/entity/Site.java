@@ -3,6 +3,7 @@ package com.travel.story.entity;
 public class Site {
 	
 	int id;
+	int starInt; // from 0 to 5
 	String name;
 	String introduce;
 	String phone;
@@ -15,12 +16,13 @@ public class Site {
 	static String[] k = {};
 	
 	public Site() {
-        this(1, "", "", "", "", "","","", k);
+        this(1,1, "", "", "", "", "","","", k);
     }
 	
-	public Site(int id, String name, String introduce, String phone, String ticket, String openTime, String traffic, String type, String[] pics){
+	public Site(int id, int starInt, String name, String introduce, String phone, String ticket, String openTime, String traffic, String type, String[] pics){
         
     	this.id = id;
+    	this.starInt = starInt;
         this.name = name;
         this.introduce = introduce;
         this.phone = phone;
@@ -34,6 +36,10 @@ public class Site {
 	public int getId() {
         return id;
     }
+	
+	public int getStarInt() {
+		return starInt;
+	}
 	
 	public String getName() {
 		return name;

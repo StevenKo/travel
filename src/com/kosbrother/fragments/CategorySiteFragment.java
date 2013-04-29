@@ -12,22 +12,29 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.taiwan.imageload.GridViewAdapter;
+import com.taiwan.imageload.GridViewSiteAdapter;
 import com.taiwan.imageload.LoadMoreGridView;
 import com.travel.story.R;
-import com.travel.story.entity.Article;
+import com.travel.story.entity.Site;
 
 public class CategorySiteFragment extends Fragment {
 
-    private ArrayList<Article> articles = new ArrayList<Article>();
+    private ArrayList<Site> sites = new ArrayList<Site>();
     private LoadMoreGridView myGrid;
-    private GridViewAdapter  myGridViewAdapter;
+    private GridViewSiteAdapter  myGridViewAdapter;
     private LinearLayout     progressLayout;
     private LinearLayout     loadmoreLayout;
     private LinearLayout     layoutReload;
     private Button           buttonReload;
     
-    private Article samlpleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal.jpeg");
+    
+    String[] samplePics = {"http://www.alaska-in-pictures.com/data/media/13/cruise-ship-scenic_5402.jpg","http://www.alaska-in-pictures.com/data/media/13/kodiak-at-night_5403.jpg"};
+    private Site samlpleSite = new Site(1, 
+    		4, "迪士尼度假区（DISNEY LAND", 
+    		"东京迪士尼度假区距离东京10公里，于1983年4月开幕，其宗旨是集历史知识、童话故事", "+81-570-008632", 
+    		"一日票成年人5800日元", "宝物殿：3月至10月9：00-16：30", 
+    		"轨道交通：ＪＲ京叶线舞滨站下车", "主题公园", 
+    		samplePics);
 
     public static CategoryTravelNoteFragment newInstance() {
 
@@ -97,10 +104,10 @@ public class CategorySiteFragment extends Fragment {
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
 
-        	articles.add(samlpleArticle);
-        	articles.add(samlpleArticle);
-        	articles.add(samlpleArticle);
-        	articles.add(samlpleArticle);
+        	sites.add(samlpleSite);
+        	sites.add(samlpleSite);
+        	sites.add(samlpleSite);
+        	sites.add(samlpleSite);
 
             return null;
         }
@@ -112,10 +119,10 @@ public class CategorySiteFragment extends Fragment {
             progressLayout.setVisibility(View.GONE);
             loadmoreLayout.setVisibility(View.GONE);
 
-            if (articles != null) {
+            if (sites != null) {
                 try {
                     layoutReload.setVisibility(View.GONE);
-                    myGridViewAdapter = new GridViewAdapter(getActivity(), articles);
+                    myGridViewAdapter = new GridViewSiteAdapter(getActivity(), sites);
                     myGrid.setAdapter(myGridViewAdapter);
                 } catch (Exception e) {
 
