@@ -19,11 +19,13 @@ public class ListAdapter extends BaseAdapter {
     private final Activity            activity;
 //    private final ArrayList<String> data;
     private final String[] data;
+    private final Integer[] images;
     private static LayoutInflater     inflater = null;
 
-    public ListAdapter(Activity a, String[] d) {
+    public ListAdapter(Activity a, String[] d, Integer[] t) {
         activity = a;
         data = d;
+        images = t;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
@@ -48,6 +50,8 @@ public class ListAdapter extends BaseAdapter {
         TextView text = (TextView) vi.findViewById(R.id.text_list);
         text.setText(data[position]);
 
+        image.setImageResource(images[position]);
+        
         return vi;
     }
 }

@@ -17,6 +17,15 @@ import android.widget.ListView;
 public class CategoryListFragment extends ListFragment {
 
 	private String[]  Category;
+	private final Integer[]  mImageIds = { 
+			R.drawable.icon_season, 
+			R.drawable.icon_theme, 
+			R.drawable.icon_beach, 
+			R.drawable.icon_china,
+			R.drawable.icon_asia,
+			R.drawable.icon_europe,
+			R.drawable.icon_others
+			};
 	
 //  private ArrayList<String> categories = new ArrayList<String>();
 //  private static Activity mActivity;
@@ -28,7 +37,7 @@ public class CategoryListFragment extends ListFragment {
 //        "短篇" };
     
     Category = getActivity().getResources().getStringArray(R.array.category_sections); 
-    ListAdapter adapter = new ListAdapter(getActivity(), Category);
+    ListAdapter adapter = new ListAdapter(getActivity(), Category, mImageIds);
    
     setListAdapter(adapter);
   }
