@@ -49,8 +49,12 @@ public class ListAdapter extends BaseAdapter {
         ImageView image = (ImageView) vi.findViewById(R.id.image_list);
         TextView text = (TextView) vi.findViewById(R.id.text_list);
         text.setText(data[position]);
-
-        image.setImageResource(images[position]);
+        
+        try{
+        	image.setImageResource(images[position]);
+        }catch(Exception e){
+        	image.setVisibility(View.GONE);
+        }
         
         return vi;
     }

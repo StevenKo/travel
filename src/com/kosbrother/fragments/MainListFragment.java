@@ -1,5 +1,11 @@
 package com.kosbrother.fragments;
 
+
+import java.util.ArrayList;
+import com.taiwan.imageload.ListAdapter;
+import com.travel.story.CategoryActivity;
+import com.travel.story.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +13,11 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.taiwan.imageload.ListAdapter;
-import com.travel.story.CategoryActivity;
-import com.travel.story.LastCategoryActivity;
-import com.travel.story.R;
 
-public class CategoryListFragment extends ListFragment {
 
-	private  String[]  Category;
+public class MainListFragment extends ListFragment {
+
+	private String[]  Category;
 	private final Integer[]  mImageIds = { 
 			R.drawable.icon_season,  
 			R.drawable.icon_beach, 
@@ -30,22 +33,25 @@ public class CategoryListFragment extends ListFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-
-    ListAdapter adapter = new ListAdapter(getActivity(), Category, null);
-    setListAdapter(adapter);
+//    String[] values = new String[] { "經典武俠", "經典小說", "長篇",
+//        "短篇" };
     
+    Category = getActivity().getResources().getStringArray(R.array.category_sections); 
+    ListAdapter adapter = new ListAdapter(getActivity(), Category, mImageIds);
+   
+    setListAdapter(adapter);
   }
   
-  
-  public CategoryListFragment(String[] catetories){
-	  Category = catetories;
+  public static ListFragment newInstance(Activity myActivity) {
+//	  mActivity = myActivity;
+	  MainListFragment fragment = new MainListFragment();
+      return fragment;
   }
-
 
   @Override
   public void onListItemClick(ListView l, View v, int position, long id) {
-    // Check if go to lastCategoryActivity   
-	  	Intent intent = new Intent(getActivity(), LastCategoryActivity.class);
+    // Do something with the data
+	  	Intent intent = new Intent(getActivity(), CategoryActivity.class);
 //		Bundle bundle = new Bundle();
 //		bundle.putInt("CategoryId", categories.get(position).getId()); 
 //		bundle.putString("CategoryName", categories.get(position).getCateName());

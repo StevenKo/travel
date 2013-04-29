@@ -1,20 +1,9 @@
 package com.travel.story;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.kosbrother.fragments.MainListFragment;
-import com.kosbrother.fragments.MainBestFragment;
-import com.kosbrother.fragments.MainMostSeeFragment;
-import com.kosbrother.fragments.MainNewestFragment;
-import com.kosbrother.fragments.MyTravelFragment;
-import com.viewpagerindicator.TitlePageIndicator;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,17 +11,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.InputType;
-import android.view.Display;
 import android.view.KeyEvent;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends SherlockFragmentActivity {
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.kosbrother.fragments.CategoryListFragment;
+import com.kosbrother.fragments.LastCategoryListFragment;
+import com.kosbrother.fragments.MainListFragment;
+import com.kosbrother.fragments.TabHostParentFragment;
+import com.travel.story.CategoryActivity.NovelPagerAdapter;
+import com.viewpagerindicator.TitlePageIndicator;
+
+public class LastCategoryActivity extends SherlockFragmentActivity {
 
     private static final int    ID_SETTING  = 0;
     private static final int    ID_RESPONSE = 1;
@@ -40,7 +35,13 @@ public class MainActivity extends SherlockFragmentActivity {
     private static final int    ID_GRADE    = 3;
     private static final int    ID_SEARCH   = 5;
 
-    private String[]            CONTENT;
+    private String[]            CONTENT = {
+    		"類別",
+            "最佳遊記",
+    		"最新遊記",
+    		"最多瀏覽數",
+    		"景點"
+    	};
     private EditText            search;
     private MenuItem            itemSearch;
     private ViewPager           pager;
@@ -54,8 +55,8 @@ public class MainActivity extends SherlockFragmentActivity {
 //        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
 
-        Resources res = getResources();
-        CONTENT = res.getStringArray(R.array.sections);
+//        Resources res = getResources();
+//        CONTENT = res.getStringArray(R.array.sections);
 
         FragmentPagerAdapter adapter = new NovelPagerAdapter(getSupportFragmentManager());
 
@@ -176,16 +177,20 @@ public class MainActivity extends SherlockFragmentActivity {
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-                kk = MainListFragment.newInstance(MainActivity.this);
+            	String[] categories = new String[CONTENT.length-1];
+            	for(int i=0; i<categories.length;i++){
+            		categories[i] =  CONTENT[i+1];
+            	}
+                kk = new LastCategoryListFragment(categories, pager);
             } else if (position == 1) {
-                kk = MyTravelFragment.newInstance();
+                kk = new TabHostParentFragment();
             } else if (position == 2) {
-            	kk = MainBestFragment.newInstance();             
+            	kk = new TabHostParentFragment();    
             } else if (position == 3) {
-                kk = MainNewestFragment.newInstance();
+                kk = new TabHostParentFragment();
             } else if (position == 4) {
-            	kk = MainMostSeeFragment.newInstance();
-            }
+                kk = new TabHostParentFragment();
+            } 
             return kk;
         }
 

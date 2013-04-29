@@ -22,6 +22,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.kosbrother.fragments.CategoryListFragment;
+import com.kosbrother.fragments.MainListFragment;
 import com.kosbrother.fragments.MainBestFragment;
 import com.kosbrother.fragments.MainMostSeeFragment;
 import com.kosbrother.fragments.MainNewestFragment;
@@ -179,7 +180,7 @@ public class CategoryActivity extends SherlockFragmentActivity {
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-                kk = CategoryListFragment.newInstance(CategoryActivity.this);
+                kk = new CategoryListFragment(CONTENT);
             } else if (position == 1) {
                 kk = new TabHostParentFragment();
             } else if (position == 2) {
