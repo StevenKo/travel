@@ -2,6 +2,7 @@ package com.kosbrother.fragments;
 
 import java.io.File;
 
+import com.travel.story.CollectionActivity;
 import com.travel.story.R;
 
 import android.app.ProgressDialog;
@@ -54,10 +55,10 @@ public final class MyTravelFragment extends Fragment {
             public void onClick(View v) {
 //                Bundle bundle = new Bundle();
 //                bundle.putBoolean("IS_RECNET", false);
-//                Intent intent = new Intent();
+                Intent intent = new Intent();
 //                intent.putExtras(bundle);
-//                intent.setClass(getActivity(), BookmarkActivity.class);
-//                startActivity(intent);
+                intent.setClass(getActivity(), CollectionActivity.class);
+                startActivity(intent);
             }
         });
     	mySetting.setOnClickListener(new OnClickListener() {

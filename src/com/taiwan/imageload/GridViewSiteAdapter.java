@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.travel.story.R;
+import com.travel.story.SiteActivity;
 import com.travel.story.entity.Article;
 import com.travel.story.entity.Site;
 
@@ -66,7 +68,7 @@ public class GridViewSiteAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(activity, NovelIntroduceActivity.class);
+                Intent intent = new Intent(activity, SiteActivity.class);
 //                Bundle bundle = new Bundle();
 //                bundle.putInt("NovelId", data.get(position).getId());
 //                bundle.putString("NovelName", data.get(position).getName());
@@ -76,7 +78,7 @@ public class GridViewSiteAdapter extends BaseAdapter {
 //                bundle.putString("NovelPicUrl", data.get(position).getPic());
 //                bundle.putString("NovelArticleNum", data.get(position).getArticleNum());
 //                intent.putExtras(bundle);
-//                activity.startActivity(intent);
+                activity.startActivity(intent);
 
             }
 

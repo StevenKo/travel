@@ -2,12 +2,16 @@ package com.kosbrother.fragments;
 
 import com.travel.story.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.TabHost.TabSpec;
 
 public class TabHostParentFragment extends Fragment {
 	
@@ -29,18 +33,31 @@ public class TabHostParentFragment extends Fragment {
 //		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView2").setIndicator("Child 2"),
 //			TextViewFragment.class, arg2);
 		
-		mTabHost.addTab(mTabHost.newTabSpec("View1").setIndicator("遊記"),
-				CategoryTravelNoteFragment.class, null);
+//		mTabHost.addTab(mTabHost.newTabSpec("View1").setIndicator("遊記"),
+//				CategoryTravelNoteFragment.class, null);
+//		
+//		mTabHost.addTab(mTabHost.newTabSpec("View2").setIndicator("景點"),
+//				CategorySiteFragment.class, null);
 		
-		mTabHost.addTab(mTabHost.newTabSpec("View2").setIndicator("景點"),
-				CategorySiteFragment.class, null);
+		setupTab(CategoryTravelNoteFragment.class, "遊記", "View1");
+		setupTab(CategorySiteFragment.class, "景點", "View2");
 
 	return mTabHost;
     }
+    
+    private void setupTab(Class<?> ccls, String name, String nameSpec) {
 
+        getActivity().getLayoutInflater();
+		View tab = LayoutInflater.from(getActivity()).inflate(R.layout.item_tab, null);
+        TextView text = (TextView) tab.findViewById(R.id.text);
+        text.setText(name);
+        mTabHost.addTab(mTabHost.newTabSpec(nameSpec).setIndicator(tab),ccls, null);
+
+    }
+    
     @Override
     public void onDestroyView() {
 	super.onDestroyView();
-	mTabHost = null;
+		mTabHost = null;
     }
 }

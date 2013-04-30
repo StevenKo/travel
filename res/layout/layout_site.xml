@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout android:id="@+id/layout_progress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+        <ProgressBar 
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	/>        
+    </LinearLayout>
+    
+    <LinearLayout 
+   	 	android:id="@+id/layout_reload"
+   	 	android:layout_width="fill_parent"
+   	 	android:layout_height="fill_parent"
+     	android:gravity="center"
+     	android:visibility="gone"
+     	android:background="@color/main_color_grey_dark"
+     	>
+	    <TextView 
+	        android:layout_width="wrap_content"
+   	 		android:layout_height="wrap_content"
+   	 		android:text="無法連線"
+   	 		android:textSize="23dp"
+   	 		android:layout_marginLeft="5dp"
+   	 		android:textColor="#6E6E6E"
+	        />
+	    <Button  android:id="@+id/button_reload"
+	       android:layout_width="wrap_content"
+   	 	   android:layout_height="wrap_content"
+   	 	   android:layout_marginLeft="5dp"
+   	 	   android:text="重試"
+	        />
+	</LinearLayout>
+	
+	<LinearLayout android:id="@+id/layout_article_title"
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:layout_margin="10dp"
+	     android:orientation="horizontal"
+	     >
+	    <LinearLayout 
+	         android:layout_width="0dp"
+	         android:layout_height="wrap_content"
+	         android:layout_weight="1"
+	         android:orientation="vertical"
+	         >
+	         <TextView android:id="@+id/text_article_title"
+	             android:layout_width="wrap_content"
+	       		 android:layout_height="wrap_content"
+	       		 android:text="[食記] [新竹‧清夜] 寧波包子 ～也有豆豉辣椒"
+	       		 android:textColor="#AD8440"
+	             />
+	    </LinearLayout>
+	    <CheckBox android:id="@+id/checkbox_article"
+		     android:layout_width="36dp"
+		     android:layout_height="36dp"
+		     android:button="@drawable/custom_checkbox"
+	    />
+	</LinearLayout>
+	    
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height ="wrap_content">
+	    <LinearLayout 
+	        android:layout_width="fill_parent"
+        	android:layout_height ="wrap_content"
+        	android:orientation="vertical"
+	        >
+	        <LinearLayout android:id="@+id/layout_siteinfo"
+	            android:layout_width="wrap_content"
+        		android:layout_height ="wrap_content"
+        		android:orientation="vertical"
+        		android:layout_margin="10dp"
+	             >
+	             <LinearLayout 
+	                 android:layout_width="wrap_content"
+        			 android:layout_height ="wrap_content"
+        			 android:orientation="horizontal"
+	                 >
+	                 <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="电话："
+				        />
+				    <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="010-65132255"
+				        />
+			    </LinearLayout>
+			    <LinearLayout 
+	                 android:layout_width="wrap_content"
+        			 android:layout_height ="wrap_content"
+        			 android:orientation="horizontal"
+        			 android:layout_marginTop="5dp"
+	                 >
+	                 <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="地址："
+				        />
+				    <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="北京市东城区景山前街4号"
+				        />
+			    </LinearLayout>
+			    
+			    <LinearLayout 
+	                 android:layout_width="wrap_content"
+        			 android:layout_height ="wrap_content"
+        			 android:orientation="horizontal"
+        			 android:layout_marginTop="5dp"
+	                 >
+	                 <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="门票："
+				        />
+				    <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="旺季（4/1-10/31）60元/人，淡季(11/1-3/31）40元/人；另外收费的，珍宝馆10元/人，钟表馆10元/人"
+				        />
+			    </LinearLayout>
+			    
+			    <LinearLayout 
+	                 android:layout_width="wrap_content"
+        			 android:layout_height ="wrap_content"
+        			 android:orientation="horizontal"
+        			 android:layout_marginTop="5dp"
+	                 >
+	                 <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="开放时间："
+				        />
+				    <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="旺季8:30-17:00，淡季8:30-16:30"
+				        />
+			    </LinearLayout>
+				
+			    <LinearLayout 
+	                 android:layout_width="wrap_content"
+        			 android:layout_height ="wrap_content"
+        			 android:orientation="horizontal"
+        			 android:layout_marginTop="5dp"
+	                 >
+	                 <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="交通："
+				        />
+				    <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="地铁1号线天安门东、西站可到达，多路公交可到达"
+				        />
+			    </LinearLayout>
+			    
+			    <LinearLayout 
+	                 android:layout_width="wrap_content"
+        			 android:layout_height ="wrap_content"
+        			 android:orientation="horizontal"
+        			 android:layout_marginTop="5dp"
+	                 >
+	                 <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="类型："
+				        />
+				    <TextView 
+				        android:layout_width="wrap_content"
+		        		android:layout_height ="wrap_content"
+		        		android:text="古迹  建筑人文  博物馆"
+				        />
+			    </LinearLayout>
+			    
+		    </LinearLayout>
+		    <LinearLayout  android:id="@+id/layout_sitepic"
+		        android:layout_width="fill_parent"
+        		android:layout_height ="wrap_content"
+        		android:orientation="vertical"
+        		android:gravity="center_horizontal"
+		        >		        
+				<ImageView 
+					android:id="@+id/ImageView01" 
+					android:layout_width="fill_parent"
+					android:layout_height="150dp"
+					android:src="@drawable/app_icon"
+					></ImageView>
+				<Gallery 
+					android:id="@+id/Gallery01" 
+					android:layout_width="fill_parent" 
+					android:layout_height="wrap_content"
+					></Gallery>
+		    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+	
+
+</LinearLayout>

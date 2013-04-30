@@ -41,7 +41,7 @@ public class MainActivity extends SherlockFragmentActivity {
     private static final int    ID_SEARCH   = 5;
 
     private String[]            CONTENT;
-    private EditText            search;
+//    private EditText            search;
     private MenuItem            itemSearch;
     private ViewPager           pager;
     private AlertDialog.Builder aboutUsDialog;
@@ -53,7 +53,8 @@ public class MainActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
 //        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
-
+        
+        
         Resources res = getResources();
         CONTENT = res.getStringArray(R.array.sections);
 
@@ -100,8 +101,8 @@ public class MainActivity extends SherlockFragmentActivity {
                     @Override
                     public boolean onMenuItemActionExpand(MenuItem item) {
                         search = (EditText) item.getActionView();
-                        search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-                        search.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        search.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);                       
                         search.requestFocus();
                         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                             @Override
@@ -109,11 +110,11 @@ public class MainActivity extends SherlockFragmentActivity {
                                 if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 //                                    Bundle bundle = new Bundle();
 //                                    bundle.putString("SearchKeyword", v.getText().toString());
-//                                    Intent intent = new Intent();
-//                                    intent.setClass(MainActivity.this, SearchActivity.class);
+                                    Intent intent = new Intent();
+                                    intent.setClass(MainActivity.this, SearchActivity.class);
 //                                    intent.putExtras(bundle);
-//                                    startActivity(intent);
-//                                    itemSearch.collapseActionView();
+                                    startActivity(intent);
+                                    itemSearch.collapseActionView();
                                     return true;
                                 }
                                 return false;

@@ -1,7 +1,5 @@
 package com.travel.story;
 
-
-
 import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.content.Context;
