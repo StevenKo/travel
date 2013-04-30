@@ -24,11 +24,14 @@ import android.support.v4.view.ViewPager;
 import android.text.InputType;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -97,13 +100,27 @@ public class MainActivity extends SherlockFragmentActivity {
         itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.icon_search)
                 .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
                     private EditText search;
-
+                    private LinearLayout layout;
+                    
                     @Override
                     public boolean onMenuItemActionExpand(MenuItem item) {
-                        search = (EditText) item.getActionView();
+                    	layout = (LinearLayout) item.getActionView();
+                        search = (EditText) layout.findViewById(R.id.edittext_search);
+                        ImageView searchImage = (ImageView) layout.findViewById(R.id.image_search);
 //                        search.setInputType(InputType.TYPE_CLASS_TEXT);
-//                        search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);                       
-                        search.requestFocus();
+//                        search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+                        
+                        searchImage.setOnClickListener(new OnClickListener() {
+				            @Override
+					            public void onClick(View v) {
+					                // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
+					                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+					                startActivity(intent);
+					
+					            }					
+					        });
+                        
+//                        search.requestFocus();
                         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                             @Override
                             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -120,8 +137,8 @@ public class MainActivity extends SherlockFragmentActivity {
                                 return false;
                             }
                         });
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(null, InputMethodManager.SHOW_IMPLICIT);
+//                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                        imm.showSoftInput(null, InputMethodManager.SHOW_IMPLICIT);
                         return true;
                     }
 
