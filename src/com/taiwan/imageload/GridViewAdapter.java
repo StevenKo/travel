@@ -2,6 +2,7 @@ package com.taiwan.imageload;
 
 import java.util.ArrayList;
 
+import com.travel.story.ArticleActivity;
 import com.travel.story.R;
 import com.travel.story.entity.Article;
 
@@ -68,7 +69,7 @@ public class GridViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(activity, NovelIntroduceActivity.class);
+                Intent intent = new Intent(activity, ArticleActivity.class);
 //                Bundle bundle = new Bundle();
 //                bundle.putInt("NovelId", data.get(position).getId());
 //                bundle.putString("NovelName", data.get(position).getName());
@@ -78,7 +79,7 @@ public class GridViewAdapter extends BaseAdapter {
 //                bundle.putString("NovelPicUrl", data.get(position).getPic());
 //                bundle.putString("NovelArticleNum", data.get(position).getArticleNum());
 //                intent.putExtras(bundle);
-//                activity.startActivity(intent);
+                activity.startActivity(intent);
 
             }
 
