@@ -1,75 +1,52 @@
 package com.travel.story.entity;
 
 public class Site {
-	
-	int id;
-	int starInt; // from 0 to 5
-	String name;
-	String introduce;
-	String phone;
-	String ticket;
-	String openTime;
-	String traffic;
-	String type;
-	String[] pics; 
-	
-	static String[] k = {};
-	
-	public Site() {
-        this(1,1, "", "", "", "", "","","", k);
+
+    int             id;
+    int             starInt;  // from 0 to 5
+    String          name;
+    String          info;
+    String          pic;
+    String[]        pics;
+    String          introduce;
+
+    static String[] k = {};
+
+    public Site(int id2, int rank, String name2, String pic, String info, String intro, String[] pics2) {
+        this.id = id2;
+        this.starInt = rank;
+        this.pic = pic;
+        this.pics = pics2;
+        this.info = info;
+        this.name = name2;
+        this.introduce = intro;
     }
-	
-	public Site(int id, int starInt, String name, String introduce, String phone, String ticket, String openTime, String traffic, String type, String[] pics){
-        
-    	this.id = id;
-    	this.starInt = starInt;
-        this.name = name;
-        this.introduce = introduce;
-        this.phone = phone;
-        this.ticket = ticket;
-        this.openTime = openTime;
-        this.traffic = traffic;
-        this.type = type;
-        this.pics = pics;
-    }
-	
-	public int getId() {
+
+    public int getId() {
         return id;
     }
-	
-	public int getStarInt() {
-		return starInt;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public String getIntroduce() {
-		return introduce;
-	}
 
-	public String getPhone() {
-		return phone;
-	}
-	
-	public String getTicket() {
-		return ticket;
-	}
-	
-	public String getOpenTime() {
-		return openTime;
-	}
-	
-	public String getTraffic() {
-		return traffic;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public String[] getPics(){
-		return pics;
-	}
+    public int getStarInt() {
+        return starInt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String[] getPics() {
+        return pics;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public String getIntroduction() {
+        return introduce;
+    }
 }
