@@ -21,11 +21,13 @@
 	    android:textCursorDrawable="@null"
 	    />
 	<ImageView android:id="@+id/image_search"
-	    android:layout_width="26dp"
-	    android:layout_height="26dp"
+	    android:layout_width="36dp"
+	    android:layout_height="36dp"
+	    android:padding="5dp"
 	    android:src="@drawable/icon_search"
 	    android:layout_marginLeft="5dp"
 	    android:layout_marginRight="10dp"
+	    android:background="@drawable/search_icon_selector"	    
 	    />
 </LinearLayout>
 
