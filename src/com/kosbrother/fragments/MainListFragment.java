@@ -3,8 +3,11 @@ package com.kosbrother.fragments;
 
 import java.util.ArrayList;
 import com.taiwan.imageload.ListAdapter;
+import com.taiwan.imageload.ListStateAdapter;
 import com.travel.story.CategoryActivity;
 import com.travel.story.R;
+import com.travel.story.api.TravelAPI;
+import com.travel.story.entity.State;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,15 +20,19 @@ import android.widget.ListView;
 
 public class MainListFragment extends ListFragment {
 
-	private String[]  Category;
+//	private String[]  Category;
 	private final Integer[]  mImageIds = { 
-			R.drawable.icon_season,  
-			R.drawable.icon_beach, 
 			R.drawable.icon_china,
 			R.drawable.icon_asia,
 			R.drawable.icon_europe,
-			R.drawable.icon_others
+			R.drawable.icon_oceania,
+			R.drawable.icon_africa,
+			R.drawable.icon_america,
+			R.drawable.icon_south_america,
+			R.drawable.icon_antartic
 			};
+	
+	private ArrayList<State> myStates = new ArrayList<State>();
 	
 //  private ArrayList<String> categories = new ArrayList<String>();
 //  private static Activity mActivity;
@@ -36,8 +43,10 @@ public class MainListFragment extends ListFragment {
 //    String[] values = new String[] { "經典武俠", "經典小說", "長篇",
 //        "短篇" };
     
-    Category = getActivity().getResources().getStringArray(R.array.category_sections); 
-    ListAdapter adapter = new ListAdapter(getActivity(), Category, mImageIds);
+//    Category = getActivity().getResources().getStringArray(R.array.category_sections);
+    
+    myStates = TravelAPI.getStates();
+    ListStateAdapter adapter = new ListStateAdapter(getActivity(), myStates, mImageIds);
    
     setListAdapter(adapter);
   }
