@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.travel.story.entity.AreaGroup;
+import com.travel.story.entity.AreaIntroCategory;
 import com.travel.story.entity.Nation;
 import com.travel.story.entity.NationGroup;
 import com.travel.story.entity.State;
@@ -22,6 +23,14 @@ public class TravelAPI {
     final static String         HOST  = "http://106.187.40.42";
     public static final String  TAG   = "NOVEL_API";
     public static final boolean DEBUG = true;
+
+    public static String getAreaIntroCategoryName(int id) {
+        return AreaIntroCategory.getCategoryName(id);
+    }
+
+    public static ArrayList<AreaIntroCategory> getAreaIntroCategories() {
+        return AreaIntroCategory.getAreaIntroCategories();
+    }
 
     public static ArrayList<Nation> getGroupNations(int group_id) {
         return Nation.getGroupNations(group_id);

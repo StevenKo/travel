@@ -27,7 +27,6 @@ import com.kosbrother.fragments.MainListFragment;
 import com.kosbrother.fragments.MainMostSeeFragment;
 import com.kosbrother.fragments.MainNewestFragment;
 import com.kosbrother.fragments.MyTravelFragment;
-import com.travel.story.api.TravelAPI;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class MainActivity extends SherlockFragmentActivity {
@@ -51,11 +50,6 @@ public class MainActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         // Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
-
-        TravelAPI.getAreaGroups(1);
-        TravelAPI.getGroupNations(1);
-        TravelAPI.getStateNationGroups(1);
-        TravelAPI.getStates();
 
         Resources res = getResources();
         CONTENT = res.getStringArray(R.array.sections);
