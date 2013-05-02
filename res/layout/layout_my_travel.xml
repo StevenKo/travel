@@ -75,9 +75,10 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         >
-        <LinearLayout android:id="@+id/my_travel_theme"
-            android:layout_width="fill_parent"
+        <LinearLayout android:id="@+id/my_travel_season"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
             android:background="@drawable/my_novel_selector"
@@ -88,14 +89,63 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/icon_travel"
+                android:layout_margin="5dp"
+                android:src="@drawable/icon_season"
+                />     
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_season"
+                />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/my_travel_theme"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/my_novel_selector"
+            android:clickable="true"
+            android:padding="7dp"
+            android:layout_marginLeft="5dp"           
+            >
+            <ImageView 
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:src="@drawable/icon_theme"
                 />     
             <TextView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/my_theme"
                 />
-        </LinearLayout>   
+        </LinearLayout>
+        <LinearLayout android:id="@+id/my_travel_beach"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/my_novel_selector"
+            android:clickable="true"
+            android:padding="7dp"
+            android:layout_marginLeft="5dp"             
+            >
+            <ImageView 
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:src="@drawable/icon_beach"
+                />     
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_beach"
+                />
+        </LinearLayout>  
     </LinearLayout>
     
     <LinearLayout 
