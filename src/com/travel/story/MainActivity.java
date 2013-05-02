@@ -1,17 +1,6 @@
 package com.travel.story;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.kosbrother.fragments.MainListFragment;
-import com.kosbrother.fragments.MainBestFragment;
-import com.kosbrother.fragments.MainMostSeeFragment;
-import com.kosbrother.fragments.MainNewestFragment;
-import com.kosbrother.fragments.MyTravelFragment;
-import com.viewpagerindicator.TitlePageIndicator;
-
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -21,19 +10,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.InputType;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.kosbrother.fragments.MainBestFragment;
+import com.kosbrother.fragments.MainListFragment;
+import com.kosbrother.fragments.MainMostSeeFragment;
+import com.kosbrother.fragments.MainNewestFragment;
+import com.kosbrother.fragments.MyTravelFragment;
+import com.travel.story.api.TravelAPI;
+import com.viewpagerindicator.TitlePageIndicator;
 
 public class MainActivity extends SherlockFragmentActivity {
 
@@ -44,7 +39,7 @@ public class MainActivity extends SherlockFragmentActivity {
     private static final int    ID_SEARCH   = 5;
 
     private String[]            CONTENT;
-//    private EditText            search;
+    // private EditText search;
     private MenuItem            itemSearch;
     private ViewPager           pager;
     private AlertDialog.Builder aboutUsDialog;
@@ -54,10 +49,14 @@ public class MainActivity extends SherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Setting.setApplicationActionBarTheme(this);
+        // Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
-        
-        
+
+        TravelAPI.getAreaGroups(1);
+        TravelAPI.getGroupNations(1);
+        TravelAPI.getStateNationGroups(1);
+        TravelAPI.getStates();
+
         Resources res = getResources();
         CONTENT = res.getStringArray(R.array.sections);
 
@@ -73,17 +72,17 @@ public class MainActivity extends SherlockFragmentActivity {
 
         setAboutUsDialog();
 
-//        try {
-//            Display display = getWindowManager().getDefaultDisplay();
-//            int width = display.getWidth(); // deprecated
-//            int height = display.getHeight(); // deprecated
-//
-//            if (width > 320) {
-//                setAdAdwhirl();
-//            }
-//        } catch (Exception e) {
-//
-//        }
+        // try {
+        // Display display = getWindowManager().getDefaultDisplay();
+        // int width = display.getWidth(); // deprecated
+        // int height = display.getHeight(); // deprecated
+        //
+        // if (width > 320) {
+        // setAdAdwhirl();
+        // }
+        // } catch (Exception e) {
+        //
+        // }
 
     }
 
@@ -99,37 +98,37 @@ public class MainActivity extends SherlockFragmentActivity {
 
         itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.icon_search)
                 .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-                    private EditText search;
+                    private EditText     search;
                     private LinearLayout layout;
-                    
+
                     @Override
                     public boolean onMenuItemActionExpand(MenuItem item) {
-                    	layout = (LinearLayout) item.getActionView();
+                        layout = (LinearLayout) item.getActionView();
                         search = (EditText) layout.findViewById(R.id.edittext_search);
                         ImageView searchImage = (ImageView) layout.findViewById(R.id.image_search);
-//                        search.setInputType(InputType.TYPE_CLASS_TEXT);
-//                        search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-                        
+                        // search.setInputType(InputType.TYPE_CLASS_TEXT);
+                        // search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+
                         searchImage.setOnClickListener(new OnClickListener() {
-				            @Override
-					            public void onClick(View v) {
-					                // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
-					                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-					                startActivity(intent);
-					
-					            }					
-					        });
-                        
-//                        search.requestFocus();
+                            @Override
+                            public void onClick(View v) {
+                                // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                                startActivity(intent);
+
+                            }
+                        });
+
+                        // search.requestFocus();
                         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                             @Override
                             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                                 if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putString("SearchKeyword", v.getText().toString());
+                                    // Bundle bundle = new Bundle();
+                                    // bundle.putString("SearchKeyword", v.getText().toString());
                                     Intent intent = new Intent();
                                     intent.setClass(MainActivity.this, SearchActivity.class);
-//                                    intent.putExtras(bundle);
+                                    // intent.putExtras(bundle);
                                     startActivity(intent);
                                     itemSearch.collapseActionView();
                                     return true;
@@ -137,8 +136,8 @@ public class MainActivity extends SherlockFragmentActivity {
                                 return false;
                             }
                         });
-//                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                        imm.showSoftInput(null, InputMethodManager.SHOW_IMPLICIT);
+                        // InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        // imm.showSoftInput(null, InputMethodManager.SHOW_IMPLICIT);
                         return true;
                     }
 
@@ -160,8 +159,8 @@ public class MainActivity extends SherlockFragmentActivity {
         int itemId = item.getItemId();
         switch (itemId) {
         case ID_SETTING: // setting
-//            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-//            startActivity(intent);
+            // Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+            // startActivity(intent);
             break;
         case ID_RESPONSE: // response
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -198,11 +197,11 @@ public class MainActivity extends SherlockFragmentActivity {
             } else if (position == 1) {
                 kk = MyTravelFragment.newInstance();
             } else if (position == 2) {
-            	kk = MainBestFragment.newInstance();             
+                kk = MainBestFragment.newInstance();
             } else if (position == 3) {
                 kk = MainNewestFragment.newInstance();
             } else if (position == 4) {
-            	kk = MainMostSeeFragment.newInstance();
+                kk = MainMostSeeFragment.newInstance();
             }
             return kk;
         }
