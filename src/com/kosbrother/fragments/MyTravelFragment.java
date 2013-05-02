@@ -1,11 +1,9 @@
 package com.kosbrother.fragments;
 
-import java.io.File;
 
+import com.travel.story.CitysCategoryActivity;
 import com.travel.story.CollectionActivity;
 import com.travel.story.R;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,7 +23,9 @@ public final class MyTravelFragment extends Fragment {
     private View         myFragmentView;
     private LinearLayout myCollection;
     private LinearLayout mySetting;
-    private LinearLayout myTravleTheme;
+    private LinearLayout myTravelTheme;
+    private LinearLayout myTravelSeason;
+    private LinearLayout myTravelBeach;
     private LinearLayout myCity;
 
     @Override
@@ -73,11 +73,27 @@ public final class MyTravelFragment extends Fragment {
             }
         });
 
-    	myTravleTheme.setOnClickListener(new OnClickListener() {
+    	myTravelTheme.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MyNovelActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), CitysCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+    	
+    	myTravelSeason.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CitysCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+    	
+    	myTravelBeach.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CitysCategoryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -95,7 +111,9 @@ public final class MyTravelFragment extends Fragment {
     private void findViews() {
     	myCollection = (LinearLayout) myFragmentView.findViewById(R.id.my_collection);
     	mySetting = (LinearLayout) myFragmentView.findViewById(R.id.my_setting);
-    	myTravleTheme = (LinearLayout) myFragmentView.findViewById(R.id.my_travel_theme);
+    	myTravelTheme = (LinearLayout) myFragmentView.findViewById(R.id.my_travel_theme);
+    	myTravelSeason = (LinearLayout) myFragmentView.findViewById(R.id.my_travel_season);
+    	myTravelBeach = (LinearLayout) myFragmentView.findViewById(R.id.my_travel_beach);
     	myCity = (LinearLayout) myFragmentView.findViewById(R.id.my_travel_city);
     }
 

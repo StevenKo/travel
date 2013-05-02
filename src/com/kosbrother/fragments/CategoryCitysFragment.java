@@ -10,39 +10,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 
-import com.taiwan.imageload.GridViewSiteAdapter;
-import com.taiwan.imageload.LoadMoreGridView;
+import com.taiwan.imageload.GridViewCitysAdapter;
 import com.travel.story.R;
-import com.travel.story.entity.Site;
 
-public class CategorySiteFragment extends Fragment {
+public class CategoryCitysFragment extends Fragment {
 
-    private ArrayList<Site> sites = new ArrayList<Site>();
-    private LoadMoreGridView myGrid;
-    private GridViewSiteAdapter  myGridViewAdapter;
+    private ArrayList<String> mCitys = new ArrayList<String>();
+    private GridView myGrid;
+    private GridViewCitysAdapter  myGridViewAdapter;
     private LinearLayout     progressLayout;
-    private LinearLayout     loadmoreLayout;
+//    private LinearLayout     loadmoreLayout;
     private LinearLayout     layoutReload;
     private Button           buttonReload;
     
-    
-    String[] samplePics = {"http://www.alaska-in-pictures.com/data/media/13/cruise-ship-scenic_5402.jpg","http://www.alaska-in-pictures.com/data/media/13/kodiak-at-night_5403.jpg"};
-    private Site samlpleSite = new Site(1, 
-    		4, "迪士尼度假区（DISNEY LAND", 
-    		"东京迪士尼度假区距离东京10公里，于1983年4月开幕，其宗旨是集历史知识、童话故事", "+81-570-008632", 
-    		"一日票成年人5800日元", "宝物殿：3月至10月9：00-16：30", 
-    		"轨道交通：ＪＲ京叶线舞滨站下车", "主题公园", 
-    		samplePics);
+    private String[] sampleCitys ={
+    		"大阪",
+    		"京都",
+    		"上海",
+    		"大阪",
+    		"京都",
+    		"上海",
+    		"大阪",
+    		"京都",
+    		"上海"
+    		
+    };
 
-    public static CategorySiteFragment newInstance() {
-
-    	CategorySiteFragment fragment = new CategorySiteFragment();
-
-        return fragment;
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,17 +49,11 @@ public class CategorySiteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View myFragmentView = inflater.inflate(R.layout.loadmore_grid, container, false);
+        View myFragmentView = inflater.inflate(R.layout.layout_category_city, container, false);
         progressLayout = (LinearLayout) myFragmentView.findViewById(R.id.layout_progress);
-        loadmoreLayout = (LinearLayout) myFragmentView.findViewById(R.id.load_more_grid);
         layoutReload = (LinearLayout) myFragmentView.findViewById(R.id.layout_reload);
         buttonReload = (Button) myFragmentView.findViewById(R.id.button_reload);
-        myGrid = (LoadMoreGridView) myFragmentView.findViewById(R.id.news_list);
-        myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
-            public void onLoadMore() {
-
-            }
-        });
+        myGrid = (GridView) myFragmentView.findViewById(R.id.grid_city);
 
         buttonReload.setOnClickListener(new OnClickListener() {
             @Override
@@ -76,7 +66,6 @@ public class CategorySiteFragment extends Fragment {
 
         if (myGridViewAdapter != null) {
             progressLayout.setVisibility(View.GONE);
-            loadmoreLayout.setVisibility(View.GONE);
             myGrid.setAdapter(myGridViewAdapter);
         } else {
             new DownloadChannelsTask().execute();
@@ -103,11 +92,10 @@ public class CategorySiteFragment extends Fragment {
         @Override
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
-
-        	sites.add(samlpleSite);
-        	sites.add(samlpleSite);
-        	sites.add(samlpleSite);
-        	sites.add(samlpleSite);
+        	
+        	for(int i=0 ; i<sampleCitys.length; i++){
+        		mCitys.add(sampleCitys[i]);
+        	}
 
             return null;
         }
@@ -117,12 +105,11 @@ public class CategorySiteFragment extends Fragment {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
             progressLayout.setVisibility(View.GONE);
-            loadmoreLayout.setVisibility(View.GONE);
 
-            if (sites != null) {
+            if (mCitys != null) {
                 try {
                     layoutReload.setVisibility(View.GONE);
-                    myGridViewAdapter = new GridViewSiteAdapter(getActivity(), sites);
+                    myGridViewAdapter = new GridViewCitysAdapter(getActivity(), mCitys);
                     myGrid.setAdapter(myGridViewAdapter);
                 } catch (Exception e) {
 
