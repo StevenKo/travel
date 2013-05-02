@@ -1,10 +1,16 @@
 package com.kosbrother.fragments;
 
 
+import java.util.ArrayList;
+
 import com.taiwan.imageload.SeparatedListAdapter;
 import com.travel.story.LastCategoryActivity;
 import com.travel.story.R;
+import com.travel.story.api.TravelAPI;
+import com.travel.story.entity.Nation;
+import com.travel.story.entity.NationGroup;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,29 +22,56 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+@SuppressLint("ValidFragment")
 public class CategoryListFragment extends ListFragment {
 
 	private SeparatedListAdapter adapter;
+	private ArrayList<NationGroup> myNationGroups = new ArrayList<NationGroup>();
+	private ArrayList<Nation> myNaions = new ArrayList<Nation>();
+	private int stateId;
 
+	public CategoryListFragment(int state_id, ArrayList<NationGroup> nation_groups){
+		this.stateId = state_id;
+		this.myNationGroups = nation_groups;
+	}
+	
+	
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
 		adapter = new SeparatedListAdapter(getActivity());
-		SampleAdapter adapter1 = new SampleAdapter(getActivity());	
-		adapter1.add(new SampleItem("日本"));
-		adapter1.add(new SampleItem("韓國"));
-		adapter1.add(new SampleItem("朝鮮"));
-		adapter.addSection("日本,韓國,朝鮮", adapter1);
 		
-		SampleAdapter adapter2 = new SampleAdapter(getActivity());
+//		ArrayList<Nation> groupNations = TravelAPI.getGroupNations(myNationGroups.get(0).getId());
+//		SampleAdapter adapter1 = new SampleAdapter(getActivity());
+//		for (int j= 0; j< groupNations.size(); j++){
+//			adapter1.add(new SampleItem(groupNations.get(j).getName()));
+//			myNaions.add(groupNations.get(j));
+//		}
+//		adapter.addSection(myNationGroups.get(0).getName(), adapter1);
+			
+		for (int i=0; i< myNationGroups.size();i++){
+			ArrayList<Nation> groupNations = TravelAPI.getGroupNations(myNationGroups.get(i).getId());
+			SampleAdapter adapter1 = new SampleAdapter(getActivity());
+			if(groupNations!=null){
+				for (int j= 0; j< groupNations.size(); j++){
+					adapter1.add(new SampleItem(groupNations.get(j).getName()));
+					myNaions.add(groupNations.get(j));
+				}		
+				adapter.addSection(myNationGroups.get(i).getName(), adapter1);
+			}
+		}
 		
-		adapter2.add(new SampleItem("泰國"));
-		adapter.addSection("泰國", adapter2);
 		
-		SampleAdapter adapter3 = new SampleAdapter(getActivity());
 		
-		adapter3.add(new SampleItem("新加坡"));
-		adapter.addSection("新加坡", adapter3);
+		
+//		SampleAdapter adapter2 = new SampleAdapter(getActivity());
+//		
+//		adapter2.add(new SampleItem("泰國"));
+//		adapter.addSection("泰國", adapter2);
+//		
+//		SampleAdapter adapter3 = new SampleAdapter(getActivity());
+//		
+//		adapter3.add(new SampleItem("新加坡"));
+//		adapter.addSection("新加坡", adapter3);
 				
 		setListAdapter(adapter);
 			

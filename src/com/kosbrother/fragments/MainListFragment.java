@@ -61,10 +61,10 @@ public class MainListFragment extends ListFragment {
   public void onListItemClick(ListView l, View v, int position, long id) {
     // Do something with the data
 	  	Intent intent = new Intent(getActivity(), CategoryActivity.class);
-//		Bundle bundle = new Bundle();
-//		bundle.putInt("CategoryId", categories.get(position).getId()); 
-//		bundle.putString("CategoryName", categories.get(position).getCateName());
-//		intent.putExtras(bundle);
+		Bundle bundle = new Bundle();
+		bundle.putInt("StateId", myStates.get(position).getId()); 
+		bundle.putString("StateName", myStates.get(position).getName());
+		intent.putExtras(bundle);
 		getActivity().startActivity(intent);
   }
 

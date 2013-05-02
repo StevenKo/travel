@@ -1,38 +1,33 @@
 package com.travel.story;
 
+import java.util.ArrayList;
+
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.kosbrother.fragments.CategoryListFragment;
-import com.kosbrother.fragments.MainListFragment;
-import com.kosbrother.fragments.MainBestFragment;
-import com.kosbrother.fragments.MainMostSeeFragment;
-import com.kosbrother.fragments.MainNewestFragment;
-import com.kosbrother.fragments.MyTravelFragment;
 import com.kosbrother.fragments.TabHostParentFragment;
-import com.travel.story.MainActivity.NovelPagerAdapter;
+import com.travel.story.api.TravelAPI;
+import com.travel.story.entity.NationGroup;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class CategoryActivity extends SherlockFragmentActivity {
@@ -43,28 +38,31 @@ public class CategoryActivity extends SherlockFragmentActivity {
     private static final int    ID_GRADE    = 3;
     private static final int    ID_SEARCH   = 5;
 
-    private String[]            CONTENT = {
-    		"分類",
-    		"日本, 韓國",
-    		"泰國",
-    		"新加坡"
-    	};
-    private EditText            search;
+    private Bundle    mBundle;
+    private int    stateId;
+    private String stateName;
+    private ArrayList<NationGroup> myNationGroups = new ArrayList<NationGroup>();
+    
     private MenuItem            itemSearch;
     private ViewPager           pager;
     private AlertDialog.Builder aboutUsDialog;
 
-    private final String        adWhirlKey  = "215f895eb71748e7ba4cb3a5f20b061e";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
 
-//        Resources res = getResources();
-//        CONTENT = res.getStringArray(R.array.sections);
-
+        mBundle = this.getIntent().getExtras();
+        stateId = mBundle.getInt("StateId");
+        stateName = mBundle.getString("StateName");
+        
+        myNationGroups = TravelAPI.getStateNationGroups(stateId);
+        
+        final ActionBar ab = getSupportActionBar();
+        ab.setTitle(stateName);
+        ab.setDisplayHomeAsUpEnabled(true);
+        
         FragmentPagerAdapter adapter = new NovelPagerAdapter(getSupportFragmentManager());
 
         pager = (ViewPager) findViewById(R.id.pager);
@@ -90,6 +88,31 @@ public class CategoryActivity extends SherlockFragmentActivity {
 //        }
 
     }
+    
+//    private class DownloadChannelsTask extends AsyncTask {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            // TODO Auto-generated method stub
+//            super.onPreExecute();
+//
+//        }
+//
+//        @Override
+//        protected Object doInBackground(Object... params) {
+//            // TODO Auto-generated method stub
+//
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Object result) {
+//            // TODO Auto-generated method stub
+//            super.onPostExecute(result);
+//
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,6 +186,10 @@ public class CategoryActivity extends SherlockFragmentActivity {
 
         int itemId = item.getItemId();
         switch (itemId) {
+        case android.R.id.home:
+            finish();
+            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+            break;
         case ID_SETTING: // setting
 //            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
 //            startActivity(intent);
@@ -198,7 +225,7 @@ public class CategoryActivity extends SherlockFragmentActivity {
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-                kk = new CategoryListFragment();
+                kk = new CategoryListFragment(stateId, myNationGroups);
             } else if (position == 1) {
                 kk = new TabHostParentFragment();
             } else if (position == 2) {
@@ -211,12 +238,17 @@ public class CategoryActivity extends SherlockFragmentActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return CONTENT[position % CONTENT.length];
+        	if(position==0){
+        		String a = "分類";
+        		return a;
+        	}else{
+        		return myNationGroups.get(position-1).getName();
+        	}
         }
 
         @Override
         public int getCount() {
-            return CONTENT.length;
+            return myNationGroups.size()+1;
         }
     }
 

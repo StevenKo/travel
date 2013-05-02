@@ -46,9 +46,9 @@ public class ListStateAdapter extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
             vi = inflater.inflate(R.layout.item_list, null);
-        ImageView image = (ImageView) vi.findViewById(R.id.image_list);
-        TextView text = (TextView) vi.findViewById(R.id.text_list);
-        text.setText(data.get(position).getName());
+	        ImageView image = (ImageView) vi.findViewById(R.id.image_list);
+	        TextView text = (TextView) vi.findViewById(R.id.text_list);
+	        text.setText(data.get(position).getName());
         
         try{
         	image.setImageResource(images[position]);
