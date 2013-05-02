@@ -28,7 +28,9 @@ public class MainBestFragment extends Fragment {
     private Button           buttonReload;
     
     private Article samlpleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal");
+    private Article samlpleArticle2 = new Article(1, "最新最", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal");
 
+    
     public static MainBestFragment newInstance() {
 
         MainBestFragment fragment = new MainBestFragment();
@@ -98,7 +100,7 @@ public class MainBestFragment extends Fragment {
             // TODO Auto-generated method stub
 
         	articles.add(samlpleArticle);
-        	articles.add(samlpleArticle);
+        	articles.add(samlpleArticle2);
         	articles.add(samlpleArticle);
         	articles.add(samlpleArticle);
 

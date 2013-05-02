@@ -32,4 +32,8 @@ public class AreaIntro {
     public int getAreaIntroCateId() {
         return area_intro_cate_id;
     }
+    
+    public String getAreaIntroCateName(int cate_id){
+    	return AreaIntroCategory.getCategoryName(cate_id);
+    }
 }

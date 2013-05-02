@@ -49,17 +49,16 @@ public class GridViewSiteAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         // if (convertView == null)
-         vi = inflater.inflate(R.layout.item_gridview_site, null);
-
+         
         Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth(); // deprecated
         int height = display.getHeight(); // deprecated
 
-//        if (width > 480) {
-//            vi = inflater.inflate(R.layout.item_gridview_article, null);
-//        } else {
-//            vi = inflater.inflate(R.layout.item_gridview_article_small, null);
-//        }
+        if (width > 480) {
+            vi = inflater.inflate(R.layout.item_gridview_site, null);
+        } else {
+            vi = inflater.inflate(R.layout.item_gridview_site_small, null);
+        }
 
         vi.setClickable(true);
         vi.setFocusable(true);
