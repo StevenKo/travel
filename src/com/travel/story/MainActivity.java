@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,7 +27,6 @@ import com.kosbrother.fragments.MainListFragment;
 import com.kosbrother.fragments.MainMostSeeFragment;
 import com.kosbrother.fragments.MainNewestFragment;
 import com.kosbrother.fragments.MyTravelFragment;
-import com.travel.story.api.TravelAPI;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class MainActivity extends SherlockFragmentActivity {
@@ -52,26 +50,6 @@ public class MainActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         // Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
-
-        new AsyncTask() {
-
-            @Override
-            protected Object doInBackground(Object... params) {
-                // // TravelAPI.getSite(1);
-                // TravelAPI.getNationGroupSites(2, 1);
-                // TravelAPI.getAreaSites(2, 1);
-                // TravelAPI.getNote(1);
-                // TravelAPI.getAreaNotes(1, 2, 2);
-                TravelAPI.getNationGroupNotes(1, 3, 2);
-                // TravelAPI.getNationAreas(1);
-                // TravelAPI.getGroupAreas(1);
-                // TravelAPI.getAreaIntros(1);
-                // TravelAPI.getAreaIntro(1);
-
-                return null;
-            }
-
-        }.execute();
 
         Resources res = getResources();
         CONTENT = res.getStringArray(R.array.sections);
