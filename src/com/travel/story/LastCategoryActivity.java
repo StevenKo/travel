@@ -21,7 +21,11 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.kosbrother.fragments.CategoryListFragment;
+import com.kosbrother.fragments.LastCategoryBestFragment;
 import com.kosbrother.fragments.LastCategoryListFragment;
+import com.kosbrother.fragments.LastCategoryMostSeeFragment;
+import com.kosbrother.fragments.LastCategoryNewestFragment;
+import com.kosbrother.fragments.LastCategorySiteFragment;
 import com.kosbrother.fragments.MainListFragment;
 import com.kosbrother.fragments.TabHostParentFragment;
 import com.travel.story.CategoryActivity.NovelPagerAdapter;
@@ -183,13 +187,13 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
             	}
                 kk = new LastCategoryListFragment(categories, pager);
             } else if (position == 1) {
-                kk = new TabHostParentFragment();
+                kk = LastCategoryBestFragment.newInstance();
             } else if (position == 2) {
-            	kk = new TabHostParentFragment();    
+            	kk = LastCategoryNewestFragment.newInstance();    
             } else if (position == 3) {
-                kk = new TabHostParentFragment();
+                kk = LastCategoryMostSeeFragment.newInstance();
             } else if (position == 4) {
-                kk = new TabHostParentFragment();
+                kk = LastCategorySiteFragment.newInstance();
             } 
             return kk;
         }
@@ -205,14 +209,14 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (pager.getCurrentItem() == 1) {
-            finish();
-        } else {
-            pager.setCurrentItem(1, true);
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if (pager.getCurrentItem() == 1) {
+//            finish();
+//        } else {
+//            pager.setCurrentItem(1, true);
+//        }
+//    }
 
     private void setAboutUsDialog() {
         // TODO Auto-generated method stub

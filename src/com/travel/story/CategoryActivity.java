@@ -180,7 +180,7 @@ public class CategoryActivity extends SherlockFragmentActivity {
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-                kk = new CategoryListFragment(CONTENT);
+                kk = new CategoryListFragment();
             } else if (position == 1) {
                 kk = new TabHostParentFragment();
             } else if (position == 2) {
@@ -202,14 +202,14 @@ public class CategoryActivity extends SherlockFragmentActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (pager.getCurrentItem() == 1) {
-            finish();
-        } else {
-            pager.setCurrentItem(1, true);
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if (pager.getCurrentItem() == 1) {
+//            finish();
+//        } else {
+//            pager.setCurrentItem(1, true);
+//        }
+//    }
 
     private void setAboutUsDialog() {
         // TODO Auto-generated method stub
