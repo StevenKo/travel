@@ -11,15 +11,17 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.taiwan.imageload.GridViewAdapter;
 import com.taiwan.imageload.LoadMoreGridView;
 import com.travel.story.R;
-import com.travel.story.entity.Article;
+import com.travel.story.api.TravelAPI;
+import com.travel.story.entity.Note;
 
-public class LastCategoryNewestFragment extends Fragment {
+public class SecondCategoryTravelNoteFragment extends Fragment {
 
-	private ArrayList<Article> articles = new ArrayList<Article>();
+    private ArrayList<Note> myNotes = new ArrayList<Note>();
     private LoadMoreGridView myGrid;
     private GridViewAdapter  myGridViewAdapter;
     private LinearLayout     progressLayout;
@@ -27,24 +29,28 @@ public class LastCategoryNewestFragment extends Fragment {
     private LinearLayout     layoutReload;
     private Button           buttonReload;
     
-    private Article samlpleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal");
+    private int areaId;
+    private int contentOrder = 1;
+    public static int myPage = 1;
+    private Boolean checkLoad = true;
+    private ArrayList<Note> moreNotes = new ArrayList<Note>();
+    
+//    private Article samlpleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal");
 
-    public static LastCategoryNewestFragment newInstance() {
-
-    	LastCategoryNewestFragment fragment = new LastCategoryNewestFragment();
-
-        return fragment;
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    	
+    	if (getArguments() != null) {  	
+    		areaId = getArguments().getInt("AreaId");
+    	}
+    	
         View myFragmentView = inflater.inflate(R.layout.loadmore_grid, container, false);
         progressLayout = (LinearLayout) myFragmentView.findViewById(R.id.layout_progress);
         loadmoreLayout = (LinearLayout) myFragmentView.findViewById(R.id.load_more_grid);
@@ -53,7 +59,12 @@ public class LastCategoryNewestFragment extends Fragment {
         myGrid = (LoadMoreGridView) myFragmentView.findViewById(R.id.news_list);
         myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
             public void onLoadMore() {
-                // Do the work to load more items at the end of list
+            	if(checkLoad){
+					myPage = myPage +1;
+					new LoadMoreTask().execute();
+				}else{
+					myGrid.onLoadMoreComplete();
+				}
             }
         });
 
@@ -95,11 +106,8 @@ public class LastCategoryNewestFragment extends Fragment {
         @Override
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
-
-        	articles.add(samlpleArticle);
-        	articles.add(samlpleArticle);
-        	articles.add(samlpleArticle);
-        	articles.add(samlpleArticle);
+        	
+        	myNotes = TravelAPI.getAreaNotes(areaId, myPage, contentOrder);
 
             return null;
         }
@@ -111,10 +119,10 @@ public class LastCategoryNewestFragment extends Fragment {
             progressLayout.setVisibility(View.GONE);
             loadmoreLayout.setVisibility(View.GONE);
 
-            if (articles != null) {
+            if (myNotes != null) {
                 try {
                     layoutReload.setVisibility(View.GONE);
-                    myGridViewAdapter = new GridViewAdapter(getActivity(), articles);
+                    myGridViewAdapter = new GridViewAdapter(getActivity(), myNotes);
                     myGrid.setAdapter(myGridViewAdapter);
                 } catch (Exception e) {
 
@@ -123,6 +131,40 @@ public class LastCategoryNewestFragment extends Fragment {
                 layoutReload.setVisibility(View.VISIBLE);
             }
 
+        }
+    }
+    
+    private class LoadMoreTask extends AsyncTask {
+        @Override
+        protected Object doInBackground(Object... params) {
+            // TODO Auto-generated method stub
+        	
+        	moreNotes.clear();
+        	moreNotes = TravelAPI.getAreaNotes(areaId, myPage, contentOrder);
+        	if(moreNotes!= null){
+	        	for(int i=0; i<moreNotes.size();i++){
+	        		myNotes.add(moreNotes.get(i));	        		
+	            }
+        	}
+        	
+        	
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            
+            if(moreNotes!= null){
+            	myGridViewAdapter.notifyDataSetChanged();	                
+            }else{
+                checkLoad= false;
+                Toast.makeText(getActivity(), "no more data", Toast.LENGTH_SHORT).show();            	
+            }       
+            myGrid.onLoadMoreComplete();
+          	
+          	
         }
     }
 

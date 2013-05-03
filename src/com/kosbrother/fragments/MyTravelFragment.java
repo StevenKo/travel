@@ -77,6 +77,9 @@ public final class MyTravelFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CitysCategoryActivity.class);
+                Bundle bundle = new Bundle();
+        		bundle.putInt("ThemeId", 2); 
+        		intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -85,6 +88,9 @@ public final class MyTravelFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CitysCategoryActivity.class);
+                Bundle bundle = new Bundle();
+        		bundle.putInt("ThemeId", 1); 
+        		intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -93,6 +99,9 @@ public final class MyTravelFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CitysCategoryActivity.class);
+                Bundle bundle = new Bundle();
+        		bundle.putInt("ThemeId", 3); 
+        		intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

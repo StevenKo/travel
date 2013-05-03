@@ -92,7 +92,7 @@ public class GridViewSiteAdapter extends BaseAdapter {
         
         String[] picUrl = data.get(position).getPics();
         
-        if (picUrl[0].equals("") ) {
+        if (picUrl == null || picUrl[0].equals("") ) {
             image.setImageResource(R.drawable.app_icon);
         } else {
             imageLoader.DisplayImage(picUrl[0], image);

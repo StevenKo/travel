@@ -1,7 +1,6 @@
 package com.travel.story;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,29 +9,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.kosbrother.fragments.CategoryListFragment;
-import com.kosbrother.fragments.LastCategoryBestFragment;
+import com.kosbrother.fragments.LastCategoryNoteFragment;
 import com.kosbrother.fragments.LastCategoryListFragment;
-import com.kosbrother.fragments.LastCategoryMostSeeFragment;
-import com.kosbrother.fragments.LastCategoryNewestFragment;
 import com.kosbrother.fragments.LastCategorySiteFragment;
-import com.kosbrother.fragments.MainListFragment;
-import com.kosbrother.fragments.TabHostParentFragment;
-import com.travel.story.CategoryActivity.NovelPagerAdapter;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class LastCategoryActivity extends SherlockFragmentActivity {
@@ -50,10 +42,13 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
     		"最多瀏覽數",
     		"景點"
     	};
-    private EditText            search;
     private MenuItem            itemSearch;
     private ViewPager           pager;
     private AlertDialog.Builder aboutUsDialog;
+    
+    private Bundle    mBundle;
+    private String    areaName;
+    private int       areaId;
 
     private final String        adWhirlKey  = "215f895eb71748e7ba4cb3a5f20b061e";
 
@@ -63,9 +58,14 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
 //        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
 
-//        Resources res = getResources();
-//        CONTENT = res.getStringArray(R.array.sections);
-
+        mBundle = this.getIntent().getExtras();
+        areaId = mBundle.getInt("AreaId");
+        areaName = mBundle.getString("AreaName");
+        
+        final ActionBar ab = getSupportActionBar();
+        ab.setTitle(areaName);
+        ab.setDisplayHomeAsUpEnabled(true);
+        
         FragmentPagerAdapter adapter = new NovelPagerAdapter(getSupportFragmentManager());
 
         pager = (ViewPager) findViewById(R.id.pager);
@@ -204,14 +204,10 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
             		categories[i] =  CONTENT[i+1];
             	}
                 kk = new LastCategoryListFragment(categories, pager);
-            } else if (position == 1) {
-                kk = LastCategoryBestFragment.newInstance();
-            } else if (position == 2) {
-            	kk = LastCategoryNewestFragment.newInstance();    
-            } else if (position == 3) {
-                kk = LastCategoryMostSeeFragment.newInstance();
-            } else if (position == 4) {
-                kk = LastCategorySiteFragment.newInstance();
+            }else if(position == 4){
+            	kk = new LastCategorySiteFragment(areaId);
+            } else {
+                kk = new LastCategoryNoteFragment(areaId, position);
             } 
             return kk;
         }

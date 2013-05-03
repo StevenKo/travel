@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.travel.story.ArticleActivity;
 import com.travel.story.R;
 import com.travel.story.entity.Article;
+import com.travel.story.entity.Note;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,11 +24,11 @@ import android.widget.TextView;
 public class GridViewAdapter extends BaseAdapter {
 
     private final Activity         activity;
-    private final ArrayList<Article> data;
+    private final ArrayList<Note> data;
     private static LayoutInflater  inflater = null;
     public ImageLoader             imageLoader;
 
-    public GridViewAdapter(Activity a, ArrayList<Article> d) {
+    public GridViewAdapter(Activity a, ArrayList<Note> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -95,10 +96,10 @@ public class GridViewAdapter extends BaseAdapter {
         textDate.setText(data.get(position).getDate());
         
         
-        if (data.get(position).getPicUrl().equals("") ) {
+        if (data.get(position).getPic().equals("") ) {
             image.setImageResource(R.drawable.app_icon);
         } else {
-            imageLoader.DisplayImage(data.get(position).getPicUrl(), image);
+            imageLoader.DisplayImage(data.get(position).getPic(), image);
         }
 
 

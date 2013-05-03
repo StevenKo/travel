@@ -89,30 +89,6 @@ public class CategoryActivity extends SherlockFragmentActivity {
 
     }
     
-//    private class DownloadChannelsTask extends AsyncTask {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            // TODO Auto-generated method stub
-//            super.onPreExecute();
-//
-//        }
-//
-//        @Override
-//        protected Object doInBackground(Object... params) {
-//            // TODO Auto-generated method stub
-//
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Object result) {
-//            // TODO Auto-generated method stub
-//            super.onPostExecute(result);
-//
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -226,13 +202,9 @@ public class CategoryActivity extends SherlockFragmentActivity {
             Fragment kk = new Fragment();
             if (position == 0) {
                 kk = new CategoryListFragment(stateId, myNationGroups);
-            } else if (position == 1) {
-                kk = new TabHostParentFragment();
-            } else if (position == 2) {
-            	kk = new TabHostParentFragment();    
-            } else if (position == 3) {
-                kk = new TabHostParentFragment();
-            } 
+            } else {
+                kk = new TabHostParentFragment(myNationGroups.get(position-1).getId());
+            }  
             return kk;
         }
 

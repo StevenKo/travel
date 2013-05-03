@@ -22,10 +22,8 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.kosbrother.fragments.MainBestFragment;
+import com.kosbrother.fragments.MainNoteFragment;
 import com.kosbrother.fragments.MainListFragment;
-import com.kosbrother.fragments.MainMostSeeFragment;
-import com.kosbrother.fragments.MainNewestFragment;
 import com.kosbrother.fragments.MyTravelFragment;
 import com.viewpagerindicator.TitlePageIndicator;
 
@@ -190,12 +188,8 @@ public class MainActivity extends SherlockFragmentActivity {
                 kk = MainListFragment.newInstance(MainActivity.this);
             } else if (position == 1) {
                 kk = MyTravelFragment.newInstance();
-            } else if (position == 2) {
-                kk = MainBestFragment.newInstance();
-            } else if (position == 3) {
-                kk = MainNewestFragment.newInstance();
-            } else if (position == 4) {
-                kk = MainMostSeeFragment.newInstance();
+            } else {
+                kk = MainNoteFragment.newInstance();
             }
             return kk;
         }

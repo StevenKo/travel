@@ -7,19 +7,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.taiwan.imageload.GridViewSiteAdapter;
 import com.taiwan.imageload.LoadMoreGridView;
 import com.travel.story.R;
 import com.travel.story.api.TravelAPI;
 import com.travel.story.entity.Site;
 
-public class CategorySiteFragment extends Fragment {
+public class SecondCategorySiteFragment extends Fragment {
 
     private  ArrayList<Site> sites       = new ArrayList<Site>();
     private LoadMoreGridView      myGrid;
@@ -29,7 +28,7 @@ public class CategorySiteFragment extends Fragment {
     private LinearLayout          layoutReload;
     private Button                buttonReload;
 
-    private int groupNationId;
+    private int areaId;
     public static int myPage = 1;
     private Boolean checkLoad = true;
     private  ArrayList<Site> moreSites       = new ArrayList<Site>();
@@ -56,7 +55,7 @@ public class CategorySiteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	
     	if (getArguments() != null) {  	
-    		groupNationId = getArguments().getInt("CategoryId");
+    		areaId = getArguments().getInt("AreaId");
     	}
     	
         View myFragmentView = inflater.inflate(R.layout.loadmore_grid, container, false);
@@ -115,7 +114,7 @@ public class CategorySiteFragment extends Fragment {
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
 
-            sites = TravelAPI.getNationGroupSites(groupNationId, myPage);
+            sites = TravelAPI.getAreaSites(areaId, myPage);
 
             return null;
         }
@@ -148,7 +147,7 @@ public class CategorySiteFragment extends Fragment {
             // TODO Auto-generated method stub
         	
         	moreSites.clear();
-        	moreSites = TravelAPI.getNationGroupSites(groupNationId, myPage);
+        	moreSites = TravelAPI.getAreaSites(areaId, myPage);
         	if(moreSites!= null){
 	        	for(int i=0; i<moreSites.size();i++){
 	        		sites.add(moreSites.get(i));	        		

@@ -1,27 +1,22 @@
 package com.kosbrother.fragments;
 
-import com.travel.story.R;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TabHost.TabSpec;
 
-@SuppressLint("ValidFragment")
-public class TabHostParentFragment extends Fragment {
+import com.travel.story.R;
+
+public class SecondTabHostParentFragment extends Fragment {
 	
     private FragmentTabHost mTabHost;
     private int id;
     private Bundle arg1;
     
-    public TabHostParentFragment(int id){
+    public SecondTabHostParentFragment(int id){
     	this.id = id;
     }
     
@@ -32,7 +27,7 @@ public class TabHostParentFragment extends Fragment {
 		mTabHost.setup(getActivity(), getChildFragmentManager(), R.layout.fragment_tabhost);
 	
 		arg1 = new Bundle();
-		arg1.putInt("CategoryId", id);
+		arg1.putInt("AreaId", id);
 		
 //		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView1").setIndicator("Child 1"),
 //			TextViewFragment.class, arg1);
@@ -48,8 +43,8 @@ public class TabHostParentFragment extends Fragment {
 //		mTabHost.addTab(mTabHost.newTabSpec("View2").setIndicator("景點"),
 //				CategorySiteFragment.class, null);
 		
-		setupTab(CategoryTravelNoteFragment.class, "遊記", "View1");
-		setupTab(CategorySiteFragment.class, "景點", "View2");
+		setupTab(SecondCategoryTravelNoteFragment.class, "遊記", "View1");
+		setupTab(SecondCategorySiteFragment.class, "景點", "View2");
 
 	return mTabHost;
     }

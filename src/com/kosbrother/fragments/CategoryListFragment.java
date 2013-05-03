@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.taiwan.imageload.SeparatedListAdapter;
 import com.travel.story.LastCategoryActivity;
 import com.travel.story.R;
+import com.travel.story.SecondCategoryActivity;
 import com.travel.story.api.TravelAPI;
 import com.travel.story.entity.Nation;
 import com.travel.story.entity.NationGroup;
@@ -29,7 +30,8 @@ public class CategoryListFragment extends ListFragment {
 	private ArrayList<NationGroup> myNationGroups = new ArrayList<NationGroup>();
 	private ArrayList<Nation> myNaions = new ArrayList<Nation>();
 	private int stateId;
-
+	private Nation nullNation = new Nation();
+	
 	public CategoryListFragment(int state_id, ArrayList<NationGroup> nation_groups){
 		this.stateId = state_id;
 		this.myNationGroups = nation_groups;
@@ -39,19 +41,12 @@ public class CategoryListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		adapter = new SeparatedListAdapter(getActivity());
-		
-//		ArrayList<Nation> groupNations = TravelAPI.getGroupNations(myNationGroups.get(0).getId());
-//		SampleAdapter adapter1 = new SampleAdapter(getActivity());
-//		for (int j= 0; j< groupNations.size(); j++){
-//			adapter1.add(new SampleItem(groupNations.get(j).getName()));
-//			myNaions.add(groupNations.get(j));
-//		}
-//		adapter.addSection(myNationGroups.get(0).getName(), adapter1);
 			
 		for (int i=0; i< myNationGroups.size();i++){
 			ArrayList<Nation> groupNations = TravelAPI.getGroupNations(myNationGroups.get(i).getId());
 			SampleAdapter adapter1 = new SampleAdapter(getActivity());
 			if(groupNations!=null){
+				myNaions.add(nullNation);
 				for (int j= 0; j< groupNations.size(); j++){
 					adapter1.add(new SampleItem(groupNations.get(j).getName()));
 					myNaions.add(groupNations.get(j));
@@ -80,10 +75,11 @@ public class CategoryListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 	   
-//		String item = String.valueOf(position);
-//		Toast.makeText( getActivity(), item, Toast.LENGTH_SHORT).show();
-
-		Intent intent = new Intent(getActivity(), LastCategoryActivity.class);
+		Intent intent = new Intent(getActivity(), SecondCategoryActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putInt("NationId", myNaions.get(position).getId()); 
+		bundle.putString("NationName", myNaions.get(position).getName());
+		intent.putExtras(bundle);
 		getActivity().startActivity(intent);
 		
 		

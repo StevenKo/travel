@@ -15,31 +15,26 @@ import android.widget.LinearLayout;
 
 import com.taiwan.imageload.GridViewCitysAdapter;
 import com.travel.story.R;
+import com.travel.story.api.TravelAPI;
+import com.travel.story.entity.Area;
 
 public class CategoryCitysFragment extends Fragment {
 
-    private ArrayList<String> mCitys = new ArrayList<String>();
+    private ArrayList<Area> mCitys = new ArrayList<Area>();
     private GridView myGrid;
     private GridViewCitysAdapter  myGridViewAdapter;
     private LinearLayout     progressLayout;
-//    private LinearLayout     loadmoreLayout;
     private LinearLayout     layoutReload;
     private Button           buttonReload;
     
-    private String[] sampleCitys ={
-    		"大阪",
-    		"京都",
-    		"上海",
-    		"大阪",
-    		"京都",
-    		"上海",
-    		"大阪",
-    		"京都",
-    		"上海"
-    		
-    };
+    private int areaGroupId;
 
-
+    
+    public CategoryCitysFragment(int area_group_id){
+    	areaGroupId = area_group_id;
+    }
+    
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,9 +88,7 @@ public class CategoryCitysFragment extends Fragment {
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
         	
-        	for(int i=0 ; i<sampleCitys.length; i++){
-        		mCitys.add(sampleCitys[i]);
-        	}
+        	mCitys = TravelAPI.getGroupAreas(areaGroupId);
 
             return null;
         }

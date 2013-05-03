@@ -2,7 +2,9 @@ package com.taiwan.imageload;
 
 import java.util.ArrayList;
 
+import com.travel.story.LastCategoryActivity;
 import com.travel.story.R;
+import com.travel.story.entity.Area;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,12 +20,12 @@ import android.widget.TextView;
 public class GridViewCitysAdapter extends BaseAdapter {
 
     private final Activity         activity;
-    private final ArrayList<String> data;
+    private final ArrayList<Area> data;
     private static LayoutInflater  inflater = null;
     public ImageLoader             imageLoader;
     
 
-    public GridViewCitysAdapter(Activity a, ArrayList<String> d) {
+    public GridViewCitysAdapter(Activity a, ArrayList<Area> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,19 +62,19 @@ public class GridViewCitysAdapter extends BaseAdapter {
         
         vi = inflater.inflate(R.layout.item_gridview_city, null);
         TextView mTextView = (TextView) vi.findViewById(R.id.text_grid_item);
-        mTextView.setText(data.get(position).toString());
+        mTextView.setText(data.get(position).getName());
         
         vi.setClickable(true);
         vi.setFocusable(true);
         vi.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(activity, CategoryWayResultActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("SearchWayId", data.get(position).getId());
-//                bundle.putString("SearchWayName", data.get(position).getName());
-//                intent.putExtras(bundle);
-//                activity.startActivity(intent);
+                Intent intent = new Intent(activity, LastCategoryActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("AreaId", data.get(position).getId());
+                bundle.putString("AreaName", data.get(position).getName());
+                intent.putExtras(bundle);
+                activity.startActivity(intent);
 
             }
 

@@ -1,6 +1,7 @@
 package com.travel.story;
 
 import java.util.ArrayList;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,16 +21,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.kosbrother.fragments.CategoryCitysFragment;
-import com.kosbrother.fragments.LastCategoryListFragment;
+import com.kosbrother.fragments.SecondCategoryListFragment;
+import com.kosbrother.fragments.SecondTabHostParentFragment;
 import com.travel.story.api.TravelAPI;
-import com.travel.story.entity.AreaGroup;
+import com.travel.story.entity.Area;
 import com.viewpagerindicator.TitlePageIndicator;
 
-public class CitysCategoryActivity extends SherlockFragmentActivity {
+public class SecondCategoryActivity extends SherlockFragmentActivity {
 
     private static final int    ID_SETTING  = 0;
     private static final int    ID_RESPONSE = 1;
@@ -38,15 +40,15 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
     private static final int    ID_SEARCH   = 5;
 
     private Bundle    mBundle;
-    private int    themeId;
-    private LinearLayout layoutProgress;
-    private ArrayList<AreaGroup> myAreaGroups  = new ArrayList<AreaGroup>();
+    private int    nationId;
+    private String nationName;
+    private ArrayList<Area> myAreas = new ArrayList<Area>();
     
     private MenuItem            itemSearch;
     private ViewPager           pager;
     private AlertDialog.Builder aboutUsDialog;
 
-    private final String        adWhirlKey  = "215f895eb71748e7ba4cb3a5f20b061e";
+    private LinearLayout layoutProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +57,18 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
         layoutProgress = (LinearLayout) findViewById(R.id.layout_progress);
         
         mBundle = this.getIntent().getExtras();
-        themeId = mBundle.getInt("ThemeId");
+        nationId = mBundle.getInt("NationId");
+        nationName = mBundle.getString("NationName");
         
+        
+        
+        final ActionBar ab = getSupportActionBar();
+        ab.setTitle(nationName);
+        ab.setDisplayHomeAsUpEnabled(true);
         
         new DownloadChannelsTask().execute();
+        
+        
 
         setAboutUsDialog();
 
@@ -75,6 +85,7 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
 //        }
 
     }
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -103,7 +114,7 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
                             @Override
                             public void onClick(View v) {
                                 // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(CitysCategoryActivity.this, SearchActivity.class);
+                                Intent intent = new Intent(SecondCategoryActivity.this, SearchActivity.class);
                                 startActivity(intent);
 
                             }
@@ -117,7 +128,7 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
                                     // Bundle bundle = new Bundle();
                                     // bundle.putString("SearchKeyword", v.getText().toString());
                                     Intent intent = new Intent();
-                                    intent.setClass(CitysCategoryActivity.this, SearchActivity.class);
+                                    intent.setClass(SecondCategoryActivity.this, SearchActivity.class);
                                     // intent.putExtras(bundle);
                                     startActivity(intent);
                                     itemSearch.collapseActionView();
@@ -148,6 +159,10 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
 
         int itemId = item.getItemId();
         switch (itemId) {
+        case android.R.id.home:
+            finish();
+            // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
+            break;
         case ID_SETTING: // setting
 //            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
 //            startActivity(intent);
@@ -183,14 +198,10 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-            	String[] categories = new String[myAreaGroups.size()];
-            	for(int i=0; i<categories.length;i++){
-            		categories[i] =  myAreaGroups.get(i).getName();
-            	}
-                kk = new LastCategoryListFragment(categories, pager);
+                kk = new SecondCategoryListFragment(nationId, myAreas);
             } else {
-                kk = new CategoryCitysFragment(myAreaGroups.get(position-1).getId());
-            } 
+                kk = new SecondTabHostParentFragment(myAreas.get(position-1).getId());
+            }  
             return kk;
         }
 
@@ -200,13 +211,13 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
         		String a = "分類";
         		return a;
         	}else{
-        		return myAreaGroups.get(position-1).getName();
+        		return myAreas.get(position-1).getName();
         	}
         }
 
         @Override
         public int getCount() {
-            return myAreaGroups.size()+1;
+            return myAreas.size()+1;
         }
     }
 
@@ -244,7 +255,7 @@ public class CitysCategoryActivity extends SherlockFragmentActivity {
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
 
-        	myAreaGroups = TravelAPI.getAreaGroups(themeId);
+        	myAreas = TravelAPI.getNationAreas(nationId);
 
             return null;
         }
