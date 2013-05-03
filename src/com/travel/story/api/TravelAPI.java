@@ -59,6 +59,36 @@ public class TravelAPI {
         }
     }
 
+    public static ArrayList<Note> getBestNotes(int page) {
+        String message = getMessageFromServer("GET", "/api/v1/notes/best_notes.json?page=" + page, null, null);
+        ArrayList<Note> notes = new ArrayList<Note>();
+        if (message == null) {
+            return null;
+        } else {
+            return parseNotes(message, notes);
+        }
+    }
+
+    public static ArrayList<Note> getNewNotes(int page) {
+        String message = getMessageFromServer("GET", "/api/v1/notes/new_notes.json?page=" + page, null, null);
+        ArrayList<Note> notes = new ArrayList<Note>();
+        if (message == null) {
+            return null;
+        } else {
+            return parseNotes(message, notes);
+        }
+    }
+
+    public static ArrayList<Note> getMostViewNotes(int page) {
+        String message = getMessageFromServer("GET", "/api/v1/notes/most_view_notes.json?page=" + page, null, null);
+        ArrayList<Note> notes = new ArrayList<Note>();
+        if (message == null) {
+            return null;
+        } else {
+            return parseNotes(message, notes);
+        }
+    }
+
     public static Note getNote(int note_id) {
         String message = getMessageFromServer("GET", "/api/v1/notes/" + note_id + ".json", null, null);
         if (message == null) {
