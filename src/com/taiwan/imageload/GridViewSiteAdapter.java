@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.travel.story.R;
 import com.travel.story.SiteActivity;
-import com.travel.story.entity.Article;
 import com.travel.story.entity.Site;
 
 public class GridViewSiteAdapter extends BaseAdapter {

@@ -82,8 +82,9 @@ public class SiteActivity extends SherlockActivity {
         	public void onNothingSelected(AdapterView<?> arg0) {
 
         		}
-        	})
-        ;
+        	}
+        );
+        
         	
         	
   

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -13,9 +14,14 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Gallery;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -27,7 +33,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.kosbrother.tool.DetectScrollView;
 import com.kosbrother.tool.DetectScrollView.DetectScrollViewListener;
-import com.travel.story.entity.Article;
+import com.taiwan.imageload.ImageLoader;
+import com.travel.story.SiteActivity.ImageAdapter;
+import com.travel.story.api.TravelAPI;
+import com.travel.story.entity.Note;
 
 
 public class ArticleActivity extends SherlockFragmentActivity implements DetectScrollViewListener{
@@ -38,6 +47,7 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
     private static final int ID_GRADE = 2;
     private static final int ID_OUR_APP = 3;
     private static final int ID_COLLECTION = 4;
+    private static final int ID_WATCHPICS = 5;
     private static final int ID_SETTING = 6;
     
 	private TextView articleTextView;
@@ -46,57 +56,44 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
 	private TextView articlePercent;
 	private CheckBox checkboxFavorite;
 	private DetectScrollView articleScrollView;
-	private Button articleButtonUp;
-	private Button articleButtonDown;
 	private Button buttonReload;
 	
-	private Article myAricle; // uset to get article text
-//	private Article theGottenArticle;
-	private ArrayList<Article> favoriteArticles;
+	private Note myNote; // uset to get article text
+	
+	private ArrayList<Note> favoriteNotes;
 	private Bundle mBundle;
-//	private String articleTitle;
-//	private int articleId;
+	
 	private ActionBar ab;
 	private LinearLayout layoutProgress;
 	private LinearLayout layoutReload;
-	private LinearLayout layoutWord;
 	
-//	private int[] articleIDs;
-//	private ArrayList<Integer> articleIDsArray = new ArrayList<Integer>();
-//	private int articlePosition;
-	private Boolean LoadOrNot = true;
-	private Boolean LoadingOrNot = false; //when false, can load from server; when true, can't load from server
-	private int pageNum = 0;
-//	private ArrayList<Article> newArticles = new ArrayList<Article>();
+	private int noteId;
+	private String noteTitle;
 	
 	private int textTitleSize;
 	private int textContentSize;
 	private AlertDialog.Builder aboutUsDialog;
 	
-    private Article sampleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal");
-
+	private ImageView mImageView;
+	private Gallery   mGallery;
+	private String[]  pics;
+	public ImageLoader    imageLoader;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_article); 
-       
+        imageLoader = new ImageLoader(ArticleActivity.this, 70);
+        
         restorePreValues();
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         
-//        mBundle = this.getIntent().getExtras();       
-//      articleId = mBundle.getInt("ArticleId");
-//      articleTitle = mBundle.getString("ArticleTitle");
-//        articleIDs = mBundle.getIntArray("ArticleIds");
-//        articlePosition = mBundle.getInt("ArticlePosition");
-//        pageNum = mBundle.getInt("PageNum");
+        mBundle = this.getIntent().getExtras();       
+        noteId = mBundle.getInt("NoteId");
+        noteTitle = mBundle.getString("NoteTitle");
+        ab.setTitle(noteTitle);
         
-        if(pageNum == -1){
-        	LoadOrNot = false;
-        }
-        
-//        pourArticleIDs(); 
         setViews();
         
         new DownloadArticleTask().execute();
@@ -125,93 +122,51 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
 	}
 
 
-//	private void pourArticleIDs() {
-//		for(int i=0; i< articleIDs.length;i++){
-//			articleIDsArray.add(articleIDs[i]);
-//		}
-//	}
-
 
 	private void setViews() {		
 		
 		layoutProgress = (LinearLayout) findViewById (R.id.layout_progress);
 		layoutReload = (LinearLayout) findViewById (R.id.layout_reload);
-		layoutWord = (LinearLayout) findViewById (R.id.layout_word);
 		articleTextView = (TextView) findViewById (R.id.article_text);
 		articleTextTitle = (TextView) findViewById (R.id.text_article_title);
 		articleTextDate = (TextView) findViewById (R.id.text_article_date);
 		checkboxFavorite = (CheckBox) findViewById (R.id.checkbox_article);
         articleScrollView = (DetectScrollView) findViewById (R.id.article_scrollview);
-        articleButtonUp = (Button) findViewById (R.id.article_button_up);
-        articleButtonDown = (Button) findViewById (R.id.article_button_down);
         buttonReload = (Button) findViewById (R.id.button_reload);
         articlePercent = (TextView) findViewById (R.id.article_percent);
+        mImageView = (ImageView) findViewById (R.id.ImageView01) ;
+    	mGallery = (Gallery) findViewById (R.id.Gallery01);
         
         articleTextTitle.setTextSize(textTitleSize);
         articleTextDate.setTextSize(textTitleSize-3);
         articleTextView.setTextSize(textContentSize);
         
-        
-        
         articleScrollView.setScrollViewListener(ArticleActivity.this);
         
-//        if(articleIDs.length ==1){
-//        	articleButtonUp.setVisibility(View.GONE);
-//        	articleButtonDown.setVisibility(View.GONE);
-//        }
-        
-        
-        articleButtonUp.setOnClickListener(new OnClickListener() {			 
-			@Override
-			public void onClick(View arg0) {
-				if(isOnline()){          	
-	            	
-//		            if(articlePosition == 0){
-//		            	Toast.makeText(getApplicationContext(), "無上一則", Toast.LENGTH_SHORT).show();
-//		            }else{
-//		            	layoutProgress.setVisibility(View.VISIBLE);
-//		            	articlePosition = articlePosition - 1;
-//			            new UpdateNewsTask().execute();
-//		            }
-	            	
-            	}else{
-            		Toast.makeText(getApplicationContext(), "無網路連線", Toast.LENGTH_SHORT).show();
-                	finish();
-            	}
-			}
+        mGallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        	
+        	@Override
+        	public void onItemSelected(AdapterView<?> parent, View v,
+        	int position, long id) {
+        		imageLoader.DisplayImage(pics[position], mImageView);
+        	}
 
-			
-		});
+
+        	@Override
+        	public void onNothingSelected(AdapterView<?> arg0) {
+
+        		}
+        	}
+        );
         
-        articleButtonDown.setOnClickListener(new OnClickListener() {			 
-			@Override
-			public void onClick(View arg0) {
-				if(isOnline()){
-	           
-//		            if(articlePosition + 1 == articleIDsArray.size()){
-//		            		Toast.makeText(getApplicationContext(), "無下一則", Toast.LENGTH_SHORT).show();
-//		            }else{
-//		            	layoutProgress.setVisibility(View.VISIBLE);
-//		            	articlePosition = articlePosition + 1;
-//			            new UpdateNewsTask().execute();
-//		            }
-//	            		            	
-//	            	if(LoadOrNot && articleIDsArray.size()- articlePosition < 5){
-//	            		new loadNewsIDsTask().execute();
-//	            	}
-            	}else{
-            		Toast.makeText(getApplicationContext(), "無網路連線", Toast.LENGTH_SHORT).show();
-                	finish();
-            	}
-			}
-		});
+        
         
         buttonReload.setOnClickListener(new OnClickListener() {			 
 			@Override
 			public void onClick(View arg0) {
 				layoutProgress.setVisibility(View.VISIBLE);
 				layoutReload.setVisibility(View.GONE);
-				new UpdateNewsTask().execute();
+				new DownloadArticleTask().execute();
 			}
 		});
         
@@ -250,7 +205,8 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
     	menu.add(0, ID_ABOUT_US, 1, "關於我們").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
     	menu.add(0, ID_GRADE, 2, "給APP評分").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
     	menu.add(0, ID_OUR_APP, 3, "我們的APP").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-    	menu.add(0, ID_COLLECTION, 7, "我的收藏").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    	menu.add(0, ID_COLLECTION, 4, "我的收藏").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//    	menu.add(0, ID_WATCHPICS, 5, "看照片").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		
         return true;
     }
@@ -303,9 +259,11 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
 		
         @Override
         protected Object doInBackground(Object... params) {        	
-//        	myAricle = PttFoodAPI.getArticle(articleIDsArray.get(articlePosition));
-//        	favoriteArticles = DBAPI.getAllArticles(ArticleActivity.this);
-        	myAricle = sampleArticle;
+
+        	myNote = TravelAPI.getNote(noteId);
+        	/// pics size = 1 now
+        	pics = new String[1];
+        	pics[0] = myNote.getPic();
             return null;
         }
 
@@ -315,7 +273,7 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
             
             layoutProgress.setVisibility(View.GONE);
             
-            if (myAricle!=null){	            
+            if (myNote!=null){	            
             	setUIAfterLoading();           	
             }else{
             	// 重試
@@ -325,85 +283,22 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
         }
 	}
 	
-	private class loadNewsIDsTask extends AsyncTask<Void, Void, Void> {
-	  	
-		@Override
-		protected Void doInBackground(Void... params) {
-			if(!LoadingOrNot){
-				LoadingOrNot = true;
-				pageNum = pageNum+1;			
-//				newArticles = PttFoodAPI.getNewArticles(pageNum);
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			if(LoadingOrNot){
-//				if (newArticles == null){
-//					LoadOrNot = false;
-//				}else{					
-//					for(int i= 0 ; i< newArticles.size(); i++){
-//						articleIDsArray.add(newArticles.get(i).getId()); //if newsIDsArray more than one, do normal
-//					}					
-//				}
-				LoadingOrNot = false;
-			}
-			
-			super.onPostExecute(result);			
-		}
-	}
-	
-	
-	private class UpdateNewsTask extends AsyncTask<Void, Void, Void> {
-    	 	
-		@Override
-		protected Void doInBackground(Void... params) {			
-//			myAricle = PttFoodAPI.getArticle(articleIDsArray.get(articlePosition));	
-			myAricle = sampleArticle;
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			
-			layoutProgress.setVisibility(View.GONE);
-			
-			if(myAricle!= null){
-				layoutWord.setVisibility(View.VISIBLE);
-				articlePercent.setVisibility(View.VISIBLE);
-				articlePercent.setText("0%");
-				articleScrollView.fullScroll(ScrollView.FOCUS_UP);
-				setUIAfterLoading();
-			}else{
-				layoutReload.setVisibility(View.VISIBLE);
-				Toast.makeText(getApplicationContext(), "無資料,請重試！", Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
 
 	private void setUIAfterLoading() {
 			
-        articleTextView.setText(myAricle.getContent());
-		Linkify.addLinks(articleTextView, Linkify.ALL);
-		
-		
-//        articleTextView.setText("Test Test"+Html.fromHtml(
-//        		myAricle.getContent()));
-//        articleTextView.setMovementMethod(LinkMovementMethod.getInstance());
+				
+        articleTextView.setText(Html.fromHtml(myNote.getContent()));
+//      articleTextView.setMovementMethod(LinkMovementMethod.getInstance());
         
-        String text = "<font color=#9E1919>"+myAricle.getTitle()+"</font>"+ "<font color=#AD8440>"+" by "+myAricle.getAuthor()+"</font>";
+        String text = "<font color=#9E1919>"+myNote.getTitle()+"</font>"+ "<font color=#AD8440>"+" by "+myNote.getAuthor()+"</font>";
         articleTextTitle.setText(Html.fromHtml(text));
         
-        articleTextDate.setText(myAricle.getDate());
-//        if(myAricle.getLink()!=null && !myAricle.getLink().equals("null")){
-//        	webBoolean = true;
-//        	webArticle.loadUrl(myAricle.getLink());            	
-//        }else{
-//        	itemSite.setVisible(false);
-//        	webBoolean = false;
-//        }
+        articleTextDate.setText(myNote.getDate());
+        
+        mGallery.setAdapter(new ImageAdapter(this));
+        int firstPosition = pics.length/2;       
+        mGallery.setSelection(firstPosition, true);
+        imageLoader.DisplayImage(pics[firstPosition], mImageView);
         
         // set checkbox
 //        for(int i =0; i<favoriteArticles.size();i++){
@@ -416,6 +311,55 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
 //	    }
 	}
 	
+	
+	public class ImageAdapter extends BaseAdapter {
+
+    	private Context ctx;
+    	int imageBackground;
+    	
+    	public ImageAdapter(Context c) {
+			ctx = c;
+			TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
+			imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);
+			ta.recycle();
+		}
+
+		@Override
+    	public int getCount() {
+    		
+    		return pics.length;
+    	}
+
+    	@Override
+    	public Object getItem(int arg0) {
+    		
+    		return arg0;
+    	}
+
+    	@Override
+    	public long getItemId(int arg0) {
+    		
+    		return arg0;
+    	}
+
+    	@Override
+    	public View getView(int position, View arg1, ViewGroup arg2) {
+    		ImageView iv = new ImageView(ctx);
+//    		iv.setImageResource(pics[position]);
+    		
+    		if (pics[position]== null || pics[position].equals("") ) {
+    			iv.setImageResource(R.drawable.app_icon);
+            } else {
+                imageLoader.DisplayImage(pics[position], iv);
+            }
+    		
+    		iv.setScaleType(ImageView.ScaleType.FIT_XY);
+    		iv.setLayoutParams(new Gallery.LayoutParams(150,120));
+    		iv.setBackgroundResource(imageBackground);
+    		return iv;
+    	}
+
+    }
 	
 	@Override
     protected void onResume() {

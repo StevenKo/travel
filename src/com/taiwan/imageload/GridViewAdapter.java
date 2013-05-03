@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.travel.story.ArticleActivity;
 import com.travel.story.R;
-import com.travel.story.entity.Article;
 import com.travel.story.entity.Note;
 
 import android.app.Activity;
@@ -71,15 +70,15 @@ public class GridViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, ArticleActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("NovelId", data.get(position).getId());
-//                bundle.putString("NovelName", data.get(position).getName());
+                Bundle bundle = new Bundle();
+                bundle.putInt("NoteId", data.get(position).getId());
+                bundle.putString("NoteTitle", data.get(position).getTitle());
 //                bundle.putString("NovelAuthor", data.get(position).getAuthor());
 //                bundle.putString("NovelDescription", data.get(position).getDescription());
 //                bundle.putString("NovelUpdate", data.get(position).getLastUpdate());
 //                bundle.putString("NovelPicUrl", data.get(position).getPic());
 //                bundle.putString("NovelArticleNum", data.get(position).getArticleNum());
-//                intent.putExtras(bundle);
+                intent.putExtras(bundle);
                 activity.startActivity(intent);
 
             }

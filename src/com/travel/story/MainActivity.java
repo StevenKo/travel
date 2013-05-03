@@ -189,7 +189,7 @@ public class MainActivity extends SherlockFragmentActivity {
             } else if (position == 1) {
                 kk = MyTravelFragment.newInstance();
             } else {
-                kk = MainNoteFragment.newInstance();
+                kk = new MainNoteFragment(position-2);
             }
             return kk;
         }
