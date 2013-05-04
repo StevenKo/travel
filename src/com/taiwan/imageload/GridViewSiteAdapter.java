@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,15 +68,10 @@ public class GridViewSiteAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, SiteActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("NovelId", data.get(position).getId());
-//                bundle.putString("NovelName", data.get(position).getName());
-//                bundle.putString("NovelAuthor", data.get(position).getAuthor());
-//                bundle.putString("NovelDescription", data.get(position).getDescription());
-//                bundle.putString("NovelUpdate", data.get(position).getLastUpdate());
-//                bundle.putString("NovelPicUrl", data.get(position).getPic());
-//                bundle.putString("NovelArticleNum", data.get(position).getArticleNum());
-//                intent.putExtras(bundle);
+                Bundle bundle = new Bundle();
+                bundle.putInt("SiteId", data.get(position).getId());
+                bundle.putString("SiteName", data.get(position).getName());
+                intent.putExtras(bundle);
                 activity.startActivity(intent);
 
             }
