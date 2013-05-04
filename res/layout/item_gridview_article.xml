@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:gravity="center_vertical"
-    android:background="@drawable/grid_selector"
+    android:background="@drawable/my_city_selector"
     >
  
    <LinearLayout 
