@@ -24,6 +24,7 @@ import android.widget.CheckBox;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,29 +32,25 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.kosbrother.tool.DetectScrollView;
-import com.kosbrother.tool.DetectScrollView.DetectScrollViewListener;
 import com.taiwan.imageload.ImageLoader;
 import com.travel.story.api.TravelAPI;
 import com.travel.story.db.SQLiteTravel;
 import com.travel.story.entity.Note;
 
-public class ArticleActivity extends SherlockActivity implements DetectScrollViewListener {
+public class ArticleActivity extends SherlockActivity{
 
-    private static final int    Contact_US    = 0;
-    private static final int    ID_ABOUT_US   = 1;
-    private static final int    ID_GRADE      = 2;
-    private static final int    ID_OUR_APP    = 3;
+	private static final int    ID_SETTING  = 0;
+    private static final int    ID_RESPONSE = 1;
+    private static final int    ID_ABOUT_US = 2;
+    private static final int    ID_GRADE    = 3;
     private static final int    ID_COLLECTION = 4;
-    private static final int    ID_WATCHPICS  = 5;
-    private static final int    ID_SETTING    = 6;
 
     // private TextView articleTextView;
     private TextView            articleTextTitle;
     private TextView            articleTextDate;
     private TextView            articlePercent;
     private CheckBox            checkboxFavorite;
-    private DetectScrollView    articleScrollView;
+    private ScrollView    		articleScrollView;
     private Button              buttonReload;
     private WebView             articleWebView;
 
@@ -129,7 +126,7 @@ public class ArticleActivity extends SherlockActivity implements DetectScrollVie
         articleTextTitle = (TextView) findViewById(R.id.text_article_title);
         articleTextDate = (TextView) findViewById(R.id.text_article_date);
         checkboxFavorite = (CheckBox) findViewById(R.id.checkbox_article);
-        articleScrollView = (DetectScrollView) findViewById(R.id.article_scrollview);
+        articleScrollView = (ScrollView) findViewById(R.id.article_scrollview);
         buttonReload = (Button) findViewById(R.id.button_reload);
         articlePercent = (TextView) findViewById(R.id.article_percent);
         // mImageView = (ImageView) findViewById (R.id.ImageView01) ;
@@ -139,24 +136,6 @@ public class ArticleActivity extends SherlockActivity implements DetectScrollVie
         articleTextTitle.setTextSize(textTitleSize);
         articleTextDate.setTextSize(textTitleSize - 3);
         // articleTextView.setTextSize(textContentSize);
-
-        articleScrollView.setScrollViewListener(ArticleActivity.this);
-
-        // mGallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        //
-        // @Override
-        // public void onItemSelected(AdapterView<?> parent, View v,
-        // int position, long id) {
-        // imageLoader.DisplayImage(pics[position], mImageView);
-        // }
-        //
-        //
-        // @Override
-        // public void onNothingSelected(AdapterView<?> arg0) {
-        //
-        // }
-        // }
-        // );
 
         buttonReload.setOnClickListener(new OnClickListener() {
             @Override
@@ -186,28 +165,17 @@ public class ArticleActivity extends SherlockActivity implements DetectScrollVie
 
     }
 
-    @Override
-    public void onScrollChanged(DetectScrollView scrollView, int x, int y, int oldx, int oldy) {
-        // int kk = articleScrollView.getHeight();
-        // int tt = articleTextView.getHeight();
-        // int xx = (int)(((double)(y+kk)/(double)(tt))*100);
-        // String yPositon = Integer.toString(xx);
-        // articlePercent.setText(yPositon+"%");
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         // getMenuInflater().inflate(R.menu.activity_main, menu);
 
-        menu.add(0, ID_SETTING, 0, "閱讀設定").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, Contact_US, 0, "聯絡我們").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, ID_ABOUT_US, 1, "關於我們").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, ID_GRADE, 2, "給APP評分").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, ID_OUR_APP, 3, "我們的APP").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(0, ID_COLLECTION, 4, "我的收藏").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        // menu.add(0, ID_WATCHPICS, 5, "看照片").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
+    	menu.add(0, ID_SETTING, 0, getResources().getString(R.string.menu_settings)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(0, ID_RESPONSE, 1, getResources().getString(R.string.menu_respond)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+    	menu.add(0, ID_COLLECTION, 4, "我的收藏").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
 
@@ -220,33 +188,29 @@ public class ArticleActivity extends SherlockActivity implements DetectScrollVie
             finish();
             // Toast.makeText(this, "home pressed", Toast.LENGTH_LONG).show();
             break;
-        case Contact_US:
-            final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "brotherkos@gmail.com" });
-            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "聯絡我們 from Ptt美食部落");
-            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            break;
-        case ID_ABOUT_US:
-            aboutUsDialog.show();
-            break;
-        case ID_GRADE:
-            Intent gradeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.grade_url)));
-            startActivity(gradeIntent);
-            break;
-        case ID_OUR_APP:
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
-            startActivity(browserIntent);
-            break;
-        case ID_COLLECTION:
-            // Intent intent = new Intent(ArticleActivity.this, FavoriteActivity.class);
-            // startActivity(intent);
-            break;
-        case ID_SETTING:
-            Intent intentSetting = new Intent(ArticleActivity.this, SettingActivity.class);
-            startActivity(intentSetting);
-            break;
+        case ID_SETTING: // setting
+            Intent intent = new Intent(ArticleActivity.this, SettingActivity.class);
+            startActivity(intent);
+           break;
+       case ID_RESPONSE: // response
+           final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+           emailIntent.setType("plain/text");
+           emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { getResources().getString(R.string.respond_mail_address) });
+           emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.respond_mail_title));
+           emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+           startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+           break;
+       case ID_ABOUT_US:
+           aboutUsDialog.show();
+           break;
+       case ID_GRADE:
+           Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
+           startActivity(browserIntent);
+           break;
+	    case ID_COLLECTION:
+	    	Intent intent2 = new Intent(ArticleActivity.this, CollectionActivity.class);
+	    	startActivity(intent2);
+	        break;
         }
         return true;
     }
@@ -289,18 +253,10 @@ public class ArticleActivity extends SherlockActivity implements DetectScrollVie
         // articleWebView.loadData(myNote.getContent(), "text/html", "UTF-8");
         articleWebView.loadDataWithBaseURL(null, myNote.getContent(), "text/html", "UTF-8", null);
 
-        // articleTextView.setText(Html.fromHtml(myNote.getContent()));
-        // articleTextView.setMovementMethod(LinkMovementMethod.getInstance());
-
         String text = "<font color=#404040>" + myNote.getTitle() + "</font>" + "<font color=#858585>" + " by " + myNote.getAuthor() + "</font>";
         articleTextTitle.setText(Html.fromHtml(text));
 
         articleTextDate.setText(myNote.getDate());
-
-        // mGallery.setAdapter(new ImageAdapter(this));
-        // int firstPosition = pics.length/2;
-        // mGallery.setSelection(firstPosition, true);
-        // imageLoader.DisplayImage(pics[firstPosition], mImageView);
 
         // set checkbox
         // for(int i =0; i<favoriteArticles.size();i++){

@@ -84,7 +84,7 @@
 	        />
 	    </LinearLayout>
 	    
-	    <com.kosbrother.tool.DetectScrollView android:id="@+id/article_scrollview"
+	    <ScrollView android:id="@+id/article_scrollview"
 	       android:layout_width="fill_parent"
 	       android:layout_height="0dp"
 	       android:layout_weight="1"
@@ -125,7 +125,7 @@
 			        />
 			    
 		    </LinearLayout>
-	    </com.kosbrother.tool.DetectScrollView>
+	    </ScrollView>
     </LinearLayout>
     
     <RelativeLayout android:id="@+id/bottom_buttons"

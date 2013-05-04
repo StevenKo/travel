@@ -151,8 +151,8 @@ public class MainActivity extends SherlockFragmentActivity {
         int itemId = item.getItemId();
         switch (itemId) {
         case ID_SETTING: // setting
-            // Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-            // startActivity(intent);
+             Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+             startActivity(intent);
             break;
         case ID_RESPONSE: // response
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
