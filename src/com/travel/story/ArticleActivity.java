@@ -25,64 +25,65 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.kosbrother.tool.DetectScrollView;
 import com.kosbrother.tool.DetectScrollView.DetectScrollViewListener;
 import com.taiwan.imageload.ImageLoader;
 import com.travel.story.api.TravelAPI;
+import com.travel.story.db.SQLiteTravel;
 import com.travel.story.entity.Note;
 
+public class ArticleActivity extends SherlockActivity implements DetectScrollViewListener {
 
-public class ArticleActivity extends SherlockActivity implements DetectScrollViewListener{
-	
-    
-    private static final int Contact_US = 0;
-	private static final int ID_ABOUT_US = 1;
-    private static final int ID_GRADE = 2;
-    private static final int ID_OUR_APP = 3;
-    private static final int ID_COLLECTION = 4;
-    private static final int ID_WATCHPICS = 5;
-    private static final int ID_SETTING = 6;
-    
-//	private TextView articleTextView;
-	private TextView articleTextTitle;
-	private TextView articleTextDate;
-	private TextView articlePercent;
-	private CheckBox checkboxFavorite;
-	private DetectScrollView articleScrollView;
-	private Button buttonReload;
-	private WebView articleWebView;
-	
-	private Note myNote; // uset to get article text
-	
-	private ArrayList<Note> favoriteNotes;
-	private Bundle mBundle;
-	
-	private ActionBar ab;
-	private LinearLayout layoutProgress;
-	private LinearLayout layoutReload;
-	
-	private int noteId;
-	private String noteTitle;
-	
-	private int textTitleSize;
-	private int textContentSize;
-	private AlertDialog.Builder aboutUsDialog;
-	
-//	private ImageView mImageView;
-//	private Gallery   mGallery;
-	private String[]  pics;
-	public ImageLoader    imageLoader;
-	
+    private static final int    Contact_US    = 0;
+    private static final int    ID_ABOUT_US   = 1;
+    private static final int    ID_GRADE      = 2;
+    private static final int    ID_OUR_APP    = 3;
+    private static final int    ID_COLLECTION = 4;
+    private static final int    ID_WATCHPICS  = 5;
+    private static final int    ID_SETTING    = 6;
+
+    // private TextView articleTextView;
+    private TextView            articleTextTitle;
+    private TextView            articleTextDate;
+    private TextView            articlePercent;
+    private CheckBox            checkboxFavorite;
+    private DetectScrollView    articleScrollView;
+    private Button              buttonReload;
+    private WebView             articleWebView;
+
+    private Note                myNote;           // uset to get article text
+
+    private ArrayList<Note>     favoriteNotes;
+    private Bundle              mBundle;
+
+    private ActionBar           ab;
+    private LinearLayout        layoutProgress;
+    private LinearLayout        layoutReload;
+
+    private int                 noteId;
+    private String              noteTitle;
+
+    private int                 textTitleSize;
+    private int                 textContentSize;
+    private AlertDialog.Builder aboutUsDialog;
+
+    // private ImageView mImageView;
+    // private Gallery mGallery;
+    private String[]            pics;
+    public ImageLoader          imageLoader;
+    private SQLiteTravel        db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_article);
+        db = new SQLiteTravel(this);
         imageLoader = new ImageLoader(ArticleActivity.this, 70);
 
         restorePreValues();
@@ -169,15 +170,19 @@ public class ArticleActivity extends SherlockActivity implements DetectScrollVie
         checkboxFavorite.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // if(checkboxFavorite.isChecked()){
-                // DBAPI.insertArticle(myAricle, ArticleActivity.this);
-                // Toast.makeText(ArticleActivity.this, "加入我的最愛", Toast.LENGTH_SHORT).show();
-                // }else{
-                // DBAPI.deleteArticle(myAricle, ArticleActivity.this);
-                // Toast.makeText(ArticleActivity.this, "從我的最愛移除", Toast.LENGTH_SHORT).show();
-                // }
+                if (checkboxFavorite.isChecked()) {
+                    db.insertNote(myNote);
+                    Toast.makeText(ArticleActivity.this, "加入我的收藏", Toast.LENGTH_SHORT).show();
+                } else {
+                    db.deleteNote(myNote);
+                    Toast.makeText(ArticleActivity.this, "從我的收藏移除", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        if (db.isNoteCollected(noteId)) {
+            checkboxFavorite.setChecked(true);
+        }
 
     }
 
