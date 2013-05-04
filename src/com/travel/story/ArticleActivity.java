@@ -16,6 +16,7 @@ import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -50,13 +51,14 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
     private static final int ID_WATCHPICS = 5;
     private static final int ID_SETTING = 6;
     
-	private TextView articleTextView;
+//	private TextView articleTextView;
 	private TextView articleTextTitle;
 	private TextView articleTextDate;
 	private TextView articlePercent;
 	private CheckBox checkboxFavorite;
 	private DetectScrollView articleScrollView;
 	private Button buttonReload;
+	private WebView articleWebView;
 	
 	private Note myNote; // uset to get article text
 	
@@ -74,8 +76,8 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
 	private int textContentSize;
 	private AlertDialog.Builder aboutUsDialog;
 	
-	private ImageView mImageView;
-	private Gallery   mGallery;
+//	private ImageView mImageView;
+//	private Gallery   mGallery;
 	private String[]  pics;
 	public ImageLoader    imageLoader;
 	
@@ -127,37 +129,38 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
 		
 		layoutProgress = (LinearLayout) findViewById (R.id.layout_progress);
 		layoutReload = (LinearLayout) findViewById (R.id.layout_reload);
-		articleTextView = (TextView) findViewById (R.id.article_text);
+//		articleTextView = (TextView) findViewById (R.id.article_text);
 		articleTextTitle = (TextView) findViewById (R.id.text_article_title);
 		articleTextDate = (TextView) findViewById (R.id.text_article_date);
 		checkboxFavorite = (CheckBox) findViewById (R.id.checkbox_article);
         articleScrollView = (DetectScrollView) findViewById (R.id.article_scrollview);
         buttonReload = (Button) findViewById (R.id.button_reload);
         articlePercent = (TextView) findViewById (R.id.article_percent);
-        mImageView = (ImageView) findViewById (R.id.ImageView01) ;
-    	mGallery = (Gallery) findViewById (R.id.Gallery01);
+//      mImageView = (ImageView) findViewById (R.id.ImageView01) ;
+//    	mGallery = (Gallery) findViewById (R.id.Gallery01);
+        articleWebView = (WebView) findViewById(R.id.article_webview);
         
         articleTextTitle.setTextSize(textTitleSize);
         articleTextDate.setTextSize(textTitleSize-3);
-        articleTextView.setTextSize(textContentSize);
+//        articleTextView.setTextSize(textContentSize);
         
         articleScrollView.setScrollViewListener(ArticleActivity.this);
         
-        mGallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        	
-        	@Override
-        	public void onItemSelected(AdapterView<?> parent, View v,
-        	int position, long id) {
-        		imageLoader.DisplayImage(pics[position], mImageView);
-        	}
-
-
-        	@Override
-        	public void onNothingSelected(AdapterView<?> arg0) {
-
-        		}
-        	}
-        );
+//        mGallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//        	
+//        	@Override
+//        	public void onItemSelected(AdapterView<?> parent, View v,
+//        	int position, long id) {
+//        		imageLoader.DisplayImage(pics[position], mImageView);
+//        	}
+//
+//
+//        	@Override
+//        	public void onNothingSelected(AdapterView<?> arg0) {
+//
+//        		}
+//        	}
+//        );
         
         
         
@@ -188,11 +191,11 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
 	@Override
 	public void onScrollChanged(DetectScrollView scrollView, int x, int y,
 			int oldx, int oldy) {
-		int kk = articleScrollView.getHeight();
-		int tt = articleTextView.getHeight();
-		int xx = (int)(((double)(y+kk)/(double)(tt))*100);
-		String yPositon = Integer.toString(xx);
-		articlePercent.setText(yPositon+"%");
+//		int kk = articleScrollView.getHeight();
+//		int tt = articleTextView.getHeight();
+//		int xx = (int)(((double)(y+kk)/(double)(tt))*100);
+//		String yPositon = Integer.toString(xx);
+//		articlePercent.setText(yPositon+"%");
 	}
 	
 	@Override
@@ -286,8 +289,10 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
 
 	private void setUIAfterLoading() {
 			
-				
-        articleTextView.setText(Html.fromHtml(myNote.getContent()));
+//		articleWebView.loadData(myNote.getContent(), "text/html", "UTF-8");
+		articleWebView.loadDataWithBaseURL(null, myNote.getContent(), "text/html", "UTF-8", null);  		
+		
+//        articleTextView.setText(Html.fromHtml(myNote.getContent()));
 //      articleTextView.setMovementMethod(LinkMovementMethod.getInstance());
         
         String text = "<font color=#9E1919>"+myNote.getTitle()+"</font>"+ "<font color=#AD8440>"+" by "+myNote.getAuthor()+"</font>";
@@ -295,10 +300,10 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
         
         articleTextDate.setText(myNote.getDate());
         
-        mGallery.setAdapter(new ImageAdapter(this));
-        int firstPosition = pics.length/2;       
-        mGallery.setSelection(firstPosition, true);
-        imageLoader.DisplayImage(pics[firstPosition], mImageView);
+//        mGallery.setAdapter(new ImageAdapter(this));
+//        int firstPosition = pics.length/2;       
+//        mGallery.setSelection(firstPosition, true);
+//        imageLoader.DisplayImage(pics[firstPosition], mImageView);
         
         // set checkbox
 //        for(int i =0; i<favoriteArticles.size();i++){
@@ -367,7 +372,7 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
         restorePreValues();
         articleTextTitle.setTextSize(textTitleSize);
         articleTextDate.setTextSize(textTitleSize-3);
-        articleTextView.setTextSize(textContentSize);
+//        articleTextView.setTextSize(textContentSize);
     }
 	
 	@Override
