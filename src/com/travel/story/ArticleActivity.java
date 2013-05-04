@@ -25,6 +25,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -34,6 +35,7 @@ import com.kosbrother.tool.DetectScrollView;
 import com.kosbrother.tool.DetectScrollView.DetectScrollViewListener;
 import com.taiwan.imageload.ImageLoader;
 import com.travel.story.api.TravelAPI;
+import com.travel.story.db.SQLiteTravel;
 import com.travel.story.entity.Note;
 
 public class ArticleActivity extends SherlockFragmentActivity implements DetectScrollViewListener {
@@ -75,11 +77,13 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
     // private Gallery mGallery;
     private String[]            pics;
     public ImageLoader          imageLoader;
+    SQLiteTravel                db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_article);
+        db = new SQLiteTravel(this);
         imageLoader = new ImageLoader(ArticleActivity.this, 70);
 
         restorePreValues();
@@ -166,15 +170,19 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
         checkboxFavorite.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // if(checkboxFavorite.isChecked()){
-                // DBAPI.insertArticle(myAricle, ArticleActivity.this);
-                // Toast.makeText(ArticleActivity.this, "加入我的最愛", Toast.LENGTH_SHORT).show();
-                // }else{
-                // DBAPI.deleteArticle(myAricle, ArticleActivity.this);
-                // Toast.makeText(ArticleActivity.this, "從我的最愛移除", Toast.LENGTH_SHORT).show();
-                // }
+                if (checkboxFavorite.isChecked()) {
+                    db.insertNote(myNote);
+                    Toast.makeText(ArticleActivity.this, "加入我的收藏", Toast.LENGTH_SHORT).show();
+                } else {
+                    db.deleteNote(myNote);
+                    Toast.makeText(ArticleActivity.this, "從我的收藏移除", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        if (db.isNoteCollected(noteId)) {
+            checkboxFavorite.setChecked(true);
+        }
 
     }
 
