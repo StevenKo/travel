@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.kosbrother.tool.DetectScrollView;
@@ -38,7 +38,7 @@ import com.travel.story.api.TravelAPI;
 import com.travel.story.db.SQLiteTravel;
 import com.travel.story.entity.Note;
 
-public class ArticleActivity extends SherlockFragmentActivity implements DetectScrollViewListener {
+public class ArticleActivity extends SherlockActivity implements DetectScrollViewListener {
 
     private static final int    Contact_US    = 0;
     private static final int    ID_ABOUT_US   = 1;
@@ -77,7 +77,7 @@ public class ArticleActivity extends SherlockFragmentActivity implements DetectS
     // private Gallery mGallery;
     private String[]            pics;
     public ImageLoader          imageLoader;
-    SQLiteTravel                db;
+    private SQLiteTravel        db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

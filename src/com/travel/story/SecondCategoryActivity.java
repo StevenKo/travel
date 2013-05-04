@@ -38,6 +38,7 @@ public class SecondCategoryActivity extends SherlockFragmentActivity {
     private static final int    ID_ABOUT_US = 2;
     private static final int    ID_GRADE    = 3;
     private static final int    ID_SEARCH   = 5;
+    
 
     private Bundle    mBundle;
     private int    nationId;
@@ -96,8 +97,9 @@ public class SecondCategoryActivity extends SherlockFragmentActivity {
         menu.add(0, ID_RESPONSE, 1, getResources().getString(R.string.menu_respond)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
-        itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.icon_search)
+       
+        
+        itemSearch = menu.add(0, ID_SEARCH, 5, getResources().getString(R.string.menu_search)).setIcon(R.drawable.icon_search)
                 .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
                     private EditText     search;
                     private LinearLayout layout;
