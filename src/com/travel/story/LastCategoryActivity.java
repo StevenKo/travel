@@ -33,6 +33,7 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
     private static final int    ID_RESPONSE = 1;
     private static final int    ID_ABOUT_US = 2;
     private static final int    ID_GRADE    = 3;
+    private static final int    ID_AREA_INTRO = 4;
     private static final int    ID_SEARCH   = 5;
 
     private String[]            CONTENT = {
@@ -101,7 +102,8 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
         menu.add(0, ID_RESPONSE, 1, getResources().getString(R.string.menu_respond)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
+        menu.add(0, ID_AREA_INTRO, 5, "簡介").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        
         itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.icon_search)
                 .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
                     private EditText     search;
@@ -186,6 +188,14 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
         case ID_SEARCH: // response
             // Toast.makeText(MainActivity.this, "SEARCH", Toast.LENGTH_SHORT).show();
             break;
+        case  ID_AREA_INTRO:
+        	Intent intent = new Intent(LastCategoryActivity.this, AreaIntroActivity.class);
+    		Bundle bundle = new Bundle();
+    		bundle.putInt("AreaId", areaId); 
+    		bundle.putString("AreaName", areaName);
+    		intent.putExtras(bundle);
+    		startActivity(intent);
+        	break;
         }
         return true;
     }

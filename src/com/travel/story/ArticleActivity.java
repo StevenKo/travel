@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -40,7 +41,7 @@ import com.travel.story.api.TravelAPI;
 import com.travel.story.entity.Note;
 
 
-public class ArticleActivity extends SherlockFragmentActivity implements DetectScrollViewListener{
+public class ArticleActivity extends SherlockActivity implements DetectScrollViewListener{
 	
     
     private static final int Contact_US = 0;
