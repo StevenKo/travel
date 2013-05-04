@@ -287,7 +287,7 @@ public class ArticleActivity extends SherlockActivity implements DetectScrollVie
         // articleTextView.setText(Html.fromHtml(myNote.getContent()));
         // articleTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
-        String text = "<font color=#9E1919>" + myNote.getTitle() + "</font>" + "<font color=#AD8440>" + " by " + myNote.getAuthor() + "</font>";
+        String text = "<font color=#404040>" + myNote.getTitle() + "</font>" + "<font color=#858585>" + " by " + myNote.getAuthor() + "</font>";
         articleTextTitle.setText(Html.fromHtml(text));
 
         articleTextDate.setText(myNote.getDate());

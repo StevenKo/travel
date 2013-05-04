@@ -155,7 +155,7 @@ public class SiteActivity extends SherlockActivity {
             imageLoader.DisplayImage(myPics[firstPosition], imageView);
         }
         
-        String text = "<font color=#9E1919>"+mySite.getName()+"</font>";
+        String text = "<font color=#404040>"+mySite.getName()+"</font>";
         textSiteName.setText(Html.fromHtml(text));
         
 //        textSiteInfo.setText(Html.fromHtml(mySite.getInfo()));
