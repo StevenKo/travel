@@ -40,15 +40,12 @@ public class MainListFragment extends ListFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-//    String[] values = new String[] { "經典武俠", "經典小說", "長篇",
-//        "短篇" };
-    
-//    Category = getActivity().getResources().getStringArray(R.array.category_sections);
     
     myStates = TravelAPI.getStates();
     ListStateAdapter adapter = new ListStateAdapter(getActivity(), myStates, mImageIds);
    
     setListAdapter(adapter);
+ 
   }
   
   public static ListFragment newInstance(Activity myActivity) {

@@ -48,7 +48,6 @@ public class ArticleActivity extends SherlockActivity{
     // private TextView articleTextView;
     private TextView            articleTextTitle;
     private TextView            articleTextDate;
-    private TextView            articlePercent;
     private CheckBox            checkboxFavorite;
     private ScrollView    		articleScrollView;
     private Button              buttonReload;
@@ -56,7 +55,6 @@ public class ArticleActivity extends SherlockActivity{
 
     private Note                myNote;           // uset to get article text
 
-    private ArrayList<Note>     favoriteNotes;
     private Bundle              mBundle;
 
     private ActionBar           ab;
@@ -128,7 +126,6 @@ public class ArticleActivity extends SherlockActivity{
         checkboxFavorite = (CheckBox) findViewById(R.id.checkbox_article);
         articleScrollView = (ScrollView) findViewById(R.id.article_scrollview);
         buttonReload = (Button) findViewById(R.id.button_reload);
-        articlePercent = (TextView) findViewById(R.id.article_percent);
         // mImageView = (ImageView) findViewById (R.id.ImageView01) ;
         // mGallery = (Gallery) findViewById (R.id.Gallery01);
         articleWebView = (WebView) findViewById(R.id.article_webview);
