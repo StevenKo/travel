@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -29,6 +31,44 @@ public class TravelAPI {
     final static String         HOST  = "http://106.187.103.107";
     public static final String  TAG   = "NOVEL_API";
     public static final boolean DEBUG = true;
+
+    public static ArrayList<Note> searchNotes(String query, int page) {
+        if (query.length() == 1) {
+            query = query + "*";
+        }
+        try {
+            query = URLEncoder.encode(query, "utf-8");
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+            return null;
+        }
+        String message = getMessageFromServer("GET", "/api/v1/notes/search.json?keyword=" + query + "&page=" + page, null, null);
+        ArrayList<Note> notes = new ArrayList<Note>();
+        if (message == null) {
+            return null;
+        } else {
+            return parseNotes(message, notes);
+        }
+    }
+
+    public static ArrayList<Site> searchSites(String query, int page) {
+        if (query.length() == 1) {
+            query = query + "*";
+        }
+        try {
+            query = URLEncoder.encode(query, "utf-8");
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+            return null;
+        }
+        String message = getMessageFromServer("GET", "/api/v1/sites/search.json?keyword=" + query + "&page=" + page, null, null);
+        ArrayList<Site> sites = new ArrayList<Site>();
+        if (message == null) {
+            return null;
+        } else {
+            return parseSites(message, sites);
+        }
+    }
 
     public static Site getSite(int site_id) {
         String message = getMessageFromServer("GET", "/api/v1/sites/" + site_id + ".json", null, null);
