@@ -37,7 +37,7 @@ public class MainActivity extends SherlockFragmentActivity {
 
     private String[]            CONTENT;
     // private EditText search;
-    private MenuItem            itemSearch;
+//    private MenuItem            itemSearch;
     private ViewPager           pager;
     private AlertDialog.Builder aboutUsDialog;
 
@@ -87,60 +87,61 @@ public class MainActivity extends SherlockFragmentActivity {
         menu.add(0, ID_RESPONSE, 1, getResources().getString(R.string.menu_respond)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
-        itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse)
-                .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-                    private EditText     search;
-                    private LinearLayout layout;
-
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {
-                        layout = (LinearLayout) item.getActionView();
-                        search = (EditText) layout.findViewById(R.id.edittext_search);
-                        ImageView searchImage = (ImageView) layout.findViewById(R.id.image_search);
-                        // search.setInputType(InputType.TYPE_CLASS_TEXT);
-                        // search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-
-                        searchImage.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                                startActivity(intent);
-
-                            }
-                        });
-
-                        // search.requestFocus();
-                        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                            @Override
-                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                                    // Bundle bundle = new Bundle();
-                                    // bundle.putString("SearchKeyword", v.getText().toString());
-                                    Intent intent = new Intent();
-                                    intent.setClass(MainActivity.this, SearchActivity.class);
-                                    // intent.putExtras(bundle);
-                                    startActivity(intent);
-                                    itemSearch.collapseActionView();
-                                    return true;
-                                }
-                                return false;
-                            }
-                        });
-                        // InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        // imm.showSoftInput(null, InputMethodManager.SHOW_IMPLICIT);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem item) {
-                        // TODO Auto-generated method stub
-                        search.setText("");
-                        return true;
-                    }
-                }).setActionView(R.layout.collapsible_edittext);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        
+//        itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse)
+//                .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+//                    private EditText     search;
+//                    private LinearLayout layout;
+//
+//                    @Override
+//                    public boolean onMenuItemActionExpand(MenuItem item) {
+//                        layout = (LinearLayout) item.getActionView();
+//                        search = (EditText) layout.findViewById(R.id.edittext_search);
+//                        ImageView searchImage = (ImageView) layout.findViewById(R.id.image_search);
+//                        // search.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        // search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+//
+//                        searchImage.setOnClickListener(new OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+//                                startActivity(intent);
+//
+//                            }
+//                        });
+//
+//                        // search.requestFocus();
+//                        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                            @Override
+//                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+//                                    // Bundle bundle = new Bundle();
+//                                    // bundle.putString("SearchKeyword", v.getText().toString());
+//                                    Intent intent = new Intent();
+//                                    intent.setClass(MainActivity.this, SearchActivity.class);
+//                                    // intent.putExtras(bundle);
+//                                    startActivity(intent);
+//                                    itemSearch.collapseActionView();
+//                                    return true;
+//                                }
+//                                return false;
+//                            }
+//                        });
+//                        // InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                        // imm.showSoftInput(null, InputMethodManager.SHOW_IMPLICIT);
+//                        return true;
+//                    }
+//
+//                    @Override
+//                    public boolean onMenuItemActionCollapse(MenuItem item) {
+//                        // TODO Auto-generated method stub
+//                        search.setText("");
+//                        return true;
+//                    }
+//                }).setActionView(R.layout.collapsible_edittext);
+//        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
         return true;
     }
@@ -169,8 +170,9 @@ public class MainActivity extends SherlockFragmentActivity {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
             startActivity(browserIntent);
             break;
-        case ID_SEARCH: // response
-            // Toast.makeText(MainActivity.this, "SEARCH", Toast.LENGTH_SHORT).show();
+        case ID_SEARCH: 
+        	Intent intent2 = new Intent(MainActivity.this, TabSearchActivity.class);
+            startActivity(intent2);
             break;
         }
         return true;

@@ -3,6 +3,9 @@
     <color name="main_color_yellow">#f6c737</color>
     <color name="main_color_grey_dark">#dddddd</color>
     
+    <color name="main_background">#E3E3E3</color>
+    <color name="pager_background">#F2F2F2</color> <!-- affect listview -->
+    
     <color name="bookmark_section_head">#29A3CC</color>
     <color name="bookmark_section_text">#041014</color>
     

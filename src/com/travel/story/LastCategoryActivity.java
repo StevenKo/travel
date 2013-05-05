@@ -43,7 +43,6 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
     		"最多瀏覽數",
     		"景點"
     	};
-    private MenuItem            itemSearch;
     private ViewPager           pager;
     private AlertDialog.Builder aboutUsDialog;
     
@@ -103,60 +102,8 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_AREA_INTRO, 5, "簡介").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        
-        itemSearch = menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse)
-                .setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-                    private EditText     search;
-                    private LinearLayout layout;
+        menu.add(0, ID_SEARCH, 4, getResources().getString(R.string.menu_search)).setIcon(R.drawable.ic_search_inverse).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem item) {
-                        layout = (LinearLayout) item.getActionView();
-                        search = (EditText) layout.findViewById(R.id.edittext_search);
-                        ImageView searchImage = (ImageView) layout.findViewById(R.id.image_search);
-                        // search.setInputType(InputType.TYPE_CLASS_TEXT);
-                        // search.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-
-                        searchImage.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LastCategoryActivity.this, SearchActivity.class);
-                                startActivity(intent);
-
-                            }
-                        });
-
-                        // search.requestFocus();
-                        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                            @Override
-                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                if (actionId == EditorInfo.IME_ACTION_SEARCH || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                                    // Bundle bundle = new Bundle();
-                                    // bundle.putString("SearchKeyword", v.getText().toString());
-                                    Intent intent = new Intent();
-                                    intent.setClass(LastCategoryActivity.this, SearchActivity.class);
-                                    // intent.putExtras(bundle);
-                                    startActivity(intent);
-                                    itemSearch.collapseActionView();
-                                    return true;
-                                }
-                                return false;
-                            }
-                        });
-                        // InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        // imm.showSoftInput(null, InputMethodManager.SHOW_IMPLICIT);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem item) {
-                        // TODO Auto-generated method stub
-                        search.setText("");
-                        return true;
-                    }
-                }).setActionView(R.layout.collapsible_edittext);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
         return true;
     }
@@ -167,8 +114,8 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
         int itemId = item.getItemId();
         switch (itemId) {
         case ID_SETTING: // setting
-//            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(LastCategoryActivity.this, SettingActivity.class);
+            startActivity(intent);
             break;
         case ID_RESPONSE: // response
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -186,15 +133,16 @@ public class LastCategoryActivity extends SherlockFragmentActivity {
             startActivity(browserIntent);
             break;
         case ID_SEARCH: // response
-            // Toast.makeText(MainActivity.this, "SEARCH", Toast.LENGTH_SHORT).show();
+        	Intent intent3 = new Intent(LastCategoryActivity.this, TabSearchActivity.class);
+            startActivity(intent3);
             break;
         case  ID_AREA_INTRO:
-        	Intent intent = new Intent(LastCategoryActivity.this, AreaIntroActivity.class);
+        	Intent intent2 = new Intent(LastCategoryActivity.this, AreaIntroActivity.class);
     		Bundle bundle = new Bundle();
     		bundle.putInt("AreaId", areaId); 
     		bundle.putString("AreaName", areaName);
-    		intent.putExtras(bundle);
-    		startActivity(intent);
+    		intent2.putExtras(bundle);
+    		startActivity(intent2);
         	break;
         }
         return true;

@@ -2,32 +2,27 @@ package com.taiwan.imageload;
 
 import java.util.ArrayList;
 
-import com.travel.story.ArticleActivity;
-import com.travel.story.R;
-import com.travel.story.entity.Note;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.travel.story.R;
+import com.travel.story.entity.Note;
 
-public class GridViewAdapter extends BaseAdapter {
+public class GridViewCollectNoteAdapter extends BaseAdapter {
 
     private final Activity         activity;
     private final ArrayList<Note> data;
     private static LayoutInflater  inflater = null;
     public ImageLoader             imageLoader;
 
-    public GridViewAdapter(Activity a, ArrayList<Note> d) {
+    public GridViewCollectNoteAdapter(Activity a, ArrayList<Note> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,23 +57,6 @@ public class GridViewAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.item_gridview_article_small, null);
         }
 
-        vi.setClickable(true);
-        vi.setFocusable(true);
-        vi.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-    
-                Intent intent = new Intent(activity, ArticleActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("NoteId", data.get(position).getId());
-                bundle.putString("NoteTitle", data.get(position).getTitle());
-                intent.putExtras(bundle);
-                activity.startActivity(intent);
-
-            }
-
-        });
 
         TextView textTitle = (TextView) vi.findViewById(R.id.grid_item_title);
         ImageView image = (ImageView) vi.findViewById(R.id.grid_item_image);

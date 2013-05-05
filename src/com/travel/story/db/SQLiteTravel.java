@@ -63,14 +63,14 @@ public class SQLiteTravel extends SQLiteOpenHelper {
     }
 
     public boolean deleteNote(Note note) {
-        Cursor cursor = db.rawQuery("DELETE FROM " + NoteSchema.TABLE_NAME + " WHERE id = ?", new String[] { note.getId() + "" });
+        Cursor cursor = db.rawQuery("DELETE FROM " + NoteSchema.TABLE_NAME + " WHERE note_id = ?", new String[] { note.getId() + "" });
         cursor.moveToFirst();
         cursor.close();
         return true;
     }
 
     public boolean deleteSite(Site site) {
-        Cursor cursor = db.rawQuery("DELETE FROM " + SiteSchema.TABLE_NAME + " WHERE id = ?", new String[] { site.getId() + "" });
+        Cursor cursor = db.rawQuery("DELETE FROM " + SiteSchema.TABLE_NAME + " WHERE site_id = ?", new String[] { site.getId() + "" });
         cursor.moveToFirst();
         cursor.close();
         return true;
