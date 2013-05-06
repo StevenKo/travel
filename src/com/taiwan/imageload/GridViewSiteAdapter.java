@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,10 +21,10 @@ import com.travel.story.entity.Site;
 
 public class GridViewSiteAdapter extends BaseAdapter {
 
-    private final Activity         activity;
+    private final Activity        activity;
     private final ArrayList<Site> data;
-    private static LayoutInflater  inflater = null;
-    public ImageLoader             imageLoader;
+    private static LayoutInflater inflater = null;
+    public ImageLoader            imageLoader;
 
     public GridViewSiteAdapter(Activity a, ArrayList<Site> d) {
         activity = a;
@@ -49,7 +49,7 @@ public class GridViewSiteAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         // if (convertView == null)
-         
+
         Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth(); // deprecated
         int height = display.getHeight(); // deprecated
@@ -83,16 +83,15 @@ public class GridViewSiteAdapter extends BaseAdapter {
         TextView textStar = (TextView) vi.findViewById(R.id.grid_item_star_text);
 
         textTitle.setText(data.get(position).getName());
-        textStar.setText(Integer.toString(data.get(position).getStarInt())+"顆");
-        
+        textStar.setText(Integer.toString(data.get(position).getStarInt()) + "顆");
+
         String picUrl = data.get(position).getPic();
-        
-        if (picUrl == null || picUrl.equals("null") ) {
+
+        if (picUrl == null || picUrl.equals("null") || picUrl.equals("http://destres1.c-ctrip.com/img/golbal/default_view_img80x80.png")) {
             image.setImageResource(R.drawable.app_icon);
         } else {
             imageLoader.DisplayImage(picUrl, image);
         }
-
 
         return vi;
     }
