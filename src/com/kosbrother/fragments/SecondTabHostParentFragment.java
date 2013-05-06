@@ -46,7 +46,7 @@ public class SecondTabHostParentFragment extends Fragment {
 		setupTab(SecondCategoryTravelNoteFragment.class, "遊記", "View1");
 		setupTab(SecondCategorySiteFragment.class, "景點", "View2");
 
-	return mTabHost;
+		return mTabHost;
     }
     
     private void setupTab(Class<?> ccls, String name, String nameSpec) {

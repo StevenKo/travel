@@ -104,8 +104,11 @@ public final class MyTravelFragment extends Fragment {
     	myCity.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), SettingActivity.class);
-//                startActivity(intent);
+            	Intent intent = new Intent(getActivity(), CitysCategoryActivity.class);
+                Bundle bundle = new Bundle();
+         		bundle.putInt("ThemeId", 4); 
+         		intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

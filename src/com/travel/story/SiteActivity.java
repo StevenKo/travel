@@ -43,18 +43,6 @@ public class SiteActivity extends SherlockActivity {
     private static final int    ID_GRADE    = 3;
     private static final int    ID_COLLECTION = 4;
 	
-//    Integer[] pics = {
-//    		R.drawable.antartica1,
-//    		R.drawable.antartica2,
-//    		R.drawable.antartica3,
-//    		R.drawable.antartica4,
-//    		R.drawable.antartica5,
-//    		R.drawable.antartica6,
-//    		R.drawable.antartica7,
-//    		R.drawable.antartica8,
-//    		R.drawable.antartica9,
-//    		R.drawable.antartica10
-//    };
     private ImageView imageView;
     private Site mySite;
     private String[] myPics;
@@ -163,6 +151,7 @@ public class SiteActivity extends SherlockActivity {
 
             mySite = TravelAPI.getSite(siteId);
             myPics = new String[mySite.getPics().length];
+            myPics = mySite.getPics();
             return null;
         }
 
@@ -183,11 +172,25 @@ public class SiteActivity extends SherlockActivity {
     }
 
     private void setUIAfterLoading() {
-        myGallery.setAdapter(new ImageAdapter(this));
-        int firstPosition = myPics.length / 2;
-        myGallery.setSelection(firstPosition, true);
-        if (myPics.length == 0) {
-            imageView.setImageResource(R.drawable.app_icon);
+    	
+    	int firstPosition = myPics.length ;
+        if(firstPosition!=0 && firstPosition % 2 == 0){
+        	firstPosition = firstPosition /2 -1;
+        }else{
+        	firstPosition = firstPosition /2 ;
+        }
+    	
+    	if(myPics.length == 1){
+    		myGallery.setVisibility(View.GONE);
+    	}else{
+	        myGallery.setAdapter(new ImageAdapter(this));	        
+	        myGallery.setSelection(firstPosition, true);
+    	}
+        
+        if (myPics.length == 0 || myPics[0].equals("") || myPics[0].equals("null")) {
+//            imageView.setImageResource(R.drawable.app_icon);
+            myGallery.setVisibility(View.GONE);
+            imageView.setVisibility(View.GONE);
         } else {
             imageLoader.DisplayImage(myPics[firstPosition], imageView);
         }

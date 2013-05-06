@@ -85,12 +85,12 @@ public class GridViewSiteAdapter extends BaseAdapter {
         textTitle.setText(data.get(position).getName());
         textStar.setText(Integer.toString(data.get(position).getStarInt())+"顆");
         
-        String[] picUrl = data.get(position).getPics();
+        String picUrl = data.get(position).getPic();
         
-        if (picUrl == null || picUrl[0].equals("") ) {
+        if (picUrl == null || picUrl.equals("null") ) {
             image.setImageResource(R.drawable.app_icon);
         } else {
-            imageLoader.DisplayImage(picUrl[0], image);
+            imageLoader.DisplayImage(picUrl, image);
         }
 
 
