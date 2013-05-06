@@ -152,7 +152,7 @@ public class SecondCategoryActivity extends SherlockFragmentActivity implements 
             if (position == 0) {
                 kk = new SecondCategoryListFragment(nationId, myAreas);
             } else {
-                kk = new SecondTabHostParentFragment(myAreas.get(position-1).getId());
+                kk = SecondTabHostParentFragment.newInstance(myAreas.get(position-1).getId());
             }  
             return kk;
         }

@@ -154,7 +154,7 @@ public class CategoryActivity extends SherlockFragmentActivity implements AdWhir
             if (position == 0) {
                 kk = new CategoryListFragment(stateId, myNationGroups);
             } else {
-                kk = new TabHostParentFragment(myNationGroups.get(position-1).getId());
+                kk = TabHostParentFragment.newInstance(myNationGroups.get(position-1).getId());
             }  
             return kk;
         }

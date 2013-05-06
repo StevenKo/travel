@@ -21,36 +21,39 @@ public class TabHostParentFragment extends Fragment {
     private int id;
     private Bundle arg1;
     
-    public TabHostParentFragment(int id){
-    	this.id = id;
+    
+    public TabHostParentFragment(){
+ 
+    }
+    
+    public static final TabHostParentFragment newInstance(int caategory_id)
+    {
+    	TabHostParentFragment f = new TabHostParentFragment();
+        Bundle bdl = new Bundle();
+        bdl.putInt("id", caategory_id);
+        f.setArguments(bdl);
+        return f;
+    }
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+    	id = getArguments().getInt("id");
+    	super.onCreate(savedInstanceState);
     }
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	
-		mTabHost = new FragmentTabHost(getActivity());
-		mTabHost.setup(getActivity(), getChildFragmentManager(), R.layout.fragment_tabhost);
-	
-		arg1 = new Bundle();
-		arg1.putInt("CategoryId", id);
+			mTabHost = new FragmentTabHost(getActivity());
+			mTabHost.setup(getActivity(), getChildFragmentManager(), R.layout.fragment_tabhost);
 		
-//		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView1").setIndicator("Child 1"),
-//			TextViewFragment.class, arg1);
-//	
-//		Bundle arg2 = new Bundle();
-//		arg2.putInt(TextViewFragment.POSITION_KEY, 2);
-//		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView2").setIndicator("Child 2"),
-//			TextViewFragment.class, arg2);
-		
-//		mTabHost.addTab(mTabHost.newTabSpec("View1").setIndicator("遊記"),
-//				CategoryTravelNoteFragment.class, null);
-//		
-//		mTabHost.addTab(mTabHost.newTabSpec("View2").setIndicator("景點"),
-//				CategorySiteFragment.class, null);
-		
-		setupTab(CategoryTravelNoteFragment.class, "遊記", "View1");
-		setupTab(CategorySiteFragment.class, "景點", "View2");
-
+			arg1 = new Bundle();
+			arg1.putInt("CategoryId", id);
+			
+			setupTab(CategoryTravelNoteFragment.class, "遊記", "View1");
+			setupTab(CategorySiteFragment.class, "景點", "View2");
+			
 		return mTabHost;
     }
     
@@ -66,7 +69,7 @@ public class TabHostParentFragment extends Fragment {
     
     @Override
     public void onDestroyView() {
-	super.onDestroyView();
-		mTabHost = null;
-    }
+		super.onDestroyView();
+			mTabHost = null;
+	    }
 }
