@@ -104,5 +104,12 @@
    	 	   android:text="重試"
 	        />
 	</LinearLayout>
+	
+    <LinearLayout
+            android:id="@+id/adonView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+      		android:gravity="center_horizontal"
+            />
 
 </LinearLayout>

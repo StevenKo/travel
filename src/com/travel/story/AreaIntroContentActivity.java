@@ -36,7 +36,6 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
     private static final int    ID_RESPONSE = 1;
     private static final int    ID_ABOUT_US = 2;
     private static final int    ID_GRADE    = 3;
-    private static final int    ID_COLLECTION = 4;
     
 	private WebView articleWebView;
 	
@@ -108,7 +107,7 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
         menu.add(0, ID_RESPONSE, 1, getResources().getString(R.string.menu_respond)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_ABOUT_US, 2, getResources().getString(R.string.menu_aboutus)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(0, ID_GRADE, 3, getResources().getString(R.string.menu_recommend)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-    	menu.add(0, ID_COLLECTION, 4, "我的收藏").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
 		
         return true;
     }
@@ -139,10 +138,6 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.recommend_url)));
            startActivity(browserIntent);
            break;
-	    case ID_COLLECTION:
-	    	Intent intent2 = new Intent(AreaIntroContentActivity.this, CollectionActivity.class);
-	    	startActivity(intent2);
-	        break;
 	    }
 	    return true;
 	}

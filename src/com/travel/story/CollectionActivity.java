@@ -26,7 +26,7 @@ import com.google.ads.AdView;
 import com.kosbrother.fragments.CollectionNoteFragment;
 import com.kosbrother.fragments.CollectionSiteFragment;
 
-public class CollectionActivity extends SherlockFragmentActivity implements AdWhirlInterface {
+public class CollectionActivity extends SherlockFragmentActivity {
 
 	private static final int    ID_SETTING  = 0;
     private static final int    ID_RESPONSE = 1;
@@ -36,7 +36,6 @@ public class CollectionActivity extends SherlockFragmentActivity implements AdWh
     private FragmentTabHost  mTabHost;
     private AlertDialog.Builder aboutUsDialog;
     
-    private final String        adWhirlKey  = "8c0c4844165c467490f058cc4ea09118";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +54,7 @@ public class CollectionActivity extends SherlockFragmentActivity implements AdWh
         ab.setDisplayHomeAsUpEnabled(true);
         
         setAboutUsDialog();
-        
-        try {
-            Display display = getWindowManager().getDefaultDisplay();
-           int width = display.getWidth(); // deprecated
-           int height = display.getHeight(); // deprecated
-          
-           if (width > 320) {
-        	   setAdAdwhirl();
-           }
-           } catch (Exception e) {
-          
-           }
+     
     }
 
     private void setupTab(Class<?> ccls, String name, String nameSpec) {
@@ -144,53 +132,6 @@ public class CollectionActivity extends SherlockFragmentActivity implements AdWh
 
                     }
                 });
-    }
-    
-    private void setAdAdwhirl() {
-        // TODO Auto-generated method stub
-        AdWhirlManager.setConfigExpireTimeout(1000 * 60);
-        AdWhirlTargeting.setAge(23);
-        AdWhirlTargeting.setGender(AdWhirlTargeting.Gender.MALE);
-        AdWhirlTargeting.setKeywords("online games gaming");
-        AdWhirlTargeting.setPostalCode("94123");
-        AdWhirlTargeting.setTestMode(false);
-
-        AdWhirlLayout adwhirlLayout = new AdWhirlLayout(this, adWhirlKey);
-
-        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.adonView);
-
-        adwhirlLayout.setAdWhirlInterface(this);
-
-        mainLayout.addView(adwhirlLayout);
-
-        mainLayout.invalidate();
-    }
-
-    @Override
-    public void adWhirlGeneric() {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void rotationHoriztion(int beganDegree, int endDegree, AdView view) {
-        final float centerX = 320 / 2.0f;
-        final float centerY = 48 / 2.0f;
-        final float zDepth = -0.50f * view.getHeight();
-
-        Rotate3dAnimation rotation = new Rotate3dAnimation(beganDegree, endDegree, centerX, centerY, zDepth, true);
-        rotation.setDuration(1000);
-        rotation.setInterpolator(new AccelerateInterpolator());
-        rotation.setAnimationListener(new Animation.AnimationListener() {
-            public void onAnimationStart(Animation animation) {
-            }
-
-            public void onAnimationEnd(Animation animation) {
-            }
-
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        view.startAnimation(rotation);
     }
 
 }
