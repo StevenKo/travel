@@ -420,7 +420,7 @@ public class TravelAPI {
                 int id = jArray.getJSONObject(i).getInt("id");
                 String name = jArray.getJSONObject(i).getString("name");
                 String pic = jArray.getJSONObject(i).getString("pic");
-                int rank = -1;
+                int rank = 0;
 
                 if (!jArray.getJSONObject(i).isNull("rank"))
                     rank = jArray.getJSONObject(i).getInt("rank");
@@ -449,7 +449,7 @@ public class TravelAPI {
                 int id = nObject.getInt("id");
                 String name = nObject.getString("name");
                 String pic = nObject.getString("pic");
-                int rank = -1;
+                int rank = 0;
                 if (!nObject.isNull("rank"))
                     rank = nObject.getInt("rank");
                 String info = nObject.getString("info");
