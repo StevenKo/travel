@@ -435,7 +435,8 @@ public class TravelAPI {
                     rank = nObject.getInt("rank");
                 String info = nObject.getString("info");
                 String intro = nObject.getString("intro");
-                String[] pics = new String[] {};
+                String pics_str = nObject.getString("pics");
+                String[] pics = convertStringToArray(pics_str);
 
                 return new Site(id, rank, name, pic, info, intro, pics);
 
@@ -444,5 +445,10 @@ public class TravelAPI {
                 return null;
             }
         }
+    }
+
+    public static String[] convertStringToArray(String str) {
+        String[] arr = str.split(",");
+        return arr;
     }
 }
