@@ -3,6 +3,8 @@ package com.kosbrother.fragments;
 
 import java.util.ArrayList;
 
+import com.taiwan.imageload.ListIntroAdapter;
+import com.taiwan.imageload.ListNationIntroAdapter;
 import com.taiwan.imageload.SeparatedListAdapter;
 import com.travel.story.LastCategoryActivity;
 import com.travel.story.R;
@@ -15,6 +17,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +27,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 @SuppressLint("ValidFragment")
-public class CategoryListFragment extends ListFragment {
+public class CategoryListFragment extends Fragment {
 
 	private SeparatedListAdapter adapter;
 	private ArrayList<NationGroup> myNationGroups = new ArrayList<NationGroup>();
-	private ArrayList<Nation> myNaions = new ArrayList<Nation>();
 	private int stateId;
 	private Nation nullNation = new Nation();
 	
@@ -38,82 +40,31 @@ public class CategoryListFragment extends ListFragment {
 	}
 	
 	
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		adapter = new SeparatedListAdapter(getActivity());
-			
-		for (int i=0; i< myNationGroups.size();i++){
-			ArrayList<Nation> groupNations = TravelAPI.getGroupNations(myNationGroups.get(i).getId());
-			SampleAdapter adapter1 = new SampleAdapter(getActivity());
-			if(groupNations!=null){
-				myNaions.add(nullNation);
-				for (int j= 0; j< groupNations.size(); j++){
-					adapter1.add(new SampleItem(groupNations.get(j).getName()));
-					myNaions.add(groupNations.get(j));
-				}		
-				adapter.addSection(myNationGroups.get(i).getName(), adapter1);
-			}
-		}
-		
-		
-		
-		
-//		SampleAdapter adapter2 = new SampleAdapter(getActivity());
-//		
-//		adapter2.add(new SampleItem("泰國"));
-//		adapter.addSection("泰國", adapter2);
-//		
-//		SampleAdapter adapter3 = new SampleAdapter(getActivity());
-//		
-//		adapter3.add(new SampleItem("新加坡"));
-//		adapter.addSection("新加坡", adapter3);
-				
-		setListAdapter(adapter);
-			
-	}
-	
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-	   
-		Intent intent = new Intent(getActivity(), SecondCategoryActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putInt("NationId", myNaions.get(position).getId()); 
-		bundle.putString("NationName", myNaions.get(position).getName());
-		intent.putExtras(bundle);
-		getActivity().startActivity(intent);
-		
-		
-	}
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-	private class SampleItem {
-		public String tag;
-		public SampleItem(String tag){
-			this.tag = tag;
-		}
-	}
-
-	public class SampleAdapter extends ArrayAdapter<SampleItem> {
-
-		public SampleAdapter(Context context) {
-			super(context, 0);
-		}
-
-		public View getView(int position, View convertView, ViewGroup parent) {
+        ListView myFragmentView = (ListView)inflater.inflate(R.layout.list, container, false);
+        
+        adapter = new SeparatedListAdapter(getActivity());      
+        
+        for (int i=0; i< myNationGroups.size();i++){
+			ArrayList<Nation> groupNations = TravelAPI.getGroupNations(myNationGroups.get(i).getId());
+			ArrayList<Nation> nations = new ArrayList<Nation>();
+			if(groupNations!=null){				
+				for (int j= 0; j< groupNations.size(); j++){
+					nations.add(groupNations.get(j));
+				}
+			}
+			ListNationIntroAdapter nationAdapter = new ListNationIntroAdapter(getActivity(), nations);
+			adapter.addSection(myNationGroups.get(i).getName(), nationAdapter);
 			
-				if (convertView == null) {
-					convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_section_row, null);
-				}
-				
-				TextView title = (TextView) convertView.findViewById(R.id.row_title);
-				try{
-					title.setText(getItem(position).tag);
-				}catch(Exception e){
-					
-				}
-
-
-			return convertView;
 		}
+        
+        myFragmentView.setAdapter(adapter);
+        
+        return myFragmentView;
+    }
+	
+	
 
-	}
 }

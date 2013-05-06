@@ -51,6 +51,9 @@ public class AreaIntroActivity extends SherlockActivity implements AdWhirlInterf
     private String               areaName;
     private int                  areaId;
     private AlertDialog.Builder  aboutUsDialog;
+    private int typeId;	// 0 for nation, 1 for area
+    private int nationId;
+    private String nationName;
     
     private final String        adWhirlKey  = "8c0c4844165c467490f058cc4ea09118";
 
@@ -61,13 +64,20 @@ public class AreaIntroActivity extends SherlockActivity implements AdWhirlInterf
         layoutProgress = (LinearLayout) findViewById(R.id.layout_progress);
         layoutReload = (LinearLayout) findViewById(R.id.layout_reload);
         layoutIntroCategoryContent = (LinearLayout) findViewById(R.id.layout_intro_category_content);
-
-        mBundle = this.getIntent().getExtras();
-        areaId = mBundle.getInt("AreaId");
-        areaName = mBundle.getString("AreaName");
-
         final ActionBar ab = getSupportActionBar();
-        ab.setTitle("簡介:" + areaName);
+        
+        mBundle = this.getIntent().getExtras();
+        typeId = mBundle.getInt("TypeId");
+        if(typeId == 0){
+        	nationId = mBundle.getInt("NationId");
+        	nationName = mBundle.getString("NationName");
+        	ab.setTitle("簡介:" + nationName);
+        }else{
+        	areaId = mBundle.getInt("AreaId");
+        	areaName = mBundle.getString("AreaName");
+        	ab.setTitle("簡介:" + areaName);
+        }
+             
         ab.setDisplayHomeAsUpEnabled(true);
 
         new DownloadSiteTask().execute();
@@ -98,7 +108,11 @@ public class AreaIntroActivity extends SherlockActivity implements AdWhirlInterf
         protected Object doInBackground(Object... params) {
 
             // myAreaIntroCategory = TravelAPI.getAreaIntroCategories();
-            myAreaIntros = TravelAPI.getAreaIntros(areaId);
+        	if(typeId == 0){
+        		myAreaIntros = TravelAPI.getNationIntros(nationId);
+        	}else{
+        		myAreaIntros = TravelAPI.getAreaIntros(areaId);
+        	}
             return null;
         }
 
