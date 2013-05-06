@@ -8,21 +8,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTabHost;
-import android.view.LayoutInflater;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.kosbrother.fragments.CategorySiteFragment;
-import com.kosbrother.fragments.CategoryTravelNoteFragment;
+import com.adwhirl.AdWhirlLayout;
+import com.adwhirl.AdWhirlManager;
+import com.adwhirl.AdWhirlTargeting;
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
+import com.google.ads.AdView;
 import com.taiwan.imageload.GridViewAdapter;
 import com.taiwan.imageload.GridViewSiteAdapter;
 import com.taiwan.imageload.LoadMoreGridView;
@@ -30,7 +32,7 @@ import com.travel.story.api.TravelAPI;
 import com.travel.story.entity.Note;
 import com.travel.story.entity.Site;
 
-public class SearchActivity extends SherlockActivity {
+public class SearchActivity extends SherlockActivity implements AdWhirlInterface {
 	
 	private static final int    ID_SETTING  = 0;
     private static final int    ID_RESPONSE = 1;
@@ -59,6 +61,7 @@ public class SearchActivity extends SherlockActivity {
     private GridViewAdapter mNoteAdapter;
     private GridViewSiteAdapter mSiteAdapter;
     
+    private final String        adWhirlKey  = "8c0c4844165c467490f058cc4ea09118";
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,19 @@ public class SearchActivity extends SherlockActivity {
         
 		setAboutUsDialog();
 	
+		
+		try {
+            Display display = getWindowManager().getDefaultDisplay();
+           int width = display.getWidth(); // deprecated
+           int height = display.getHeight(); // deprecated
+          
+           if (width > 320) {
+        	   setAdAdwhirl();
+           }
+           } catch (Exception e) {
+          
+           }
+		
     }
     
     
@@ -286,6 +302,53 @@ public class SearchActivity extends SherlockActivity {
             }
 
         }
+    }
+    
+    private void setAdAdwhirl() {
+        // TODO Auto-generated method stub
+        AdWhirlManager.setConfigExpireTimeout(1000 * 60);
+        AdWhirlTargeting.setAge(23);
+        AdWhirlTargeting.setGender(AdWhirlTargeting.Gender.MALE);
+        AdWhirlTargeting.setKeywords("online games gaming");
+        AdWhirlTargeting.setPostalCode("94123");
+        AdWhirlTargeting.setTestMode(false);
+
+        AdWhirlLayout adwhirlLayout = new AdWhirlLayout(this, adWhirlKey);
+
+        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.adonView);
+
+        adwhirlLayout.setAdWhirlInterface(this);
+
+        mainLayout.addView(adwhirlLayout);
+
+        mainLayout.invalidate();
+    }
+
+    @Override
+    public void adWhirlGeneric() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void rotationHoriztion(int beganDegree, int endDegree, AdView view) {
+        final float centerX = 320 / 2.0f;
+        final float centerY = 48 / 2.0f;
+        final float zDepth = -0.50f * view.getHeight();
+
+        Rotate3dAnimation rotation = new Rotate3dAnimation(beganDegree, endDegree, centerX, centerY, zDepth, true);
+        rotation.setDuration(1000);
+        rotation.setInterpolator(new AccelerateInterpolator());
+        rotation.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationStart(Animation animation) {
+            }
+
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        view.startAnimation(rotation);
     }
 
 }
