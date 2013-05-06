@@ -16,15 +16,17 @@ import android.widget.TextView;
 import com.travel.story.AreaIntroActivity;
 import com.travel.story.LastCategoryActivity;
 import com.travel.story.R;
+import com.travel.story.SecondCategoryActivity;
 import com.travel.story.entity.Area;
+import com.travel.story.entity.Nation;
 
-public class ListIntroAdapter extends BaseAdapter {
+public class ListNationIntroAdapter extends BaseAdapter {
 
     private final Activity            activity;
-    private ArrayList<Area> data;
+    private ArrayList<Nation> data;
     private static LayoutInflater     inflater = null;
 
-    public ListIntroAdapter(Activity a, ArrayList<Area> d) {
+    public ListNationIntroAdapter(Activity a, ArrayList<Nation> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,10 +55,10 @@ public class ListIntroAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 
-            	Intent intent = new Intent(activity, LastCategoryActivity.class);
+            	Intent intent = new Intent(activity, SecondCategoryActivity.class);
         		Bundle bundle = new Bundle();
-        		bundle.putInt("AreaId", data.get(position).getId()); 
-        		bundle.putString("AreaName", data.get(position).getName());
+        		bundle.putInt("NationId", data.get(position).getId()); 
+        		bundle.putString("NationName", data.get(position).getName());
         		intent.putExtras(bundle);
         		activity.startActivity(intent);
 
@@ -74,9 +76,9 @@ public class ListIntroAdapter extends BaseAdapter {
                 // Toast.makeText(activity, "tt", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, AreaIntroActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("TypeId", 1); // 0 for nation, 1 for area
-                bundle.putInt("AreaId", data.get(position).getId());
-                bundle.putString("AreaName", data.get(position).getName());
+                bundle.putInt("TypeId", 0); // 0 for nation, 1 for area
+                bundle.putInt("NationId", data.get(position).getId());
+                bundle.putString("NationName", data.get(position).getName());
                 intent.putExtras(bundle);
                 activity.startActivity(intent);
 
