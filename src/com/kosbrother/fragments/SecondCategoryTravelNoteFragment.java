@@ -31,12 +31,10 @@ public class SecondCategoryTravelNoteFragment extends Fragment {
     
     private int areaId;
     private int contentOrder = 1;
-    public static int myPage = 1;
+    private  int myPage = 1;
     private Boolean checkLoad = true;
     private ArrayList<Note> moreNotes = new ArrayList<Note>();
     
-//    private Article samlpleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal");
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,7 +117,7 @@ public class SecondCategoryTravelNoteFragment extends Fragment {
             progressLayout.setVisibility(View.GONE);
             loadmoreLayout.setVisibility(View.GONE);
 
-            if (myNotes != null) {
+            if (myNotes != null && myNotes.size()!=0) {
                 try {
                     layoutReload.setVisibility(View.GONE);
                     myGridViewAdapter = new GridViewAdapter(getActivity(), myNotes);

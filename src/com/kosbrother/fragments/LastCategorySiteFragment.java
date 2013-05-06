@@ -33,7 +33,7 @@ public class LastCategorySiteFragment extends Fragment {
 
     
     private int areaId;
-    public static int myPage = 1;
+    private  int myPage = 1;
     private Boolean checkLoad = true;
     private ArrayList<Site> moreSites   = new ArrayList<Site>();
     
@@ -119,7 +119,7 @@ public class LastCategorySiteFragment extends Fragment {
             progressLayout.setVisibility(View.GONE);
             loadmoreLayout.setVisibility(View.GONE);
 
-            if (sites != null) {
+            if (sites != null && sites.size()!=0) {
                 try {
                     layoutReload.setVisibility(View.GONE);
                     myGridViewAdapter = new GridViewSiteAdapter(getActivity(), sites);

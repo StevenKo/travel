@@ -124,7 +124,7 @@ public class MainNoteFragment extends Fragment {
             progressLayout.setVisibility(View.GONE);
             loadmoreLayout.setVisibility(View.GONE);
 
-            if (myNotes != null) {
+            if (myNotes != null && myNotes.size()!=0) {
                 try {
                     layoutReload.setVisibility(View.GONE);
                     myGridViewAdapter = new GridViewAdapter(getActivity(), myNotes);
