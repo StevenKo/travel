@@ -200,6 +200,25 @@ public class TravelAPI {
         }
     }
 
+    public static ArrayList<AreaIntro> getNationIntros(int nation_id) {
+        String message = getMessageFromServer("GET", "/api/v1/nation_intros.json?nation_id=" + nation_id, null, null);
+        ArrayList<AreaIntro> intros = new ArrayList<AreaIntro>();
+        if (message == null) {
+            return null;
+        } else {
+            return parseAreaIntros(message, intros);
+        }
+    }
+
+    public static AreaIntro getNationIntro(int intro_id) {
+        String message = getMessageFromServer("GET", "/api/v1/nation_intros/" + intro_id + ".json", null, null);
+        if (message == null) {
+            return null;
+        } else {
+            return parseAreaIntro(message);
+        }
+    }
+
     public static String getAreaIntroCategoryName(int id) {
         return AreaIntroCategory.getCategoryName(id);
     }
