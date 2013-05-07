@@ -14,6 +14,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 
@@ -38,6 +39,7 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
     private static final int    ID_GRADE    = 3;
     
 	private WebView articleWebView;
+	private int                 textContentSize;
 	
 	private AreaIntro myAreaIntro; // uset to get article text
 	private Bundle mBundle;
@@ -57,6 +59,7 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layou_intro_content); 
         
+        restorePreValues();
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         
@@ -98,7 +101,12 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
         
 	}
 	
+	private void restorePreValues() {
+     
+        textContentSize = Setting.getSetting(Setting.keyTextContentSize, AreaIntroContentActivity.this);
 
+    }
+	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -185,7 +193,11 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
 	@Override
     protected void onResume() {
         super.onResume();
+        restorePreValues();
+        WebSettings setting = articleWebView.getSettings();
+        setting.setDefaultFontSize(textContentSize);
     }
+	
 	
 	@Override
 	protected void onDestroy() {

@@ -166,7 +166,7 @@ public class LastCategoryActivity extends SherlockFragmentActivity implements Ad
             }else if(position == 4){
             	kk = new LastCategorySiteFragment(areaId);
             } else {
-                kk = new LastCategoryNoteFragment(areaId, position);
+                kk = LastCategoryNoteFragment.newInstance(areaId, position);
             } 
             return kk;
         }

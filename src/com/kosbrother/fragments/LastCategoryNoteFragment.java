@@ -2,6 +2,7 @@ package com.kosbrother.fragments;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.travel.story.R;
 import com.travel.story.api.TravelAPI;
 import com.travel.story.entity.Note;
 
+@SuppressLint("ValidFragment")
 public class LastCategoryNoteFragment extends Fragment {
 
 	private ArrayList<Note> myNotes = new ArrayList<Note>();
@@ -35,17 +37,25 @@ public class LastCategoryNoteFragment extends Fragment {
     private Boolean checkLoad = true;
     private ArrayList<Note> moreNotes = new ArrayList<Note>();
     
-//    private Article samlpleArticle = new Article(1, "最新最全最实用厦门旅游攻略（2012升级版）", "飞奔的小驴", "2012-04-20", "之前有很多网友在我的攻略里提问，因为论坛不会每天上所以回复没有那么及时，如果大家有更", "http://p3.lvpingphoto.com/LCRG7cV1u_metal");
-
-    public LastCategoryNoteFragment (int area_id, int content_order) {
-    	areaId = area_id;
-    	contentOrder = content_order;
+    public LastCategoryNoteFragment () {    	
     }
-
+    
+    public static final LastCategoryNoteFragment newInstance(int area_id, int content_order)
+    {
+    	LastCategoryNoteFragment f = new LastCategoryNoteFragment();
+        Bundle bdl = new Bundle();
+        bdl.putInt("areaId", area_id);
+        bdl.putInt("contentOrder", area_id);
+        f.setArguments(bdl);
+        return f;
+    }
+    
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    	areaId = getArguments().getInt("areaid");
+    	contentOrder = getArguments().getInt("contentOrder");
+    	super.onCreate(savedInstanceState);
     }
 
     @Override

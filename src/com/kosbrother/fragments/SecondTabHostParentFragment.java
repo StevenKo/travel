@@ -16,8 +16,23 @@ public class SecondTabHostParentFragment extends Fragment {
     private int id;
     private Bundle arg1;
     
-    public SecondTabHostParentFragment(int id){
-    	this.id = id;
+    public SecondTabHostParentFragment(){
+    }
+    
+    public static final SecondTabHostParentFragment newInstance(int caategory_id)
+    {
+    	SecondTabHostParentFragment f = new SecondTabHostParentFragment();
+        Bundle bdl = new Bundle();
+        bdl.putInt("id", caategory_id);
+        f.setArguments(bdl);
+        return f;
+    }
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+    	id = getArguments().getInt("id");
+    	super.onCreate(savedInstanceState);
     }
     
     @Override
@@ -28,20 +43,6 @@ public class SecondTabHostParentFragment extends Fragment {
 	
 		arg1 = new Bundle();
 		arg1.putInt("AreaId", id);
-		
-//		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView1").setIndicator("Child 1"),
-//			TextViewFragment.class, arg1);
-//	
-//		Bundle arg2 = new Bundle();
-//		arg2.putInt(TextViewFragment.POSITION_KEY, 2);
-//		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView2").setIndicator("Child 2"),
-//			TextViewFragment.class, arg2);
-		
-//		mTabHost.addTab(mTabHost.newTabSpec("View1").setIndicator("遊記"),
-//				CategoryTravelNoteFragment.class, null);
-//		
-//		mTabHost.addTab(mTabHost.newTabSpec("View2").setIndicator("景點"),
-//				CategorySiteFragment.class, null);
 		
 		setupTab(SecondCategoryTravelNoteFragment.class, "遊記", "View1");
 		setupTab(SecondCategorySiteFragment.class, "景點", "View2");
