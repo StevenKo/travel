@@ -28,7 +28,7 @@ import com.travel.story.entity.Site;
 import com.travel.story.entity.State;
 
 public class TravelAPI {
-    final static String         HOST  = "http://106.187.103.107";
+    final static String         HOST  = "http://106.187.92.115";
     public static final String  TAG   = "NOVEL_API";
     public static final boolean DEBUG = true;
 
