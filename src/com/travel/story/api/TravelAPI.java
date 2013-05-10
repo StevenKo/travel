@@ -99,6 +99,16 @@ public class TravelAPI {
         }
     }
 
+    public static ArrayList<Note> getAboardHotNotes(int page) {
+        String message = getMessageFromServer("GET", "/api/v1/notes/aboard_hot.json?page=" + page, null, null);
+        ArrayList<Note> notes = new ArrayList<Note>();
+        if (message == null) {
+            return null;
+        } else {
+            return parseNotes(message, notes);
+        }
+    }
+
     public static ArrayList<Note> getBestNotes(int page) {
         String message = getMessageFromServer("GET", "/api/v1/notes/best_notes.json?page=" + page, null, null);
         ArrayList<Note> notes = new ArrayList<Note>();
