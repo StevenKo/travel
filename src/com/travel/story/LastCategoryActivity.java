@@ -46,7 +46,7 @@ public class LastCategoryActivity extends SherlockFragmentActivity implements Ad
     private String    areaName;
     private int       areaId;
 
-    private final String        adWhirlKey  = "8c0c4844165c467490f058cc4ea09118";
+    private final String    adWhirlKey  = "8c0c4844165c467490f058cc4ea09118";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +112,9 @@ public class LastCategoryActivity extends SherlockFragmentActivity implements Ad
 
         int itemId = item.getItemId();
         switch (itemId) {
+        case android.R.id.home:
+            finish();
+            break;
         case ID_SETTING: // setting
             Intent intent = new Intent(LastCategoryActivity.this, SettingActivity.class);
             startActivity(intent);
@@ -140,6 +143,7 @@ public class LastCategoryActivity extends SherlockFragmentActivity implements Ad
     		Bundle bundle = new Bundle();
     		bundle.putInt("AreaId", areaId); 
     		bundle.putString("AreaName", areaName);
+    		bundle.putInt("TypeId", 1);
     		intent2.putExtras(bundle);
     		startActivity(intent2);
         	break;

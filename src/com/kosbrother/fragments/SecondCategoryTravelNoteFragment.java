@@ -27,6 +27,7 @@ public class SecondCategoryTravelNoteFragment extends Fragment {
     private LinearLayout     progressLayout;
     private LinearLayout     loadmoreLayout;
     private LinearLayout     layoutReload;
+    private LinearLayout     layoutNodata;
     private Button           buttonReload;
     
     private int areaId;
@@ -53,6 +54,7 @@ public class SecondCategoryTravelNoteFragment extends Fragment {
         progressLayout = (LinearLayout) myFragmentView.findViewById(R.id.layout_progress);
         loadmoreLayout = (LinearLayout) myFragmentView.findViewById(R.id.load_more_grid);
         layoutReload = (LinearLayout) myFragmentView.findViewById(R.id.layout_reload);
+        layoutNodata = (LinearLayout) myFragmentView.findViewById(R.id.layout_no_data);
         buttonReload = (Button) myFragmentView.findViewById(R.id.button_reload);
         myGrid = (LoadMoreGridView) myFragmentView.findViewById(R.id.news_list);
         myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
@@ -117,14 +119,18 @@ public class SecondCategoryTravelNoteFragment extends Fragment {
             progressLayout.setVisibility(View.GONE);
             loadmoreLayout.setVisibility(View.GONE);
 
-            if (myNotes != null && myNotes.size()!=0) {
-                try {
-                    layoutReload.setVisibility(View.GONE);
-                    myGridViewAdapter = new GridViewAdapter(getActivity(), myNotes);
-                    myGrid.setAdapter(myGridViewAdapter);
-                } catch (Exception e) {
+            if (myNotes != null) {
+            	layoutReload.setVisibility(View.GONE);
+            	if(myNotes.size()!=0){
+            		try {                   
+            			myGridViewAdapter = new GridViewAdapter(getActivity(), myNotes);
+            			myGrid.setAdapter(myGridViewAdapter);
+            		} catch (Exception e) {
 
-                }
+            		}
+            	}else{
+            		layoutNodata.setVisibility(View.VISIBLE);
+            	}
             } else {
                 layoutReload.setVisibility(View.VISIBLE);
             }
@@ -165,7 +171,7 @@ public class SecondCategoryTravelNoteFragment extends Fragment {
             
             loadmoreLayout.setVisibility(View.GONE);
             
-            if(moreNotes!= null){
+            if(moreNotes!= null && moreNotes.size()!=0){
             	myGridViewAdapter.notifyDataSetChanged();	                
             }else{
                 checkLoad= false;

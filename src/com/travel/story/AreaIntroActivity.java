@@ -43,6 +43,7 @@ public class AreaIntroActivity extends SherlockActivity implements AdWhirlInterf
     private LinearLayout         layoutProgress;
     private LinearLayout         layoutReload;
     private LinearLayout         layoutIntroCategoryContent;
+    private LinearLayout     	 layoutNodata;
 
     // private final ArrayList<AreaIntroCategory> myAreaIntroCategory = new ArrayList<AreaIntroCategory>();
     private ArrayList<AreaIntro> myAreaIntros = new ArrayList<AreaIntro>();
@@ -64,6 +65,7 @@ public class AreaIntroActivity extends SherlockActivity implements AdWhirlInterf
         layoutProgress = (LinearLayout) findViewById(R.id.layout_progress);
         layoutReload = (LinearLayout) findViewById(R.id.layout_reload);
         layoutIntroCategoryContent = (LinearLayout) findViewById(R.id.layout_intro_category_content);
+        layoutNodata = (LinearLayout) findViewById(R.id.layout_no_data);
         final ActionBar ab = getSupportActionBar();
         
         mBundle = this.getIntent().getExtras();
@@ -123,7 +125,11 @@ public class AreaIntroActivity extends SherlockActivity implements AdWhirlInterf
             layoutProgress.setVisibility(View.GONE);
 
             if (myAreaIntros != null) {
-                setUIAfterLoading();
+            	if(myAreaIntros.size()!=0){
+            		setUIAfterLoading();
+            	}else{
+            		layoutNodata.setVisibility(View.VISIBLE);
+            	}
             } else {
                 // 重試
                 layoutReload.setVisibility(View.VISIBLE);

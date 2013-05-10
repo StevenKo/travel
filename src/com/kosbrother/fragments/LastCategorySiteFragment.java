@@ -29,6 +29,7 @@ public class LastCategorySiteFragment extends Fragment {
     private LinearLayout          progressLayout;
     private LinearLayout          loadmoreLayout;
     private LinearLayout          layoutReload;
+    private LinearLayout          layoutNodata;
     private Button                buttonReload;
 
     
@@ -67,6 +68,7 @@ public class LastCategorySiteFragment extends Fragment {
         progressLayout = (LinearLayout) myFragmentView.findViewById(R.id.layout_progress);
         loadmoreLayout = (LinearLayout) myFragmentView.findViewById(R.id.load_more_grid);
         layoutReload = (LinearLayout) myFragmentView.findViewById(R.id.layout_reload);
+        layoutNodata = (LinearLayout) myFragmentView.findViewById(R.id.layout_no_data);
         buttonReload = (Button) myFragmentView.findViewById(R.id.button_reload);
         myGrid = (LoadMoreGridView) myFragmentView.findViewById(R.id.news_list);
         myGrid.setOnLoadMoreListener(new LoadMoreGridView.OnLoadMoreListener() {
@@ -131,14 +133,19 @@ public class LastCategorySiteFragment extends Fragment {
             progressLayout.setVisibility(View.GONE);
             loadmoreLayout.setVisibility(View.GONE);
 
-            if (sites != null && sites.size()!=0) {
-                try {
-                    layoutReload.setVisibility(View.GONE);
-                    myGridViewAdapter = new GridViewSiteAdapter(getActivity(), sites);
-                    myGrid.setAdapter(myGridViewAdapter);
-                } catch (Exception e) {
-
-                }
+            if (sites != null ) {
+            	layoutReload.setVisibility(View.GONE);
+            	
+            	if (sites.size()!=0){
+            		try {
+            			myGridViewAdapter = new GridViewSiteAdapter(getActivity(), sites);
+            			myGrid.setAdapter(myGridViewAdapter);
+            		} catch (Exception e) {
+            			
+            		}
+            	}else{
+            		layoutNodata.setVisibility(View.VISIBLE);
+            	}
             } else {
                 layoutReload.setVisibility(View.VISIBLE);
             }
@@ -178,7 +185,7 @@ public class LastCategorySiteFragment extends Fragment {
             super.onPostExecute(result);
             loadmoreLayout.setVisibility(View.GONE);
             
-            if(moreSites!= null){
+            if(moreSites!= null && moreSites.size()!=0){
             	myGridViewAdapter.notifyDataSetChanged();	                
             }else{
                 checkLoad= false;

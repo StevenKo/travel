@@ -117,7 +117,7 @@ public class MainNoteFragment extends Fragment {
             // TODO Auto-generated method stub
         	
         	if(intOrder == -1){
-        		moreNotes = TravelAPI.getAboardHotNotes(myPage);
+        		myNotes = TravelAPI.getAboardHotNotes(myPage);
         	}else if(intOrder == 0 ){
         		myNotes = TravelAPI.getBestNotes(myPage);
         	}else if(intOrder == 1){
@@ -193,7 +193,7 @@ public class MainNoteFragment extends Fragment {
             super.onPostExecute(result);
             loadmoreLayout.setVisibility(View.GONE);
             
-            if(moreNotes!= null){
+            if(moreNotes!= null && moreNotes.size()!=0){
             	myGridViewAdapter.notifyDataSetChanged();	                
             }else{
                 checkLoad= false;
