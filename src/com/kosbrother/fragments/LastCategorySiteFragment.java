@@ -38,15 +38,27 @@ public class LastCategorySiteFragment extends Fragment {
     private ArrayList<Site> moreSites   = new ArrayList<Site>();
     
 
-    public LastCategorySiteFragment(int area_id) {
-    	areaId = area_id;
+    public LastCategorySiteFragment() {
+ 
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    
+    public static final LastCategorySiteFragment newInstance(int area_id)
+    {
+    	LastCategorySiteFragment f = new LastCategorySiteFragment();
+        Bundle bdl = new Bundle();
+        bdl.putInt("id", area_id);
+        f.setArguments(bdl);
+        return f;
     }
+	
+	
+	 @Override
+	 public void onCreate(Bundle savedInstanceState)
+	 {
+		 areaId = getArguments().getInt("id");
+	    super.onCreate(savedInstanceState);
+	 }
+    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -135,6 +147,15 @@ public class LastCategorySiteFragment extends Fragment {
     }
     
     private class LoadMoreTask extends AsyncTask {
+    	
+    	@Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            loadmoreLayout.setVisibility(View.VISIBLE);
+            
+        }
+    	
         @Override
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
@@ -155,6 +176,7 @@ public class LastCategorySiteFragment extends Fragment {
         protected void onPostExecute(Object result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
+            loadmoreLayout.setVisibility(View.GONE);
             
             if(moreSites!= null){
             	myGridViewAdapter.notifyDataSetChanged();	                

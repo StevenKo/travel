@@ -152,7 +152,7 @@ public class CategoryActivity extends SherlockFragmentActivity implements AdWhir
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-                kk = new CategoryListFragment(stateId, myNationGroups);
+                kk = CategoryListFragment.newInstance(stateId);
             } else {
                 kk = TabHostParentFragment.newInstance(myNationGroups.get(position-1).getId());
             }  

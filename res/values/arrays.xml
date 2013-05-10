@@ -31,8 +31,11 @@
         <item>歐洲</item>
         <item>其他洲</item>
     </string-array>
-    <string-array name="collections">
-        <item>我的書櫃</item>
-        <item>我的下載</item>
+    <string-array name="last_sections">
+        <item>類別</item>
+        <item>最佳遊記</item>
+        <item>最新遊記</item>
+        <item>最多瀏覽數</item>
+        <item>景點</item>
     </string-array>
 </resources>

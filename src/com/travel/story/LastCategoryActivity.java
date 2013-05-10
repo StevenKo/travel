@@ -3,6 +3,7 @@ package com.travel.story;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,13 +38,7 @@ public class LastCategoryActivity extends SherlockFragmentActivity implements Ad
     private static final int    ID_AREA_INTRO = 4;
     private static final int    ID_SEARCH   = 5;
 
-    private String[]            CONTENT = {
-    		"類別",
-            "最佳遊記",
-    		"最新遊記",
-    		"最多瀏覽數",
-    		"景點"
-    	};
+    private String[]            CONTENT;
     private ViewPager           pager;
     private AlertDialog.Builder aboutUsDialog;
     
@@ -58,7 +53,10 @@ public class LastCategoryActivity extends SherlockFragmentActivity implements Ad
         super.onCreate(savedInstanceState);
 //        Setting.setApplicationActionBarTheme(this);
         setContentView(R.layout.simple_titles);
-
+        
+        Resources res = getResources();
+        CONTENT = res.getStringArray(R.array.last_sections);
+        
         mBundle = this.getIntent().getExtras();
         areaId = mBundle.getInt("AreaId");
         areaName = mBundle.getString("AreaName");
@@ -158,13 +156,9 @@ public class LastCategoryActivity extends SherlockFragmentActivity implements Ad
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-            	String[] categories = new String[CONTENT.length-1];
-            	for(int i=0; i<categories.length;i++){
-            		categories[i] =  CONTENT[i+1];
-            	}
-                kk = new LastCategoryListFragment(categories, pager);
+                kk = LastCategoryListFragment.newInstance();
             }else if(position == 4){
-            	kk = new LastCategorySiteFragment(areaId);
+            	kk = LastCategorySiteFragment.newInstance(areaId);
             } else {
                 kk = LastCategoryNoteFragment.newInstance(areaId, position);
             } 

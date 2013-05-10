@@ -1,6 +1,5 @@
 package com.kosbrother.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
@@ -9,23 +8,23 @@ import android.widget.ListView;
 
 import com.taiwan.imageload.ListAdapter;
 import com.travel.story.R;
-import com.travel.story.api.TravelAPI;
 
-
-@SuppressLint("ValidFragment")
-public class LastCategoryListFragment extends ListFragment {
+public class CategoryCitysListFragment extends ListFragment {
 	
-	private String[] CONTENT;
+//	private String[] CONTENT;
 	private  String[]  category;
 	private ViewPager  pager;
 	
-  public LastCategoryListFragment(){
+  public CategoryCitysListFragment(){
 	  
   }
   
-  public static final LastCategoryListFragment newInstance()
+  public static final CategoryCitysListFragment newInstance(String[] city_category)
   {
-	  LastCategoryListFragment f = new LastCategoryListFragment();
+	  CategoryCitysListFragment f = new CategoryCitysListFragment();
+	  Bundle bdl = new Bundle();
+      bdl.putStringArray("CityCategory", city_category);
+      f.setArguments(bdl);
       return f;
   }
 
@@ -33,6 +32,7 @@ public class LastCategoryListFragment extends ListFragment {
   public void onCreate(Bundle savedInstanceState)
   {		
 	  pager = (ViewPager) getActivity().findViewById(R.id.pager);
+	  category = getArguments().getStringArray("CityCategory");
 	  super.onCreate(savedInstanceState);
   }
   
@@ -40,14 +40,6 @@ public class LastCategoryListFragment extends ListFragment {
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     
-    
-    CONTENT = getActivity().getResources().getStringArray(R.array.last_sections);
-    
-    // 去掉"類別"
-    category = new String[CONTENT.length-1];   
-	for(int i=0; i<category.length;i++){
-		category[i] =  CONTENT[i+1];
-	}
     
     ListAdapter adapter = new ListAdapter(getActivity(), category, null);
     setListAdapter(adapter);

@@ -15,11 +15,11 @@
 
     <string name="search_hint">請輸入作者或書名</string>
     <string name="about_us_string">關於我們</string>
-    <string name="about_us">嗨, \n\n音樂頻道是一個收集熱門Youtube音樂頻道的第三方App軟體, \n\n我們並不擁有這些影音版權. 如果您的頻道不希望出現在此App, 請Email讓我們知道. \n\n感謝您. \n\nEmail: brotherkos\@gmail.com</string>
+    <string name="about_us">嗨, \n\n旅遊大師是一個收集熱門旅遊遊記的第三方App軟體, \n\n我們並不擁有這些版權. 如果您的遊記不希望出現在此App, 請Email讓我們知道. \n\n感謝您. \n\nEmail: brotherkos\@gmail.com</string>
     <string name="yes_string">確定</string>
     
     <string name="respond_mail_address">brotherkos@gmail.com</string>
-    <string name="respond_mail_title">意見回餽 from 小說王</string>   
+    <string name="respond_mail_title">意見回餽 from 旅遊大師</string>   
     <string name="recommend_url">https://play.google.com/store/apps/developer?id=KosBrother</string>
     <string name="grade_url">https://play.google.com/store/apps/details?id=com.ptt.food.blog</string>
     

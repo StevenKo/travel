@@ -30,16 +30,28 @@ public class CategoryCitysFragment extends Fragment {
     private int areaGroupId;
 
     
-    public CategoryCitysFragment(int area_group_id){
-    	areaGroupId = area_group_id;
+    public CategoryCitysFragment(){
+    	
+    }
+    
+    
+    
+    public static final CategoryCitysFragment newInstance(int area_group_id)
+    {
+    	CategoryCitysFragment f = new CategoryCitysFragment();
+        Bundle bdl = new Bundle();
+        bdl.putInt("areaGroupId", area_group_id);
+        f.setArguments(bdl);
+        return f;
     }
     
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    	areaGroupId = getArguments().getInt("areaGroupId");
+    	super.onCreate(savedInstanceState);
     }
+    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

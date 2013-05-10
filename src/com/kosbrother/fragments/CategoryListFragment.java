@@ -3,28 +3,20 @@ package com.kosbrother.fragments;
 
 import java.util.ArrayList;
 
-import com.taiwan.imageload.ListIntroAdapter;
 import com.taiwan.imageload.ListNationIntroAdapter;
 import com.taiwan.imageload.SeparatedListAdapter;
-import com.travel.story.LastCategoryActivity;
 import com.travel.story.R;
-import com.travel.story.SecondCategoryActivity;
 import com.travel.story.api.TravelAPI;
 import com.travel.story.entity.Nation;
 import com.travel.story.entity.NationGroup;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 @SuppressLint("ValidFragment")
 public class CategoryListFragment extends Fragment {
@@ -32,12 +24,26 @@ public class CategoryListFragment extends Fragment {
 	private SeparatedListAdapter adapter;
 	private ArrayList<NationGroup> myNationGroups = new ArrayList<NationGroup>();
 	private int stateId;
-	private Nation nullNation = new Nation();
 	
-	public CategoryListFragment(int state_id, ArrayList<NationGroup> nation_groups){
-		this.stateId = state_id;
-		this.myNationGroups = nation_groups;
+	public CategoryListFragment(){
 	}
+	
+	public static final CategoryListFragment newInstance(int state_id)
+    {
+		CategoryListFragment f = new CategoryListFragment();
+        Bundle bdl = new Bundle();
+        bdl.putInt("id", state_id);
+        f.setArguments(bdl);
+        return f;
+    }
+	
+	 @Override
+	 public void onCreate(Bundle savedInstanceState)
+	 {
+		stateId = getArguments().getInt("id");
+		myNationGroups = TravelAPI.getStateNationGroups(stateId);
+	    super.onCreate(savedInstanceState);
+	 }
 	
 	
 	@Override

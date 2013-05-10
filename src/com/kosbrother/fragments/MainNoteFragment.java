@@ -35,17 +35,27 @@ public class MainNoteFragment extends Fragment {
     private Boolean checkLoad = true;
     private ArrayList<Note> moreNotes = new ArrayList<Note>();
     
-    public MainNoteFragment (int int_order) {
+    public MainNoteFragment () {
     	
-    	intOrder = int_order;
-
     }
-
+    
+    
+    public static final MainNoteFragment newInstance(int content_order)
+    {
+    	MainNoteFragment f = new MainNoteFragment();
+        Bundle bdl = new Bundle();
+        bdl.putInt("contentOrder", content_order);
+        f.setArguments(bdl);
+        return f;
+    }
+    
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    	intOrder = getArguments().getInt("contentOrder");
+    	super.onCreate(savedInstanceState);
     }
+    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

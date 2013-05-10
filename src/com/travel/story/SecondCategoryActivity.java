@@ -150,7 +150,7 @@ public class SecondCategoryActivity extends SherlockFragmentActivity implements 
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-                kk = new SecondCategoryListFragment(nationId, myAreas);
+                kk = SecondCategoryListFragment.newInstance(nationId);
             } else {
                 kk = SecondTabHostParentFragment.newInstance(myAreas.get(position-1).getId());
             }  

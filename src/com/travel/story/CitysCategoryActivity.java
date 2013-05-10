@@ -26,7 +26,7 @@ import com.adwhirl.AdWhirlTargeting;
 import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.ads.AdView;
 import com.kosbrother.fragments.CategoryCitysFragment;
-import com.kosbrother.fragments.LastCategoryListFragment;
+import com.kosbrother.fragments.CategoryCitysListFragment;
 import com.travel.story.api.TravelAPI;
 import com.travel.story.entity.AreaGroup;
 import com.viewpagerindicator.TitlePageIndicator;
@@ -134,13 +134,13 @@ public class CitysCategoryActivity extends SherlockFragmentActivity implements A
         public Fragment getItem(int position) {
             Fragment kk = new Fragment();
             if (position == 0) {
-            	String[] categories = new String[myAreaGroups.size()];
-            	for(int i=0; i<categories.length;i++){
-            		categories[i] =  myAreaGroups.get(i).getName();
+            	String[] cityCategory = new String[myAreaGroups.size()];
+            	for(int i=0 ; i< cityCategory.length; i++){
+            		cityCategory[i] = myAreaGroups.get(i).getName();
             	}
-                kk = new LastCategoryListFragment(categories, pager);
+                kk = CategoryCitysListFragment.newInstance(cityCategory);
             } else {
-                kk = new CategoryCitysFragment(myAreaGroups.get(position-1).getId());
+                kk = CategoryCitysFragment.newInstance(myAreaGroups.get(position-1).getId());
             } 
             return kk;
         }

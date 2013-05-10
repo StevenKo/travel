@@ -45,7 +45,7 @@ public class LastCategoryNoteFragment extends Fragment {
     	LastCategoryNoteFragment f = new LastCategoryNoteFragment();
         Bundle bdl = new Bundle();
         bdl.putInt("areaId", area_id);
-        bdl.putInt("contentOrder", area_id);
+        bdl.putInt("contentOrder", content_order);
         f.setArguments(bdl);
         return f;
     }
@@ -53,7 +53,7 @@ public class LastCategoryNoteFragment extends Fragment {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	areaId = getArguments().getInt("areaid");
+    	areaId = getArguments().getInt("areaId");
     	contentOrder = getArguments().getInt("contentOrder");
     	super.onCreate(savedInstanceState);
     }
@@ -145,6 +145,15 @@ public class LastCategoryNoteFragment extends Fragment {
     }
     
     private class LoadMoreTask extends AsyncTask {
+    	
+    	@Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            loadmoreLayout.setVisibility(View.VISIBLE);
+            
+        }
+    	
         @Override
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
@@ -166,7 +175,9 @@ public class LastCategoryNoteFragment extends Fragment {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
             
-            if(moreNotes!= null){
+            loadmoreLayout.setVisibility(View.GONE);
+            
+            if(moreNotes!= null && moreNotes.size()!=0){
             	myGridViewAdapter.notifyDataSetChanged();	                
             }else{
                 checkLoad= false;
