@@ -192,7 +192,7 @@ public class MainActivity extends SherlockFragmentActivity implements AdWhirlInt
             } else if (position == 1) {
                 kk = MyTravelFragment.newInstance();
             } else {
-                kk = new MainNoteFragment(position-2);
+                kk = new MainNoteFragment(position-3);
             }
             return kk;
         }

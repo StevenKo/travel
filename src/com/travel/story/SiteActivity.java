@@ -89,7 +89,7 @@ public class SiteActivity extends SherlockActivity implements AdWhirlInterface {
         webviewSiteIntro = (WebView) findViewById(R.id.webview_site_introduce);
         checkboxFavorite = (CheckBox) findViewById(R.id.checkbox_article);
         myGallery = (Gallery) findViewById(R.id.Gallery01);
-        imageLoader = new ImageLoader(SiteActivity.this, 70);
+        imageLoader = new ImageLoader(SiteActivity.this, 90);
 
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);

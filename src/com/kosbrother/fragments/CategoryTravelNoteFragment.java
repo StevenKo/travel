@@ -132,6 +132,15 @@ public class CategoryTravelNoteFragment extends Fragment {
     }
     
     private class LoadMoreTask extends AsyncTask {
+    	
+    	@Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            loadmoreLayout.setVisibility(View.VISIBLE);
+            
+        }
+    	
         @Override
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
@@ -152,6 +161,7 @@ public class CategoryTravelNoteFragment extends Fragment {
         protected void onPostExecute(Object result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
+            loadmoreLayout.setVisibility(View.GONE);
             
             if(moreNotes!= null){
             	myGridViewAdapter.notifyDataSetChanged();	                

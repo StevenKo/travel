@@ -18,6 +18,7 @@
     <string-array name="sections">
         <item>分類</item>
         <item>我的遊記</item>
+        <item>國外遊記</item>
         <item>最佳遊記</item>
         <item>最新遊記</item>
         <item>最多瀏覽</item>

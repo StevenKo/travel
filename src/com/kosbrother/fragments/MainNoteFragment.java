@@ -99,14 +99,16 @@ public class MainNoteFragment extends Fragment {
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
-
+            
         }
 
         @Override
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
         	
-        	if(intOrder == 0 ){
+        	if(intOrder == -1){
+        		moreNotes = TravelAPI.getAboardHotNotes(myPage);
+        	}else if(intOrder == 0 ){
         		myNotes = TravelAPI.getBestNotes(myPage);
         	}else if(intOrder == 1){
         		myNotes = TravelAPI.getNewNotes(myPage);
@@ -140,18 +142,29 @@ public class MainNoteFragment extends Fragment {
     }
     
     private class LoadMoreTask extends AsyncTask {
+    	
+    	@Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            loadmoreLayout.setVisibility(View.VISIBLE);
+            
+        }
+    	
         @Override
         protected Object doInBackground(Object... params) {
             // TODO Auto-generated method stub
         	
         	moreNotes.clear();
         	
-        	if(intOrder == 0 ){
-        		myNotes = TravelAPI.getBestNotes(myPage);
+        	if(intOrder == -1){
+        		moreNotes = TravelAPI.getAboardHotNotes(myPage);
+        	}else if(intOrder == 0 ){
+        		moreNotes = TravelAPI.getBestNotes(myPage);
         	}else if(intOrder == 1){
-        		myNotes = TravelAPI.getNewNotes(myPage);
+        		moreNotes = TravelAPI.getNewNotes(myPage);
         	}else if(intOrder == 2){
-        		myNotes = TravelAPI.getMostViewNotes(myPage);
+        		moreNotes = TravelAPI.getMostViewNotes(myPage);
         	}
         	
         	if(moreNotes!= null){
@@ -168,6 +181,7 @@ public class MainNoteFragment extends Fragment {
         protected void onPostExecute(Object result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
+            loadmoreLayout.setVisibility(View.GONE);
             
             if(moreNotes!= null){
             	myGridViewAdapter.notifyDataSetChanged();	                
