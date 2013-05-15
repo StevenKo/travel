@@ -48,8 +48,11 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
 	private LinearLayout layoutProgress;
 	private LinearLayout layoutReload;
 	
+	private int typeId;	// 0 for nation, 1 for area
 	private int areaIntroId;
 	private String areaIntroTitle;
+	private int nationIntroId;
+	private String nationIntroTitle;
 	
 	private AlertDialog.Builder aboutUsDialog;
 	private final String        adWhirlKey  = "8c0c4844165c467490f058cc4ea09118";
@@ -63,11 +66,17 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
         ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         
-        mBundle = this.getIntent().getExtras();       
-        areaIntroId = mBundle.getInt("AreaIntroId");
-        areaIntroTitle = mBundle.getString("AreaIntroTitle");
-        ab.setTitle(areaIntroTitle);
-        
+        mBundle = this.getIntent().getExtras();
+        typeId = mBundle.getInt("TypeId");
+        if (typeId == 0){
+        	nationIntroId = mBundle.getInt("NationIntroId");
+        	nationIntroTitle = mBundle.getString("NationIntroTitle");
+        	ab.setTitle("簡介:" + nationIntroTitle);
+        }else{
+        	areaIntroId = mBundle.getInt("AreaIntroId");
+        	areaIntroTitle = mBundle.getString("AreaIntroTitle");
+        	ab.setTitle(areaIntroTitle);
+        }
         setViews();
         
         new DownloadArticleTask().execute();
@@ -159,9 +168,13 @@ public class AreaIntroContentActivity extends SherlockActivity implements AdWhir
 		
         @Override
         protected Object doInBackground(Object... params) {        	
-
-        	myAreaIntro = TravelAPI.getAreaIntro(areaIntroId);
-        	/// pics size = 1 now
+        	
+        	if(typeId == 0){
+        		myAreaIntro = TravelAPI.getNationIntro(nationIntroId);
+        	}else{
+        		myAreaIntro = TravelAPI.getAreaIntro(areaIntroId);
+        	}
+   
             return null;
         }
 

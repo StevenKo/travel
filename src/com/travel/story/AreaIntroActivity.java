@@ -29,6 +29,7 @@ import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.ads.AdView;
 import com.kosbrother.tool.ExpandableHeightGridView;
 import com.taiwan.imageload.GridViewAreaIntroAdapter;
+import com.taiwan.imageload.GridViewNationIntroAdapter;
 import com.travel.story.api.TravelAPI;
 import com.travel.story.entity.AreaIntro;
 import com.travel.story.entity.AreaIntroCategory;
@@ -162,8 +163,13 @@ public class AreaIntroActivity extends SherlockActivity implements AdWhirlInterf
             LinearLayout liearGridLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.layout_grids, null);
             ExpandableHeightGridView mGridView = (ExpandableHeightGridView) liearGridLayout.findViewById(R.id.grids);
             mGridView.setExpanded(true);
-            GridViewAreaIntroAdapter myGridViewAdapter = new GridViewAreaIntroAdapter(this, value);
-            mGridView.setAdapter(myGridViewAdapter);
+            if(typeId == 0){
+            	GridViewNationIntroAdapter  myGridViewAdapter = new GridViewNationIntroAdapter(this, value);
+            	mGridView.setAdapter(myGridViewAdapter);
+            }else{
+            	GridViewAreaIntroAdapter myGridViewAdapter = new GridViewAreaIntroAdapter(this, value);
+            	mGridView.setAdapter(myGridViewAdapter);
+            }
             layoutIntroCategoryContent.addView(liearGridLayout);
 
         }

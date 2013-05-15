@@ -14,12 +14,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.travel.story.AreaIntroContentActivity;
-import com.travel.story.LastCategoryActivity;
 import com.travel.story.R;
-import com.travel.story.entity.Area;
 import com.travel.story.entity.AreaIntro;
 
-public class GridViewAreaIntroAdapter extends BaseAdapter {
+public class GridViewNationIntroAdapter extends BaseAdapter {
 
     private final Activity         activity;
     private final ArrayList<AreaIntro> data;
@@ -27,7 +25,7 @@ public class GridViewAreaIntroAdapter extends BaseAdapter {
     public ImageLoader             imageLoader;
     
 
-    public GridViewAreaIntroAdapter(Activity a, ArrayList<AreaIntro> d) {
+    public GridViewNationIntroAdapter(Activity a, ArrayList<AreaIntro> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -73,9 +71,9 @@ public class GridViewAreaIntroAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(activity, AreaIntroContentActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("AreaIntroId", data.get(position).getId());
-                bundle.putString("AreaIntroTitle", data.get(position).getTitle());
-                bundle.putInt("TypeId", 1);
+                bundle.putInt("NationIntroId", data.get(position).getId());
+                bundle.putString("NationIntroTitle", data.get(position).getTitle());
+                bundle.putInt("TypeId", 0);
                 intent.putExtras(bundle);
                 activity.startActivity(intent);
 
